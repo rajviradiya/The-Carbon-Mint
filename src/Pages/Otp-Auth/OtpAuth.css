@@ -1,0 +1,62 @@
+.arrowicon {
+  width: 100px !important;
+  height: 30px !important;
+  margin: 3vh 0 0 0 !important;
+}
+
+.HeroIcon {
+  margin-top: 5vh !important;
+  justify-content: center;
+}
+
+.HeroIcon img {
+  width: 50%;
+}
+
+.otpcomp {
+  margin-top: 15vh !important;
+  padding: 0px !important;
+}
+
+.otpcomphead {
+  padding: 0 20px 0 20px;
+}
+
+.otpcomphead span {
+  color: #363537;
+  font-size: 35px;
+  font-weight: 700;
+}
+
+.otpcomphead p {
+  color: #79787a;
+  font-size: 17px;
+}
+
+.optinput {
+  margin-top: 3vh !important;
+  padding-left: 40px !important;
+}
+
+.optinput input {
+  border: 2px solid #d7d7d7;
+  border-radius: 5px;
+  padding: 20px !important;
+  margin-right: 8px !important;
+}
+
+.otpcompbutton{
+    justify-content: center;
+}
+
+.otpcompbutton button{
+  color: white;
+  width: 80%;
+  background-color: #2b9348;
+  border: 0px;
+  border-radius: 5px;
+  font-weight: 500 !important;
+  padding: 12px;
+  font-size: 18px;
+  margin-top: 4vh !important;
+}
