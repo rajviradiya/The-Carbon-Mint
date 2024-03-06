@@ -1,10 +1,38 @@
-import React, { useState } from "react";
-import {  Col, Container, Row } from "react-bootstrap";
-import OTPInput, { ResendOTP } from "otp-input-react";
+import React, { useContext } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { MuiOtpInput } from "mui-one-time-password-input";
+import { useNavigate } from "react-router";
+import { FierbaseContext, useFierbase } from "../../../context/fierbasecontext";
 
 const OtpComp = () => {
-  const [OTP, setOTP] = useState("");
+  const [otp, setOtp] = React.useState("");
 
+  const fierbase = useFierbase();
+  console.log(fierbase, "fierbase");
+
+  const phoneloginotp = useContext(FierbaseContext);
+  console.log("phoneloginotp", phoneloginotp.phoneloginuser);
+
+  const handleChange = (newValue) => {
+    setOtp(newValue);
+  };
+
+  const varifyOtp = () => {
+    fierbase.veryfyotp(phoneloginotp, otp);
+
+    // try {
+    //   const conform = phoneloginotp.confirm(otp);XF
+    //   console.log(conform, "error");
+    //   if (conform) {
+    //     navigate("/home");
+    //   } else {
+    //     navigate("/");
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    // }
+  };
   return (
     <Container fluid className="otpcomp">
       <Col>
@@ -13,20 +41,18 @@ const OtpComp = () => {
           <p>We have sent an OTP over SMS. Please enter the OTP to proced</p>
         </Row>
         <Row className="optinput">
-          <OTPInput
-            value={OTP}
-            onChange={setOTP}
+          <MuiOtpInput
             autoFocus
-            OTPLength={6}
-            otpType="number"
-            disabled={false}
+            length={6}
+            TextFieldsProps={{ placeholder: "-" }}
+            value={otp}
+            onChange={handleChange}
           />
         </Row>
         <Row className="otpcompbutton">
-          <button>COUNTINEW</button>
+          <button onClick={() => varifyOtp()}>CONTINUE</button>
         </Row>
         <Row>
-          <ResendOTP onResendClick={() => console.log("Resend clicked")} />
           <span>
             Resend <span>OTP</span>
           </span>

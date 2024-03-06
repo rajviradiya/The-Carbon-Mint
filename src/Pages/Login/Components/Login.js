@@ -1,5 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import Img from "../../../Assets/Login&Auth/GoogleIconLogin.png";
@@ -7,9 +7,28 @@ import Img from "../../../Assets/Login&Auth/GoogleIconLogin.png";
 import { PhoneNumberUtil } from "google-libphonenumber";
 import { useNavigate } from "react-router";
 
+import { database } from "../../../Config/fierbase";
+import { useFierbase } from "../../../context/fierbasecontext";
+import { v4 as uuid } from "uuid";
+
 const Login = () => {
   const [phone, setPhone] = useState("");
+
   const navigate = useNavigate();
+  const fierbase = useFierbase();
+
+  // const handleuser = () => {
+  //   //create user
+  //   let sigininuser = fierbase.signInWithEmailAndPassword(
+  //     "raj112@gmial.com",
+  //     "123456"
+  //   );
+  //   //set That data in realtime database
+  //   fierbase.putdat("/users/" + uuid().slice(0, 8), {
+  //     email: "raj112@gmial.com",
+  //     password: "123456",
+  //   });
+  // };
 
   //Phone Validation Api
   const phoneUtil = PhoneNumberUtil.getInstance();
@@ -20,9 +39,19 @@ const Login = () => {
       return false;
     }
   };
-
   const isValid = isPhoneValid(phone);
-  console.log(phone, "phone");
+
+  //on Signin click
+  const handlesubmmitotp = () => {
+    fierbase.phonelogin(phone);
+    console.log("found error");
+  };
+
+  //Google Login
+  const handleGoogleLogin = () => {
+    fierbase.signupwithgoogle();
+    navigate(`/home`);
+  };
 
   return (
     <>
@@ -45,19 +74,24 @@ const Login = () => {
             </span>
           </Row>
           <Row className="buttonslogin">
+            <div className="mt-3" id="recaptcha" />
             <button
               type="button"
               disabled={!isValid}
               className="button1"
               onClick={() => {
-                alert(`Submitted phone: ${phone}`);
-                navigate("/auth");
+                handlesubmmitotp();
               }}
             >
               Sign in
             </button>
-            <button className="button2 button1">
-              <img src={Img} alt="G"/>
+            <button
+              className="button2 button1"
+              onClick={() => {
+                handleGoogleLogin();
+              }}
+            >
+              <img src={Img} alt="G" />
               <span className="ms-3">Sign in with Google</span>
             </button>
           </Row>

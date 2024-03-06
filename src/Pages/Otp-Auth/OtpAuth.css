@@ -1,4 +1,8 @@
+.otpmainindex{
+    background-color: #F9F9F9;
+}
 .arrowicon {
+  color: #363537;
   width: 100px !important;
   height: 30px !important;
   margin: 3vh 0 0 0 !important;
@@ -33,23 +37,11 @@
   font-size: 17px;
 }
 
-.optinput {
-  margin-top: 3vh !important;
-  padding-left: 40px !important;
+.otpcompbutton {
+  justify-content: center;
 }
 
-.optinput input {
-  border: 2px solid #d7d7d7;
-  border-radius: 5px;
-  padding: 20px !important;
-  margin-right: 8px !important;
-}
-
-.otpcompbutton{
-    justify-content: center;
-}
-
-.otpcompbutton button{
+.otpcompbutton button {
   color: white;
   width: 80%;
   background-color: #2b9348;
@@ -59,4 +51,23 @@
   padding: 12px;
   font-size: 18px;
   margin-top: 4vh !important;
+}
+
+.optinput {
+  width: 100% !important;
+  padding: 0 30px 0 40px !important;
+  margin-top: 3vh !important;
+}
+
+.css-tccdxk {
+  gap: 10px !important;
+}
+
+.MuiOtpInput-Box {
+  margin: 0px !important;
+  padding: 0 0 0 15px !important;
+}
+
+.optinput input {
+  padding: 15px !important;
 }
