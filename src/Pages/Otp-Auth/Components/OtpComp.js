@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { MuiOtpInput } from "mui-one-time-password-input";
 import { useNavigate } from "react-router";
 import { FierbaseContext, useFierbase } from "../../../context/fierbasecontext";
+import Buttoncomp from "../../../Components/ButtonComp";
 
 const OtpComp = () => {
   const [otp, setOtp] = React.useState("");
@@ -50,7 +51,7 @@ const OtpComp = () => {
           />
         </Row>
         <Row className="otpcompbutton">
-          <button onClick={() => varifyOtp()}>CONTINUE</button>
+          <Buttoncomp valuebutton={"CONTINUE"} onClick={() => varifyOtp()} />
         </Row>
         <Row>
           <span>

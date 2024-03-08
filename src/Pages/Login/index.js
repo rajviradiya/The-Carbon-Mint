@@ -7,15 +7,17 @@ import Heroicon from "../../Assets/Headicon/HeroIcon.png"
 const index = () => {
   return (
     <>
-      <Container >
+      <Container fluid className="Loginmaincont">
         <Col className="">
           <Row className="homeicon" >
             <img src={Heroicon}/>
           </Row>
-          <Row>
+        
+          <Row className="homelogincomp">
             <Login/>
           </Row>
-        </Col>
+       
+        </Col> 
       </Container>
     </>
   );

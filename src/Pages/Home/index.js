@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useFierbase } from "../../context/fierbasecontext";
 import { signOut } from "firebase/auth";
-import { useNavigate } from "react-router";
-import { Container, Row } from "react-bootstrap";
+import { Outlet, useNavigate } from "react-router";
+import { Col, Container, Row } from "react-bootstrap";
 import FarmerDeailcard from "./Components/FarmerDeailcard";
 import Nav from "./Components/Nav";
 
@@ -18,25 +18,27 @@ const Index1 = ({ authuserrrr, setauthuserrrr }) => {
   };
 
   return (
-    <Container fluid className="homepagemain p-0">
-      <Row className=" justify-content-center">
-        <Nav />
-      </Row>
-      <Row className=" justify-content-center farmerdetail">
-        <FarmerDeailcard />
-      </Row>
-      <Row className=" justify-content-center cropcardmain">
-        <h5 className=" ms-5">Crops</h5>
-        <CropCard/>
-      </Row>
-      <Row className=" justify-content-center EventMain">
-      <h5 className=" ms-5">Events</h5>
-        <EventCard/>
-      </Row>
+    <Container className="homepagemain">
+      <Col className="homepagemaincol">
+        <Row className="Navmain">
+          <Nav />
+        </Row>
+        <Row className="farmerdetailmain">
+          <FarmerDeailcard />
+        </Row>
+        <Row className="cropcardmain">
+          <h5 className="fs-6">Crops</h5>
+          <CropCard />
+        </Row>
 
-      <h1>{authuserrrr.email || "Loading....."}</h1>
+        <Row className="EventMain">
+          <h5 className="fs-6">Events</h5>
+          <EventCard />
+        </Row>
+      </Col>
+      {/* <h1>{authuserrrr.email || "Loading....."}</h1>
       <h1>{authuserrrr.displayName}</h1>
-      <button onClick={() => handleLogout()}>Logout</button>
+      <button onClick={() => handleLogout()}>Logout</button> */}
     </Container>
   );
 };

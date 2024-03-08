@@ -1,0 +1,82 @@
+.BackNavRow {
+  width: 100% !important;
+  margin: 0 !important ;
+  height: 15vw;
+}
+
+.BackNav {
+  height: 15vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+}
+
+.backicondiv {
+  width: 10%;
+  height: 10vw;
+}
+
+.Backicon {
+  font-size: 10vw;
+}
+
+.contant {
+  width: 80%;
+  height: 10vw;
+  padding-left: 10vw;
+}
+
+.contant p {
+  margin: 2vw 0 0 0 !important;
+}
+
+/* Dropdown */
+.dropbtn {
+    background-color: transparent;
+    border: none;
+}
+
+.dropdown svg {
+    color: #363537;
+    font-size: 5vw;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  right:0%;
+  margin-top: 3vw;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 10px;
+}
+
+.dropdown-content span {
+  color: black;
+  padding: 2vw 8vw 2vw 0vw  !important;
+  text-decoration: none;
+  display: flex;
+}
+
+.dropdown-content div {
+    width: 15vw !important;
+}
+
+.dropdown-content button {
+    padding: 0px;
+}
+.dropdown-content svg {
+    font-size: 5vw !important;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+

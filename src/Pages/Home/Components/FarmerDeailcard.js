@@ -9,37 +9,29 @@ import { GiFarmer } from "react-icons/gi";
 
 const FarmerDeailcard = () => {
   return (
-    <Card className="farmerdetailshomepage">
-      <Container fluid className="farmdetailcontainer">
-        <Row className="Farmerlocation">
-          <Link to="/" className="Farmerdetaillink">
-            <Card.Body>
-              <Card.Text className="fs-3 fw-bold">Farmer Name</Card.Text>
-              <Card.Text className="fs-6 fw-normal">Farmer Location</Card.Text>
-            </Card.Body>
-          </Link>
-        </Row>
-        <Row className="farmerbuttons">
-          <Card.Body>
-            <button className="farmdetailbutton">
-              <div>
+    <Container fluid className="farmdetailcontainer">
+      <Card className="farmerdetailshomepage">
+        <Col className="farmerdetailshomepagecol">
+          <Row className="Farmerlocation">
+            <Link to="/" className="Farmerdetaillink">
+              <span>Farmer Name</span>
+              <p>Farmer Location</p>
+            </Link>
+          </Row>
+          <Row className="farmerbuttons">
+              <button className="farmdetailbutton">
                 <FiEdit className="farmicon" />
-              </div>
-            </button>
-            <button className="farmdetailbutton">   
-              <div>
+              </button>
+              <button className="farmdetailbutton">
                 <GiFarmer className="farmicon" />
-              </div>
-            </button>
-            <button className="farmdetailbutton">
-              <div>
+              </button>
+              <button className="farmdetailbutton">
                 <TbZoomQuestion className="farmicon" />
-              </div>
-            </button>
-          </Card.Body>
-        </Row>
-      </Container>
-    </Card>
+              </button>
+          </Row>
+        </Col>
+      </Card>
+    </Container>
   );
 };
 

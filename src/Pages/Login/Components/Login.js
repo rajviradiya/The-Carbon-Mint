@@ -11,6 +11,8 @@ import { database } from "../../../Config/fierbase";
 import { useFierbase } from "../../../context/fierbasecontext";
 import { v4 as uuid } from "uuid";
 
+import ButtonComp from "../../../Components/ButtonComp";
+
 const Login = () => {
   const [phone, setPhone] = useState("");
 
@@ -55,8 +57,8 @@ const Login = () => {
 
   return (
     <>
-      <Container className="logincomp">
-        <Col className=" ">
+      <Container fluid>
+        <Col className="logincompcol ">
           <Row className="HomeLogin">
             <span>Login</span>
             <p>Enter your mobile number to login</p>
@@ -75,18 +77,16 @@ const Login = () => {
           </Row>
           <Row className="buttonslogin">
             <div className="mt-3" id="recaptcha" />
-            <button
-              type="button"
-              disabled={!isValid}
+            <ButtonComp
               className="button1"
+              valuebutton={"SIGN IN"}
+              disabled={!isValid}
               onClick={() => {
                 handlesubmmitotp();
               }}
-            >
-              Sign in
-            </button>
+            />
             <button
-              className="button2 button1"
+              className="button2"
               onClick={() => {
                 handleGoogleLogin();
               }}
