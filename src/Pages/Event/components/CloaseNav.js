@@ -1,21 +1,18 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { CgClose } from "react-icons/cg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CloaseNav = () => {
-  // const history = useHistory();
 
-  // const goBack = () => {
-  //   history.goBack(); // This will navigate back to the previous page in the history stack
-  // };
+  const navigate = useNavigate()
 
   return (
     <div className="closeeventnav">
       <div className="closeicondiv">
-        {/* <button onClick={goBack}> */}
+        <button onClick={()=>{navigate("/home")}}>
           <CgClose />
-        {/* </button> */}
+        </button>
       </div>
       <div className="closenavtext">
         <section>

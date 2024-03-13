@@ -3,8 +3,12 @@
   background-color: #f9f9f9;
 }
 
+.closenavmain {
+  width: 100% ;
+  margin: 0px !important;
+}
 .closeeventnav {
-  width: 100% !important;
+  width: 100% ;
   display: flex;
   flex-direction: row;
 }
@@ -16,8 +20,12 @@
   justify-content: center;
 }
 
+.closeicondiv button{
+  background-color: transparent;
+  border: 0px;
+}
 .closeicondiv svg {
-  font-size: 30px;
+  font-size: 7vw;
   cursor: pointer; /* Change cursor to pointer on hover */
 }
 
@@ -27,58 +35,47 @@
 }
 
 .closenavtext span {
-  font-size: 20px;
+  font-size: 5vw;
   font-weight: 700;
 }
 
 .closenavtext p {
-  font-size: 13px;
+  font-size: 3vw;
+  font-weight: 500;
+  color: #79787A;
 }
 
 /* Camera */
-.Cameramain {
-  justify-content: center;
-}
 
-.cameracomp {
-  width: 90% !important;
+.Cameramain {
   margin: 0px !important;
-  padding: 0px !important;
 }
 
 .cameratext p {
-  font-size: 17px;
+  font-size: 4vw;
+  font-weight: 400;
+  margin: 0 0 2vw 0;
 }
 
 .cameraimg {
   width: 100% !important;
+  padding: 0px !important;
 }
 
-.addphoto {
-  width: 30.33%;
-  height: 12vh;
-
-  padding: 15px 10px 10px 15px !important;
+.cameraimgrow{
+  margin: 0px !important;
 }
 
-.cameraaicondiv{
-    border: 3px dashed #9a9a9b;
-    border-radius: 20px;
-    padding: 20px;
-    background-color: #efeff0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-}
-.cameraaicondiv svg {
-  font-size: 35px;
+.cameraimagecol{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0px !important;
 }
 
 /* camera img comp */
 .image-container {
   width: 33.33% !important;
-  padding: 5px !important;
+  padding: 1vw !important;
   position: relative;
   display: inline-block;
   margin: 0px !important;
@@ -86,14 +83,14 @@
 
 .image-container img {
   width: 100% !important;
-  height: 12vh !important;
+  height: 25vw !important;
   border: 0px;
   border-radius: 10px;
 }
 
 .buttoncloseee {
-  width: 7vw !important;
-  height: 3vh !important;
+  width: 6vw !important;
+  height: 6vw !important;
   position: absolute;
   top: 23%;
   left: 23%;
@@ -136,6 +133,28 @@
   border: 1px solid #9a9a9b;
   border-radius: 10px;
   margin-top: 2vh;
+}
+
+/* Image add button */
+.addphoto {
+  width: 30.33%;
+  height: 12vh;
+
+  padding: 15px 10px 10px 15px !important;
+}
+
+.cameraaicondiv{
+    border: 3px dashed #9a9a9b;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: #efeff0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.cameraaicondiv svg {
+  font-size: 35px;
 }
 
 /* Audiorecordmain */

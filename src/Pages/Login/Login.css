@@ -1,16 +1,22 @@
 /* Login Country */
+.Loginmaincont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 .homeicon {
-  margin-top: 20vw !important;
-  justify-content: center;
+  margin-top: 15vw;
 }
 
-.homeicon img{
-  width: 45vw;
+.homeicon img {
+  width: 40vw;
 }
 
-.homelogincomp{
-  margin-top: 35vw !important;
+.homelogincomp {
+  width: 90%;
+  margin-top: 40vw !important;
 }
 
 .logincomp {
@@ -18,35 +24,30 @@
 }
 
 .HomeLogin {
+  width: 100% !important;
   margin: 0px !important;
 }
 
 .HomeLogin span {
   color: #363537;
-  font-size: clamp(5vw,8vw,10vw);
+  font-size: clamp(5vw, 8vw, 10vw);
   font-weight: 700;
+  padding: 0px !important;
 }
 
 .HomeLogin p {
-  font-size: clamp(2vw,4vw,5vw);
-  color: #79787A;
+  font-size: clamp(3vw, 4vw, 5vw);
+  color: #79787a;
   margin: 0px;
+  padding: 0px !important;
+  font-weight: 400;
 }
 
 .mobileinput {
-  margin: 10vw 0 0 0 !important;
-}
-
-.react-international-phone-input-container{
-  width: 100% !important;
-}
-
-.react-international-phone-input {
-  width: 100% !important;
-}
-
-.validation{
-  padding-left: 10% !important;
+  display: flex !important;
+  justify-content: space-between;
+  align-items: start;
+  margin: 14vw 0 0 0 !important;
 }
 
 .buttonslogin {
@@ -54,8 +55,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 7vw 0 7vw;
-  margin-top: 10vw !important;
+  margin: 14vw 0 0 0 !important;
 }
 
 .button2 {
@@ -63,13 +63,13 @@
   border-radius: 5px;
   font-weight: 500 !important;
   padding: 12px;
-  font-size: calc(5vw,8vw,10vw);
+  font-size: calc(5vw, 8vw, 10vw);
   margin-top: 2vh !important;
   color: #173d07 !important;
   background-color: #e8f7e1;
 }
 
-.button2 img{
+.button2 img {
   padding-bottom: 3px !important;
 }
 
@@ -88,4 +88,6 @@
   text-align: center;
   color: #2b9348;
 }
+
+
 

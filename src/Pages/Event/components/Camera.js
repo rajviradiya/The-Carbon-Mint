@@ -9,25 +9,23 @@ const Camera = () => {
       <section className="cameratext">
         <p>Tap on camera icon to capture photos</p>
       </section>
-      <section className="cameraimg">
-        <Container>
-          <Row>
-            <Col xs="auto" className="d-flex flex-wrap p-0">
-              <CameraImg />
-              <CameraImg />
-              <CameraImg />
-              <CameraImg />
-              <CameraImg />
+      <Container className="cameraimg">
+        <Row className="cameraimgrow">
+          <Col xs="auto" className="cameraimagecol">
+            <CameraImg />
+            <CameraImg />
+            <CameraImg />
+            <CameraImg />
+            <CameraImg />
 
-              <div className="addphoto ">
-                <div className="cameraaicondiv">
-                  <BsFillCameraFill />
-                </div>
+            <div className="addphoto ">
+              <div className="cameraaicondiv">
+                <BsFillCameraFill />
               </div>
-            </Col>
-          </Row>
-        </Container>
-      </section>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     </Container>
   );
 };

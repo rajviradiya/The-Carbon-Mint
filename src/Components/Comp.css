@@ -19,7 +19,7 @@
   border-top-left-radius:20px;
   border-top-right-radius: 20px;
   position: fixed;
-  top: 90%;
+  bottom: 0;
 }
 
 .MuiButtonBase-root svg {

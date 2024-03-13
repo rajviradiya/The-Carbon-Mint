@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useFierbase } from "../../context/fierbasecontext";
-import { signOut } from "firebase/auth";
-import { Outlet, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
 import FarmerDeailcard from "./Components/FarmerDeailcard";
 import Nav from "./Components/Nav";
@@ -9,37 +8,34 @@ import Nav from "./Components/Nav";
 import "./Homepage.css";
 import CropCard from "./Components/CropCard";
 import EventCard from "./Components/EventCard";
-const Index1 = ({ authuserrrr, setauthuserrrr }) => {
+import { Link } from "react-router-dom";
+
+const Index1 = () => {
+  const fierbase = useFierbase();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    navigate("/");
-    setauthuserrrr("");
-  };
+  console.log(fierbase.authuserrrr, "user is this");
 
   return (
-    <Container className="homepagemain">
-      <Col className="homepagemaincol">
-        <Row className="Navmain">
+    <section className="homepagemain">
+        <section className="Navmain">
           <Nav />
-        </Row>
-        <Row className="farmerdetailmain">
-          <FarmerDeailcard />
-        </Row>
-        <Row className="cropcardmain">
-          <h5 className="fs-6">Crops</h5>
-          <CropCard />
-        </Row>
-
-        <Row className="EventMain">
+        </section>
+        <section className="farmerdetailmain">
+            <FarmerDeailcard />
+        </section>
+        <section className="cropcardmain">
+          <span className="croptitle">Crops</span>
+            <CropCard />
+        </section>
+        <section className="EventMain">
           <h5 className="fs-6">Events</h5>
           <EventCard />
-        </Row>
-      </Col>
+        </section>
       {/* <h1>{authuserrrr.email || "Loading....."}</h1>
       <h1>{authuserrrr.displayName}</h1>
       <button onClick={() => handleLogout()}>Logout</button> */}
-    </Container>
+    </section>
   );
 };
 

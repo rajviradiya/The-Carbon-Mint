@@ -2,12 +2,10 @@ import { createContext, useContext, useState } from "react";
 import {
   auth,
   googleProvider,
-  provider,
   realDatabase,
 } from "../Config/fierbase";
 import {
   RecaptchaVerifier,
-  createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithPhoneNumber,
   signInWithPopup,
@@ -21,16 +19,23 @@ export const FierbaseContext = createContext(null);
 export const useFierbase = () => useContext(FierbaseContext);
 
 export const FierbaseProvidr = (props) => {
+  const [authuserrrr, setauthuserrrr] = useState("");
   const [phoneloginuser, setPhoneLoginUser] = useState("");
+  const [country, setCountry] = useState("in");
+  const [dialcode,setDialcode] = useState("+91");
+  const [searchcont,setSearchcont ] = useState("")
+
   const navigate = useNavigate();
 
   //create user auth
-  const signInWithEmailAndPassword = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
+  // const signInWithEmailAndPassword = (email, password) => {
+  //   return createUserWithEmailAndPassword(auth, email, password);
+  // };
 
   //create user in db
-  const putdat = (key, data) => set(ref(realDatabase, key), data);
+  const Writedata = (key, data) => {
+    return set(ref(realDatabase, key), data);
+  };
 
   //signup with google
   const signupwithgoogle = () => {
@@ -39,7 +44,9 @@ export const FierbaseProvidr = (props) => {
 
   //Phone login
   const phonelogin = (phone) => {
-    const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {});
+    const recaptcha = new RecaptchaVerifier(auth, "sign-in-button", {
+      size: "invisible",
+    });
     signInWithPhoneNumber(auth, phone, recaptcha)
       .then((res) => {
         console.log(res, "this is res");
@@ -52,11 +59,11 @@ export const FierbaseProvidr = (props) => {
   };
 
   //veryfy OTP
-  const veryfyotp = (phoneloginotp, otp) => {
-    phoneloginotp
+  const veryfyotp = (otp) => {
+    phoneloginuser
       .confirm(otp)
       .then((result) => {
-        console.log(result);
+        console.log(result, "respo ------------------>>>>>>");
         navigate("/home");
       })
       .catch((error) => {
@@ -67,18 +74,19 @@ export const FierbaseProvidr = (props) => {
 
   //user State Logdin or Loged Out using
   //auth user changed
-  const authuser = (setUser) => {
+  const authuser = () => {
     return onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser(user);
+        setauthuserrrr(user);
       } else {
-        setUser("");
+        setauthuserrrr("");
       }
     });
   };
 
   //signout
   const logoutuser = () => {
+    console.log(auth, "auth");
     return signOut(auth);
   };
 
@@ -87,10 +95,17 @@ export const FierbaseProvidr = (props) => {
       value={{
         phoneloginuser,
         setPhoneLoginUser,
+        authuserrrr,
+        setauthuserrrr,
+        country,
+        setCountry,
+        searchcont,
+        setSearchcont,
+        dialcode,
+        setDialcode,
         phonelogin,
         veryfyotp,
-        signInWithEmailAndPassword,
-        putdat,
+        Writedata,
         signupwithgoogle,
         authuser,
         logoutuser,

@@ -4,14 +4,18 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import "../Profile.css";
 import { MdLogout } from "react-icons/md";
 import LogoutModal from "./LogoutModal";
+import { Container } from "react-bootstrap";
+import { useNavigate } from "react-router";
 
 const BackNav = () => {
+
+  const navigate = useNavigate()
+
   return (
-    <>
-      <div className="BackNav">
-        <div className="backicondiv">
+      <Container className="BackNav">
+        <button className="backicondiv" onClick={()=> navigate("/home")}>
           <IoIosArrowRoundBack className="Backicon" />
-        </div>
+        </button>
         <div className="contant">
           <p>Farmer Profile</p>
         </div>
@@ -20,14 +24,10 @@ const BackNav = () => {
             <BsThreeDotsVertical />
           </button>
           <div class="dropdown-content">
-            <span>
               <LogoutModal />
-              Logout
-            </span>
           </div>
         </div>
-      </div>
-    </>
+      </Container>
   );
 };
 

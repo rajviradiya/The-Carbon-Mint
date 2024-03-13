@@ -8,6 +8,7 @@ import AudioRecord from "./components/AudioRecord";
 import ButtonComp from "../../Components/ButtonComp";
 
 const index = () => {
+
   return (
     <Container className="EventPagemain">
       <Col className="">

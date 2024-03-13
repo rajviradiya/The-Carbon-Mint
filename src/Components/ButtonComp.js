@@ -1,10 +1,10 @@
 import React from "react";
 import "./Comp.css"
 
-const ButtonComp = ({valuebutton}) => {
+const ButtonComp = ({valuebutton,handleClick}) => {
   return (
     <>
-      <button className="buttonEvent">{valuebutton}</button>
+      <button className="buttonEvent" onClick={()=>handleClick()}>{valuebutton}</button>
     </>
   );
 };

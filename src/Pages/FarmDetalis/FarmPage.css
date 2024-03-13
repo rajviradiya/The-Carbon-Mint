@@ -1,0 +1,100 @@
+.FarmpageMain {
+}
+
+.closenav {
+  height: 14vw;
+  display: flex;
+}
+
+.navicon {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navicon svg {
+  color: #363537;
+  font-size: 8vw;
+}
+.navcont {
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.navcont span {
+  font-size: 4vw;
+  font-weight: 600;
+}
+
+.navcont p {
+  font-size: 3vw;
+  color: #79787a;
+  margin: 0px !important;
+}
+
+.Frampageimage {
+  width: 100%;
+  height: 50vw !important;
+  border-radius: 16px !important;
+  margin-top: 4vw;
+}
+
+/* farmerdetailslist */
+
+.details {
+  font-size: 4vw;
+  font-weight: 700;
+  margin: 4vw 0 2vw 0 !important;
+}
+
+.list-group {
+  /* background-color: red !important; */
+}
+
+.list-group li {
+  display: flex;
+  justify-content: space-around;
+}
+
+.list-group li span {
+  width: 50%;
+  color: #555555;
+  font-size: 3vw;
+}
+
+.list-group li p {
+  width: 50%;
+  font-size: 3vw;
+  font-weight: 600;
+  margin: 0px !important;
+}
+
+/* farmermap */
+.farmermap iframe {
+  width: 100%;
+  height: 40vw;
+  border-radius: 16px;
+}
+
+.farmermapdetail {
+  font-size: 3vw;
+  color: #585758;
+}
+
+/* Crops */
+
+.Crops {
+}
+
+/* button nav */
+
+.MuiButtonBase-root {
+  background-color: #2b9348 !important;
+}
+
+.MuiSpeedDialAction-staticTooltipLabel {
+  font-size: 1vw;
+}

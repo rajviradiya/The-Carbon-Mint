@@ -1,109 +1,158 @@
-import { Col, Container, Row } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import {
+  InputAdornment,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
+
+import {
+  defaultCountries,
+  FlagImage,
+  parseCountry,
+  usePhoneInput,
+} from "react-international-phone";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
-import Img from "../../../Assets/Login&Auth/GoogleIconLogin.png";
 
+import { Col, Container, Row } from "react-bootstrap";
+import { useState } from "react";
+import Img from "../../../Assets/Login&Auth/GoogleIconLogin.png";
 import { PhoneNumberUtil } from "google-libphonenumber";
 import { useNavigate } from "react-router";
-
-import { database } from "../../../Config/fierbase";
 import { useFierbase } from "../../../context/fierbasecontext";
-import { v4 as uuid } from "uuid";
-
 import ButtonComp from "../../../Components/ButtonComp";
 
 const Login = () => {
   const [phone, setPhone] = useState("");
+  const [ponewithdial, setPhonewithdial] = useState("");
 
   const navigate = useNavigate();
   const fierbase = useFierbase();
 
-  // const handleuser = () => {
-  //   //create user
-  //   let sigininuser = fierbase.signInWithEmailAndPassword(
-  //     "raj112@gmial.com",
-  //     "123456"
-  //   );
-  //   //set That data in realtime database
-  //   fierbase.putdat("/users/" + uuid().slice(0, 8), {
-  //     email: "raj112@gmial.com",
-  //     password: "123456",
-  //   });
-  // };
+  console.log(ponewithdial, "Phone number is this");
 
   //Phone Validation Api
   const phoneUtil = PhoneNumberUtil.getInstance();
-  const isPhoneValid = (phone) => {
+  const isPhoneValid = (ponewithdial) => {
     try {
-      return phoneUtil.isValidNumber(phoneUtil.parseAndKeepRawInput(phone));
+      return phoneUtil.isValidNumber(
+        phoneUtil.parseAndKeepRawInput(ponewithdial)
+      );
     } catch (error) {
       return false;
     }
   };
-  const isValid = isPhoneValid(phone);
+  const isValid = isPhoneValid(ponewithdial);
 
-  //on Signin click
+  console.log(isValid, "validation");
+  //phone handle
+
+  const handlephone = (e) => {
+    setPhone(e.target.value);
+    const stringphone = e.target.value;
+    setPhonewithdial(String(fierbase.dialcode + e.target.value));
+  };
+  //Phone Login
   const handlesubmmitotp = () => {
-    fierbase.phonelogin(phone);
-    console.log("found error");
+    fierbase.phonelogin(ponewithdial);
   };
 
   //Google Login
   const handleGoogleLogin = () => {
-    fierbase.signupwithgoogle();
-    navigate(`/home`);
+    fierbase
+      .signupwithgoogle()
+      .then(() => {
+        navigate("/home");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
-    <>
-      <Container fluid>
-        <Col className="logincompcol ">
-          <Row className="HomeLogin">
-            <span>Login</span>
-            <p>Enter your mobile number to login</p>
-          </Row>
-          <Row className="mobileinput">
-            <PhoneInput
-              defaultCountry="in"
-              value={phone}
-              onChange={(phone) => setPhone(phone)}
-            />
-            <span className="validation">
-              {!isValid && (
-                <div style={{ color: "red" }}>Phone is not valid</div>
-              )}
-            </span>
-          </Row>
-          <Row className="buttonslogin">
-            <div className="mt-3" id="recaptcha" />
-            <ButtonComp
-              className="button1"
-              valuebutton={"SIGN IN"}
-              disabled={!isValid}
-              onClick={() => {
-                handlesubmmitotp();
-              }}
-            />
-            <button
-              className="button2"
-              onClick={() => {
-                handleGoogleLogin();
-              }}
-            >
-              <img src={Img} alt="G" />
-              <span className="ms-3">Sign in with Google</span>
-            </button>
-          </Row>
-          <Row className="term">
-            <span className="span1">
-              By tapping on login, I agree to Carbon Mint's
-            </span>
-            <span className="span2">terms of services & privacy policy.</span>
-          </Row>
-        </Col>
-      </Container>
-    </>
+    <Container>
+      <Row className="HomeLogin">
+        <span>Login</span>
+        <p>Enter your mobile number to login</p>
+      </Row>
+      <Row className="mobileinput">
+        <TextField
+          id="outlined-basic"
+          sx={{
+            width: "27%",
+          }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                {fierbase.dialcode}
+                <KeyboardArrowDownIcon />
+              </InputAdornment>
+            ),
+          }}
+          onClick={() => {
+            navigate("/countrys");
+          }}
+        />
+        <TextField
+          sx={{
+            width: "70%",
+          }}
+          id="outlined-basic"
+          label="Mobile number"
+          error={!isValid}
+          helperText={
+            !isValid && <div style={{ color: "red" }}>Phone is not valid</div>
+          }
+          color="success"
+          value={phone}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <CancelPresentationIcon
+                  sx={{ width: "5vw" }}
+                  onClick={() => {
+                    setPhone("");
+                  }}
+                />
+              </InputAdornment>
+            ),
+          }}
+          onChange={(e) => handlephone(e)}
+        />
+      </Row>
+      <Row className="buttonslogin">
+        <div id="sign-in-button" />
+        <ButtonComp
+          className="button1"
+          valuebutton={"SIGN IN"}
+          handleClick={handlesubmmitotp}
+          disabled={!isValid}
+          onClick={() => {
+            alert("sdfeewwqe");
+          }}
+        />
+        <button
+          className="button2"
+          onClick={() => {
+            handleGoogleLogin();
+          }}
+        >
+          <img src={Img} alt="G" />
+          <span className="ms-3">Sign in with Google</span>
+        </button>
+      </Row>
+      <Row className="term">
+        <span className="span1">
+          By tapping on login, I agree to Carbon Mint's
+        </span>
+        <span className="span2">terms of services & privacy policy.</span>
+      </Row>
+    </Container>
   );
 };
 
