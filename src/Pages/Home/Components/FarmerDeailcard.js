@@ -21,7 +21,7 @@ const FarmerDeailcard = () => {
           <Row className="Farmerlocation">
             <Link to="/farm" className="Farmerdetaillink">
               <span>{fierbase.userdata ?.city}</span>
-              <p>{fierbase.userdata && fierbase.userdata.district},{fierbase.userdata && fierbase.userdata.state}</p>
+              <p>{fierbase.userdata && fierbase.userdata.district}{fierbase.userdata && fierbase.userdata.state}</p>
             </Link>
           </Row>
           <Row className="farmerbuttons">

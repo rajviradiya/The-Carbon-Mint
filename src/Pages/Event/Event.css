@@ -45,11 +45,6 @@
   color: #585758;
 }
 
-.cameraimage {
-  height: 65vw;
-  overflow: scroll;
-}
-
 .cameraimagess {
   display: flex;
   flex-wrap: wrap;
@@ -111,6 +106,15 @@
   color: #2B9348;
 }
 
+/* camra redirect */
+.camrearedirectpage{
+  position: relative;
+  bottom: 0%;
+
+}
+.camerafooter{
+  background-color:#363537;
+}
 /* Event Description */
 .Eventdescriptionmain {
   margin-top: 2vh !important;

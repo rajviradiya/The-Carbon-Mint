@@ -1,16 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { CgClose } from "react-icons/cg";
 import { Link, useNavigate } from "react-router-dom";
+import { useFierbase } from "../../../context/fierbasecontext";
 
-const CloaseNav = () => {
-
-  const navigate = useNavigate()
-
+const CloaseNav = ({handleClosenav}) => {
   return (
     <Container className="closeeventnav">
       <div className="closeicondiv">
-        <button onClick={()=>{navigate("/home")}}>
+        <button onClick={() => handleClosenav()}>
           <CgClose />
         </button>
       </div>

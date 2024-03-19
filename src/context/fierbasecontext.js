@@ -8,7 +8,7 @@ import {
   signOut,
 } from "firebase/auth";
 
-import { child, get, onValue, ref, set } from "firebase/database";
+import { child, get, onValue, push, ref, set } from "firebase/database";
 import { useNavigate } from "react-router";
 import { useReactMediaRecorder } from "react-media-recorder";
 
@@ -25,7 +25,7 @@ export const FierbaseProvidr = (props) => {
   const [userdata, setUserdata] = useState({});
   const [userId, setUserId] = useState("");
   const [imageurl, setImageUrl] = useState([]);
-  const [mediaUrl, setMediaUrl] = useState("")
+  // const [mediaUrl, setMediaUrl] = useState("")
 
   const navigate = useNavigate();
 
@@ -40,18 +40,19 @@ export const FierbaseProvidr = (props) => {
 
   //read dataa
   const readdata = (key) => {
-    get(child(ref(realDatabase), key))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const value = snapshot.val();
-          setUserdata(value[userId]);
-        } else {
-          console.log("No data available");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    if (!userId) {
+      return
+    }
+    const starCountRef = ref(realDatabase, key);
+
+    onValue(starCountRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        setUserdata(data[userId]);
+      } else {
+        console.log("No data available");
+      }
+    })
   };
 
   //user State Logdin or Loged Out using
@@ -64,23 +65,23 @@ export const FierbaseProvidr = (props) => {
         setUserId(uid);
 
         //read data and if data not exists create data
-        get(child(ref(realDatabase), "/users/" + uid))
-          .then((snapshot) => {
-            if (!snapshot.exists()) {
-              //create data
-              Writedata("/users/" + uid, {
-                phoneNumber: user.phoneNumber,
-                email: user.email,
-                displayName: user.displayName,
-              });
-              setUserdata(snapshot.val());
-            } else {
-              console.log("data available alrady");
-            }
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+        // get(child(ref(realDatabase), "/users/" + uid))
+        //   .then((snapshot) => {
+        //     if (!snapshot.exists()) {
+        //       //create data
+        //       Writedata("/users/" + uid, {
+        //         phoneNumber: user.phoneNumber,
+        //         email: user.email,
+        //         displayName: user.displayName,
+        //       });
+        //       setUserdata(snapshot.val());
+        //     } else {
+        //       console.log("data available alrady");
+        //     }
+        //   })
+        //   .catch((error) => {
+        //     console.error(error);
+        //   });
 
         console.log(user, "useloged in");
         setauthuserrrr(user);
@@ -149,8 +150,8 @@ export const FierbaseProvidr = (props) => {
         userId,
         setUserId,
         imageurl,
-        mediaUrl,
-        setMediaUrl,
+        // mediaUrl,
+        // setMediaUrl,
         setImageUrl,
         setUserdata,
         readdata,
@@ -163,7 +164,7 @@ export const FierbaseProvidr = (props) => {
         status,
         startRecording,
         stopRecording,
-        mediaBlobUrl
+        mediaBlobUrl,
       }}
     >
       {props.children}

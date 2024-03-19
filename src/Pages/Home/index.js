@@ -36,7 +36,7 @@ const Index1 = () => {
         {fierbase?.userdata?.event?.map((items) => (
           <>
             <Link to={`/eventdetails/${items.id}`} style={{ textDecoration: "none" }}>
-              <EventCard id={items.id}/>
+              <EventCard items={items}/>
             </Link>
           </>
         ))}

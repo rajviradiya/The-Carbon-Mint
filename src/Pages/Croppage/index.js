@@ -66,9 +66,12 @@ const Index = () => {
       </section>
       <section className="Cropsevent">
         <p className="detailscrop ps-3">Events</p>
-        <EventCard />
-        <EventCard />
-        <EventCard />
+        {fierbase?.userdata?.event?.map((items) => (
+          <>
+            <EventCard items={items}/>
+          </>
+        ))
+        }
       </section>
     </section>
   );

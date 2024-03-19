@@ -15,7 +15,9 @@ const AudioRecord = () => {
 
   const fierbase = useFierbase()
 
-  console.log(fierbase.mediaUrl)
+  console.log(fierbase.mediaBlobUrl, fierbase.status,"<== : audio")
+
+
   useEffect(() => {
     let interval;
     if (recording) {
@@ -36,20 +38,18 @@ const AudioRecord = () => {
   };
 
   const startRecording = () => {
-    // Start your recording logic here
     fierbase.startRecording()
     setRecording(true);
     setState(2)
   };
 
   const stopRecording = () => {
-    // Stop your recording logic here
     setRecording(false);
-    setTimer(0); // Reset timer when recording stops
+    setTimer(0); 
     fierbase.stopRecording()
     setState(3)
-    let data = fierbase.mediaBlobUrl
-    fierbase.setMediaUrl(data)
+    // fierbase.setMediaUrl(fierbase.mediaBlobUrl)
+    console.log(fierbase.mediaBlobUrl, ' <== I am blob url...')
   };
 
   const handlecloseAudio = () => {

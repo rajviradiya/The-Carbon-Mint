@@ -210,15 +210,16 @@
 }
 
 .eventpart1 {
-  width: 25%;
+  width: 20%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .eventpart1 img {
-  height: 5vh !important;
-  border-radius: 50% !important;
+  width: 11vw;
+  height: 5vh ;
+  border-radius: 50%;
 }
 
 .eventpart2 {
@@ -246,7 +247,7 @@
 }
 
 .eventicon {
-  width: 10vw ;
+  width: 9vw ;
   height: 10vw;
   color: #2b9348;
 }
