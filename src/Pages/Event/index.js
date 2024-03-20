@@ -20,19 +20,23 @@ const Index = () => {
   console.log(fierbase?.userdata?.event, "event data")
 
   const handlesubmmit = () => {
-    const newArray = {
+    
+    const newObj = {
       id: uuidv4().slice(0, 3),
       date: date,
       time: formattedTime,
-      eventimg: fierbase.imageurl,
       description: description,
     }
 
-    if (fierbase.mediaBlobUrl) {
-      newArray.audio = fierbase.mediaBlobUrl
+    if (fierbase.imageurl) {
+      newObj.eventimg = fierbase.imageurl
     }
 
-    const updatedEvents = [...(fierbase?.userdata?.event || []), newArray];
+    if (fierbase.mediaBlobUrl) {
+      newObj.audio = fierbase.mediaBlobUrl
+    }
+
+    const updatedEvents = [...(fierbase?.userdata?.event || []), newObj];
     fierbase.Writedata("/users/" + fierbase.userId + "/event/", updatedEvents);
     navigate("/home")
     fierbase.setImageUrl([])
@@ -40,15 +44,20 @@ const Index = () => {
     return updatedEvents;
   };
 
+  // For navbar
   const handleClosenav = ()=>{
     navigate("/home")
     fierbase.setImageUrl([])
   }
 
+  const customStyle = {
+    backgroundColor: 'transperent'
+  };
+  
   return (
     <section className="EventPagemain">
       <section className="closenavmain">
-        <CloaseNav handleClosenav={handleClosenav}/>
+        <CloaseNav handleClosenav={handleClosenav} customStyle={customStyle}/>
       </section>
       <section className="Cameramain">
         <Camera />

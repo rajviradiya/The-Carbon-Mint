@@ -1,31 +1,21 @@
 import React, { useEffect } from "react";
 import {
   InputAdornment,
-  MenuItem,
-  Select,
   TextField,
-  Typography,
 } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 
-import {
-  defaultCountries,
-  FlagImage,
-  parseCountry,
-  usePhoneInput,
-} from "react-international-phone";
-import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 
-import { Col, Container, Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import { useState } from "react";
 import Img from "../../../Assets/Login&Auth/GoogleIconLogin.png";
 import { PhoneNumberUtil } from "google-libphonenumber";
 import { useNavigate } from "react-router";
 import { useFierbase } from "../../../context/fierbasecontext";
 import ButtonComp from "../../../Components/ButtonComp";
+import Box from '@mui/material/Box';
 
 const Login = () => {
   const [phone, setPhone] = useState("");
@@ -84,11 +74,11 @@ const Login = () => {
         <TextField
           id="outlined-basic"
           sx={{
-            width: "27%",
+            width: "26%",
           }}
           InputProps={{
             endAdornment: (
-              <InputAdornment position="end">
+              <InputAdornment sx={{color:"#363537"}} position="center">
                 {fierbase.dialcode}
                 <KeyboardArrowDownIcon />
               </InputAdornment>

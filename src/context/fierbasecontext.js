@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { auth, googleProvider, realDatabase } from "../Config/fierbase";
+import { createContext, useContext, useState } from "react";
+import { auth, googleProvider, realDatabase, messaging } from "../Config/fierbase";
 import {
   RecaptchaVerifier,
   onAuthStateChanged,
@@ -11,6 +11,7 @@ import {
 import { child, get, onValue, push, ref, set } from "firebase/database";
 import { useNavigate } from "react-router";
 import { useReactMediaRecorder } from "react-media-recorder";
+import { getToken } from "firebase/messaging";
 
 export const FierbaseContext = createContext(null);
 export const useFierbase = () => useContext(FierbaseContext);
@@ -25,13 +26,30 @@ export const FierbaseProvidr = (props) => {
   const [userdata, setUserdata] = useState({});
   const [userId, setUserId] = useState("");
   const [imageurl, setImageUrl] = useState([]);
-  // const [mediaUrl, setMediaUrl] = useState("")
+
+
+  const [progress, setProgress] = useState({ startd: false, pc: 0 });
+  const [msg, setMsg] = useState(null)
+  const [error,setError] = useState("")
 
   const navigate = useNavigate();
 
+  //permission request
+  async function requestPermission() {
+    const permisssion = await Notification.requestPermission()
+    if (permisssion === "granted") {
+      //Generate Tocken
+      const tocken = await getToken(messaging, {
+        vapidKey: "BBXIMssjEa4pDGe5lWmY6uEbr5WFCZz3-NI_p26nzq2j2yZ_I6WoiCOxlLk_i9UCiCjdjycGlSG0bQwl07IJTXA"
+      })
+      console.log("tocken", tocken, "tockien is")
+    } else if (permisssion === "denied") {
+      alert("you Denied withnotificatin")
+    }
+  }
+
   //media recorder
-  const { status, startRecording, stopRecording, mediaBlobUrl } =
-    useReactMediaRecorder({ audio: true });
+  const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
 
   //create user in db
   const Writedata = (key, data) => {
@@ -150,8 +168,6 @@ export const FierbaseProvidr = (props) => {
         userId,
         setUserId,
         imageurl,
-        // mediaUrl,
-        // setMediaUrl,
         setImageUrl,
         setUserdata,
         readdata,
@@ -165,6 +181,8 @@ export const FierbaseProvidr = (props) => {
         startRecording,
         stopRecording,
         mediaBlobUrl,
+        requestPermission,
+        error,
       }}
     >
       {props.children}

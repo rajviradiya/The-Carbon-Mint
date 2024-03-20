@@ -26,6 +26,10 @@ const App = () => {
     fierbase.readdata("/users/");
   }, [fierbase.authuserrrr]);
 
+  useEffect(() => {
+    fierbase.requestPermission()
+  }, []);
+
   return (
     <>
       <Routes>
@@ -57,7 +61,7 @@ const App = () => {
             <SpeedDialNav elementpass={<CropPage />} />
           </>}
         />
-        <Route path="/eventdetails/:id" element={<EventDetails/>}/>
+        <Route path="/eventdetails/:id" element={<EventDetails />} />
       </Routes>
     </>
   );

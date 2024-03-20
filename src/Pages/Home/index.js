@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import FarmerDeailcard from "./Components/FarmerDeailcard";
 import Nav from "./Components/Nav";
 

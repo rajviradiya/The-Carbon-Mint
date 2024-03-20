@@ -41,8 +41,9 @@ const CountryComp = () => {
                 onClick={() => {
                   selectountry(country.dialCode);
                 }}
+                sx={{height:"10vw"}}
               >
-                <FlagImage iso2={country.iso2} style={{ marginRight: "8px" }} />
+                <FlagImage iso2={country.iso2} style={{marginRight: "30px"}} />
                 <Typography marginRight="8px">{country.name}</Typography>
                 <Typography color="gray">+{country.dialCode}</Typography>
               </MenuItem>

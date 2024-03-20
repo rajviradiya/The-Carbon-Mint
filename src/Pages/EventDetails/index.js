@@ -1,34 +1,54 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import EventDetailsNav from './components/EventDetailsNav'
 import "./EventDetails.css"
 import Progress from '../../Components/Progress'
 import AlertBoxSuccess from '../../Components/AlertBoxSuccess';
 import WaitingPhotoComp from '../../Components/WaitingPhotoComp';
 import { useParams } from 'react-router-dom';
+import { useFierbase } from '../../context/fierbasecontext';
+import Pictures from './components/Pictures';
 
 const Index = () => {
 
-  const params = useParams()
+  const [upload, setUpload] = useState("success")
 
-  console.log(params,"params")
+  const params = useParams()
+  const firebase = useFierbase()
+  
+  
+  useEffect(() => {
+    if (firebase.error)
+      console.log("errror")
+    setUpload("error")
+  }, [])
+
+  useEffect(() => {
+    setUpload("upload")
+  }, [])
+
+  useEffect(() => {
+    setInterval(() => {
+      setUpload("success")
+    }, [2000])
+  }, [])
+
+  const data2 = firebase?.userdata?.event.filter((items) => items.id === params.id) 
+  console.log(params, "params")
+  
   return (
     <section>
       <section>
         <EventDetailsNav />
       </section>
       <section>
-        {/* Process */}
-        <Progress />
-        {/* Alert */}
-        <AlertBoxSuccess/>
-        {/* error */}
-        <WaitingPhotoComp/>
+        {upload === "error" ? (<WaitingPhotoComp />) : (upload === "success" ? (<AlertBoxSuccess />) : (<Progress />))}
       </section>
       <section>
-        <span>photos</span>
+        <Pictures params={params} data={firebase?.userdata?.event}/>
       </section>
       <section>
-        <span>Notes</span>
+        <p>Note</p>
+        <span>{data2[0].description}</span>
       </section>
     </section>
   )

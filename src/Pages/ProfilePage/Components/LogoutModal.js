@@ -13,11 +13,10 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",
-  border: "0px",
+  borderRadius: "10px",
   boxShadow: 24,
-  p: 4,
+  padding: "5vw",
   width: "80vw",
-  height: 200,
 };
 
 const LogoutModal = () => {
@@ -39,7 +38,7 @@ const LogoutModal = () => {
 
   return (
     <div>
-      <Button onClick={handleOpen} sx={{ backgroundColor: "transparent !important" }}>
+      <Button onClick={handleOpen} sx={{ color: "#363537", width: "30vw", backgroundColor: "transparent !important", padding: "3vw 0 3vw 2vw" }}>
         <LogoutIcon />
         <p >Logout</p>
       </Button>
@@ -51,22 +50,20 @@ const LogoutModal = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style} borderRadius={1} >
-          <Typography id="modal-modal-title" variant="h5" component="h2">
+          <Typography id="modal-modal-title" sx={{ fontSize: "5vw", fontWeight: "600" }}>
             Logout
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Typography id="modal-modal-description" sx={{ fontSize: "4vw", marginTop: "3vw", color: "#585758" }}>
             Are you sure you want to logout from this device?{" "}
           </Typography>
           <Button
             sx={{
-              width: 5,
-              height: 20,
-              backgroundColor: "#FFFFFF",
+              fontSize: "4vw",
               color: "#9A9A9B",
-              mt: 4,
-              ml: "20vw",
-              p: 0,
-              backgroundColor: "transparent !important"
+              backgroundColor: 'transparent !important',
+              mt: "4vw",
+              ml: "30vw",
+              p: 0
             }}
             onClick={() => handleLogout()}
           >
@@ -75,13 +72,11 @@ const LogoutModal = () => {
           <Button
             href="#contained-buttons"
             sx={{
-              width: 5,
-              height: 20,
+              fontSize: "4vw",
               color: "#2B9348",
-              backgroundColor: "#FFFFFF",
-              mt: 4,
-              p: 0,
-              backgroundColor: "transparent !important"
+              backgroundColor: 'transparent !important',
+              mt: "4vw",
+              p: 0
             }}
             onClick={() => handleClose()}
           >

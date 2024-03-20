@@ -1,5 +1,5 @@
 import React from "react";
-import { CgClose } from "react-icons/cg";
+import { IoCloseOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useFierbase } from "../../../context/fierbasecontext";
 
@@ -10,7 +10,7 @@ const CloseNav = () => {
     <div className=" container closenav">
       <div className="closeicon">
         <Link to="/" onClick={()=>fierbase.setSearchcont("")}>
-          <CgClose />
+          <IoCloseOutline style={{color:"#363537"}} />
         </Link>
       </div>
       <div className="navcont">Select country</div>

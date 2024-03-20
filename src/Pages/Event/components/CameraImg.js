@@ -13,10 +13,10 @@ const CameraImg = ({ image, index }) => {
   }
 
   return (
-    <section class="image-container mb-2">
+    <div class="image-container mb-2">
       <img src={image} />
       <button class="buttoncloseee" onClick={() => handleclose()}><CgClose /></button>
-    </section>
+    </div>
   );
 };
 

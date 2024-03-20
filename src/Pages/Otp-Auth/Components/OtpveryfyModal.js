@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { useNavigate } from "react-router";
 import { useFierbase } from "../../../context/fierbasecontext";
 
 const style = {
@@ -16,16 +15,14 @@ const style = {
   boxShadow: 24,
   p: 3,
   width: "80vw",
-  height: "30vh",
 };
 
 const OtpveryfyModal = ({ openM2, setOpenM2, handleClose, otp }) => {
-  const navigate = useNavigate();
   const fierbase = useFierbase();
 
   const varifyOtp = () => {
-    setOpenM2(false);
     fierbase.veryfyotp(otp);
+    handleClose()
     console.log("hello");
   };
 
@@ -50,9 +47,9 @@ const OtpveryfyModal = ({ openM2, setOpenM2, handleClose, otp }) => {
           sx={{
             width: "15vw",
             height: "6vw",
-            color: "#9A9A9B",
+            color: "#2B9348",
             backgroundColor: "transparent !important",
-            mt: "2vw",
+            mt: "5vw",
             ml: "50vw",
             p: 2,
           }}

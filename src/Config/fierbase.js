@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, RecaptchaVerifier } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getMessaging } from "firebase/messaging";
 import {getDatabase} from "firebase/database"
 
 const firebaseConfig = {
@@ -19,5 +19,6 @@ const googleProvider = new GoogleAuthProvider();
 
 const auth = getAuth(app);
 const realDatabase = getDatabase(app);
+const messaging = getMessaging(app)
 
-export { auth, googleProvider, realDatabase };
+export { auth, googleProvider, realDatabase, messaging };

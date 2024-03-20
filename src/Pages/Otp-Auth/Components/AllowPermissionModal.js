@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { useNavigate } from "react-router";
 import { useFierbase } from "../../../context/fierbasecontext";
 
 const style = {
@@ -14,48 +13,57 @@ const style = {
   bgcolor: "background.paper",
   borderRadius: "10px",
   boxShadow: 24,
-  p: 3,
+  padding:"5vw",
   width: "80vw",
-  height: "30vh",
 };
 
-const AllowPermissionModal = ({ openM2, setOpenM2, handleClose, otp }) => {
-  const navigate = useNavigate();
+const AllowPermissionModal = ({ openM1, setOpenM1, handleClose1, otp }) => {
+
   const fierbase = useFierbase();
 
-  const varifyOtp = () => {
-    setOpenM2(false);
-    fierbase.veryfyotp(otp);
-    console.log("hello");
-  };
+  const Allowotp = ()=>{
+    handleClose1()
+  }
 
   return (
     <Modal
-      open={openM2}
-      onClose={handleClose}
+      open={openM1}
+      onClose={handleClose1}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style} borderRadius={1}>
-        <Typography id="modal-modal-title" sx={{ fontSize:"7vw", fontWeight:600}}>
-          OTP
+      <Box sx={style} borderRadius={1} style={{padding:"20px"}}>
+        <Typography id="modal-modal-title" sx={{ fontSize: "5vw", fontWeight: 600 }}>
+          Allow Carbon Mint to read SMS and automatically enter OTP
         </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 1 }}>
-          We’ve resent a 6-digit confirmation OTP to your own mobile number.
+        <Typography id="modal-modal-description" sx={{fontSize: "4vw", marginTop:"3vw"}}>
+          Use this OTP to login to your Carbom Mint account.
         </Typography>
         <Button
           sx={{
-            width: "15vw",
-            height: "6vw",
+            fontSize: "4vw",
             color: "#9A9A9B",
             backgroundColor: 'transparent !important',
-            mt: "2vw",
-            ml: "50vw",
-            p: 2,
+            mt: "4vw",
+            ml: "20vw",
+            p:0
           }}
-          onClick={() => varifyOtp()}
+          onClick={() =>handleClose1()}
         >
-          Gotit
+          CANCEL
+        </Button>
+        <Button
+          sx={{
+            fontSize: "4vw",
+            color: "#2B9348",
+            backgroundColor: 'transparent !important',
+            mt: "4vw",
+            ml: "2vw",
+            p: 0,
+          }}
+          onClick={() => Allowotp()}
+        >
+          ALLOW
         </Button>
       </Box>
     </Modal>

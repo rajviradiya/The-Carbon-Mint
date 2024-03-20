@@ -1,11 +1,13 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
 
-const ImageComp = () => {
+const ImageComp = ({ image }) => {
+
+  console.log(image, "image is this ")
   return (
-    <Container>
-      
-    </Container>
+    <div class="image-container mb-2">
+        <img src={image} alt='Image' />
+    </div>
   )
 }
 

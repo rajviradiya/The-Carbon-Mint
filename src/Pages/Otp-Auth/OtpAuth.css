@@ -1,7 +1,3 @@
-.otpmainindex {
-  background-color: #f9f9f9;
-}
-
 .navicon{
   height: 20vw;
 }
@@ -12,7 +8,7 @@
 }
 
 .HeroIcon {
-  margin: 14vw 0 0 0 !important;
+  margin: 14vw 0 0 0;
   display: flex;
   justify-content: center;
 }
@@ -22,8 +18,7 @@
 }
 
 .otpcomp {
-  margin-top: 25vw !important;
-  padding: 5vw !important;
+  margin-top: 25vw ;
 }
 
 .otpcomphead span {
@@ -38,14 +33,14 @@
   margin: 0px ;
 }
 
-.optinput {
+.otpinput  {
   width: 100% !important;
   padding: 0 2vw 0 2vw !important;
   margin: 10vw 0 0 0!important;
 }
 
-.optinput input {
-  padding: 3vw !important;
+.otpinput input {
+  padding: 3vw ;
 }
 
 .css-tccdxk {

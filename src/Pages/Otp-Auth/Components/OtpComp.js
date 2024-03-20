@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { MuiOtpInput } from "mui-one-time-password-input";
@@ -13,15 +13,22 @@ const OtpComp = () => {
   const [otp, setOtp] = useState("");
 
   const [openM2, setOpenM2] = useState(false);  
-  const [openM1, setOpenM1] = useState(false);
+  const [openM1, setOpenM1] = useState(false);  
+
+  useEffect(()=>{
+    handleOpen1()
+  },[])
+
   const fierbase = useFierbase();
-  console.log(fierbase,"fierbase data")
+
+  console.log(fierbase.phoneloginuser.onConfirmation,"fierbase phoneloginuser")
 
   const handleOpen = () => setOpenM2(true);
   const handleClose = () => setOpenM2(false);
+
   
-  const handleOpenm1 = () => setOpenM1(true);
-  const handleClosem1 = () => setOpenM1(false);
+  const handleOpen1 = () => setOpenM1(true);
+  const handleClose1 = () => setOpenM1(false);
 
   const handleChange = (newValue) => {
     setOtp(newValue);
@@ -33,7 +40,7 @@ const OtpComp = () => {
         <span>OTP</span>
         <p>We have sent an OTP over SMS. Please enter the OTP to proced</p>
       </div>
-      <div className="optinput">
+      <div className="otpinput">
         <MuiOtpInput
           autoFocus
           length={6}
@@ -51,7 +58,7 @@ const OtpComp = () => {
         </span>
       </div>
       <OtpveryfyModal openM2={openM2} setOpenM2={setOpenM2} handleClose={handleClose} otp={otp}/>
-      <AllowPermissionModal />
+      <AllowPermissionModal  openM1={openM1} setOpenM1={setOpenM1} handleClose1={handleClose1} otp={otp}/>
     </div>
   );
 };

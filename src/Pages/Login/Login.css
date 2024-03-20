@@ -15,8 +15,7 @@
 }
 
 .homelogincomp {
-  width: 90%;
-  margin-top: 40vw !important;
+  margin-top: 40vw ;
 }
 
 .logincomp {
@@ -24,7 +23,7 @@
 }
 
 .HomeLogin {
-  width: 100% !important;
+  width: 100% ;
   margin: 0px !important;
 }
 
@@ -32,14 +31,13 @@
   color: #363537;
   font-size: clamp(5vw, 8vw, 10vw);
   font-weight: 700;
-  padding: 0px !important;
+  padding: 0px ;
 }
 
 .HomeLogin p {
   font-size: clamp(3vw, 4vw, 5vw);
   color: #79787a;
   margin: 0px;
-  padding: 0px !important;
   font-weight: 400;
 }
 
@@ -61,16 +59,16 @@
 .button2 {
   border: 0px;
   border-radius: 5px;
-  font-weight: 500 !important;
+  font-weight: 500 ;
   padding: 12px;
   font-size: calc(5vw, 8vw, 10vw);
   margin-top: 2vh !important;
-  color: #173d07 !important;
+  color: #173d07;
   background-color: #e8f7e1;
 }
 
 .button2 img {
-  padding-bottom: 3px !important;
+  padding-bottom: 3px ;
 }
 
 .term {
