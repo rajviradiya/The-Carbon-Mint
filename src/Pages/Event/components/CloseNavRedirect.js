@@ -1,20 +1,19 @@
 import React from "react";
-import { Container,  } from "react-bootstrap";
+import {  Container,  } from "react-bootstrap";
 import { CgClose } from "react-icons/cg";
 import { useNavigate } from "react-router";
 
-
-const CloaseNav = () => {
-  const navigate = useNavigate()
+const CloseNavRedirect = () => {
+    const navigate = useNavigate()
 
   return (
-    <Container className="closeeventnav">
-      <div className="closeicondiv">
-        <button onClick={() => navigate("/home")}>
+    <Container className="closeeventnavredirect" >
+      <div className="closeicondivredirect">
+        <button onClick={() => navigate("/event")}>
           <CgClose />
         </button>
       </div>
-      <div className="closenavtext">
+      <div className="closenavtextredirect">
         <section>
           <span>Landparcel - Intervention</span>
           <br />
@@ -22,7 +21,7 @@ const CloaseNav = () => {
         </section>
       </div>
     </Container>
-  );
-};
+  )
+}
 
-export default CloaseNav;
+export default CloseNavRedirect

@@ -44,15 +44,20 @@ const Index = () => {
     return updatedEvents;
   };
 
+  // For navbar
   const handleClosenav = ()=>{
     navigate("/home")
     fierbase.setImageUrl([])
   }
 
+  const customStyle = {
+    backgroundColor: 'transperent'
+  };
+  
   return (
     <section className="EventPagemain">
       <section className="closenavmain">
-        <CloaseNav handleClosenav={handleClosenav}/>
+        <CloaseNav handleClosenav={handleClosenav} customStyle={customStyle}/>
       </section>
       <section className="Cameramain">
         <Camera />

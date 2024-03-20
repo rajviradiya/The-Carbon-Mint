@@ -65,7 +65,7 @@ export const FierbaseProvidr = (props) => {
         const uid = user.uid;
         //use id for filter user
         setUserId(uid);
-
+        
         //read data and if data not exists create data
         // get(child(ref(realDatabase), "/users/" + uid))
         //   .then((snapshot) => {
