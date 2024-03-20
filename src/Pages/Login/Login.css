@@ -1,0 +1,91 @@
+/* Login Country */
+.Loginmaincont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.homeicon {
+  margin-top: 15vw;
+}
+
+.homeicon img {
+  width: 40vw;
+}
+
+.homelogincomp {
+  margin-top: 40vw ;
+}
+
+.logincomp {
+  width: 100%;
+}
+
+.HomeLogin {
+  width: 100% ;
+  margin: 0px !important;
+}
+
+.HomeLogin span {
+  color: #363537;
+  font-size: clamp(5vw, 8vw, 10vw);
+  font-weight: 700;
+  padding: 0px ;
+}
+
+.HomeLogin p {
+  font-size: clamp(3vw, 4vw, 5vw);
+  color: #79787a;
+  margin: 0px;
+  font-weight: 400;
+}
+
+.mobileinput {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: start;
+  margin: 14vw 0 0 0 !important;
+}
+
+.buttonslogin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 14vw 0 0 0 !important;
+}
+
+.button2 {
+  border: 0px;
+  border-radius: 5px;
+  font-weight: 500 ;
+  padding: 12px;
+  font-size: calc(5vw, 8vw, 10vw);
+  margin-top: 2vh !important;
+  color: #173d07;
+  background-color: #e8f7e1;
+}
+
+.button2 img {
+  padding-bottom: 3px ;
+}
+
+.term {
+  margin-top: 6vh !important;
+}
+
+.span1 {
+  font-size: 14px;
+  text-align: center;
+  color: #79787a;
+}
+
+.span2 {
+  font-size: 14px;
+  text-align: center;
+  color: #2b9348;
+}
+
+
+

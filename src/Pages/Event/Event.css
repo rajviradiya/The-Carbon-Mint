@@ -1,0 +1,245 @@
+.closeeventnav {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.closeicondiv {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeicondiv button {
+  background-color: transparent;
+  border: 0px;
+}
+
+.closeicondiv svg {
+  font-size: 6vw;
+  cursor: pointer;
+}
+
+.closenavtext {
+  width: 80%;
+  margin-top: 2vh;
+}
+
+.closenavtext span {
+  font-size: 5vw;
+  font-weight: 700;
+}
+
+.closenavtext p {
+  font-size: 3vw;
+  font-weight: 500;
+  color: #79787A;
+}
+
+/* Camera */
+.cameratext p {
+  font-size: 5vw;
+  font-weight: 400;
+  margin: 0 0 2vw 0;
+  color: #585758;
+}
+
+.cameraimagess {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0px !important;
+}
+
+/* camera img comp */
+.image-container {
+  width: 33.33%;
+  height: 28vw;
+  padding: 1vw !important;
+  position: relative;
+  display: inline-block;
+}
+
+.image-container img {
+  width: 100%;
+  height: 28vw;
+  border-radius: 10px;
+}
+
+.buttoncloseee {
+  width: 6vw;
+  height: 6vw;
+  position: absolute;
+  top: 23%;
+  left: 23%;
+  transform: translate(-50%, -50%);
+  background-color: #ffc9b9;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px !important;
+}
+
+.buttoncloseee svg {
+  font-size: 5vw;
+  color: #363537;
+}
+
+/* Image add button */
+.addphoto {
+  width: 31%;
+  height: 28vw;
+  border: 2px dashed #9a9a9b;
+  border-radius: 10px;
+  background-color: #efeff0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 4px 0 0 3px;
+}
+
+.addphoto svg {
+  font-size: 10vw;
+  color: #2B9348;
+}
+
+/* camra redirect */
+.camrearedirectpage{
+  position: relative;
+  bottom: 0%;
+
+}
+.camerafooter{
+  background-color:#363537;
+}
+/* Event Description */
+.Eventdescriptionmain {
+  margin-top: 2vh !important;
+}
+
+.EventDescription span {
+  font-size: 5vw;
+  color: #585758;
+}
+
+.EventDescription textarea {
+  width: 100%;
+  height: 11vh;
+  border: 1px solid #9a9a9b;
+  border-radius: 10px;
+  margin-top: 2vh;
+}
+
+.EventDescription p {
+  font-size: 3vw;
+  color: #585758;
+  margin: 0 0 0 4vw;
+}
+
+/* Audiorecordmain */
+.Audiorecordmain {
+   margin-top: 4vh !important;
+}
+
+.Audiocont{
+  margin-top: 3vw;
+}
+.audiostartcont {
+  display: flex;
+  align-items: center;
+  margin-top: 3vw;
+}
+
+.audiostartbtn {
+  height: 10vw;
+  width: 10vw;
+  border: 0px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2B9348;
+  color: #FFFFFF;
+  box-shadow: 0px 0px 10px rgb(167, 165, 165)
+}
+
+.audiostarttext {
+  font-size: 4vw;
+  font-weight: 500;
+  margin: 0 0 0 5vw !important;
+}
+
+.audiostart2cont {
+  height: 12vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #EFEFF0;
+  border-radius: 10px;
+  padding: 2vw;
+}
+
+.audiostart2div1 {
+  display: flex;
+}
+
+.audiostart2div1 p {
+  font-size: 5vw;
+  margin: 0px;
+}
+
+.audiostart2icon1 {
+  margin: 0px;
+}
+
+.audiostart2button {
+  border: 0px;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #363537;
+}
+
+.audiostart2icon {
+  font-size: 5vw;
+}
+
+.audiostart2mic {
+  font-size: 7vw !important;
+  margin: 0 3vw 0 3vw;
+}
+
+.audiostart3cont {
+  display: flex;
+}
+
+.audiostart3cont audio {
+  height: 12vw;
+}
+
+.audiostart3btn {
+  border: none;
+  background-color: transparent;
+}
+
+.audiostart3btn svg {
+  font-size: 7vw;
+}
+
+/* Event Button Main */
+.EventButtonmain {
+  display: flex;
+  justify-content: center;
+  margin-top: 15vh !important;
+}
+
+.EventButtonmain button {
+  width: 90% !important;
+  position: fixed;
+  bottom: 0%;
+}
