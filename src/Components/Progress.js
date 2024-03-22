@@ -6,7 +6,6 @@ import Box from '@mui/material/Box';
 import { MdOutlineUploadFile } from "react-icons/md";
 import Container from '@mui/material/Container';
 
-
 function LinearProgressWithLabel(props) {
   return (
     <Container sx={{}}>

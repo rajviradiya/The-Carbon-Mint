@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, RecaptchaVerifier } from "firebase/auth";
 import { getMessaging } from "firebase/messaging";
 import {getDatabase} from "firebase/database"
+import {getStorage} from "firebase/storage"
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1GK4vFLHveV4O3PohtnWKD5ZRVMK8314",
@@ -20,5 +21,6 @@ const googleProvider = new GoogleAuthProvider();
 const auth = getAuth(app);
 const realDatabase = getDatabase(app);
 const messaging = getMessaging(app)
+const storage = getStorage(app)
 
-export { auth, googleProvider, realDatabase, messaging };
+export { auth, googleProvider, realDatabase, messaging,storage};

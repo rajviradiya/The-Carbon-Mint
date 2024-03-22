@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { auth, googleProvider, realDatabase, messaging } from "../Config/fierbase";
+import { auth, googleProvider, realDatabase, messaging, storage } from "../Config/fierbase";
 import {
   RecaptchaVerifier,
   onAuthStateChanged,
@@ -12,6 +12,7 @@ import { child, get, onValue, push, ref, set } from "firebase/database";
 import { useNavigate } from "react-router";
 import { useReactMediaRecorder } from "react-media-recorder";
 import { getToken } from "firebase/messaging";
+import { getDownloadURL, uploadBytesResumable, uploadString } from 'firebase/storage'
 
 export const FierbaseContext = createContext(null);
 export const useFierbase = () => useContext(FierbaseContext);
@@ -26,13 +27,45 @@ export const FierbaseProvidr = (props) => {
   const [userdata, setUserdata] = useState({});
   const [userId, setUserId] = useState("");
   const [imageurl, setImageUrl] = useState([]);
+  const [file, setfile] = useState()
 
 
   const [progress, setProgress] = useState({ startd: false, pc: 0 });
   const [msg, setMsg] = useState(null)
-  const [error,setError] = useState("")
+  const [error, setError] = useState("")
 
   const navigate = useNavigate();
+
+  //upload promises
+
+  // const uploadfileProgress = (file,subfolder,imageName,setProgress) => {
+  //   const promises = new Promise((resolve,reject)=>{
+  //     const storageRef = ref(storage,subfolder + "/"+imageName)
+  //     const upload = uploadBytesResumable(storageRef,file)
+  //     upload.on("state_changed",(snapshot)=>{
+  //         const progress = (snapshot.bytesTransferred/snapshot.totalBytes)*100
+  //         setProgress(progress)
+  //     },(error)=>{
+  //         reject(error)
+  //     },async ()=>{
+  //         try{
+  //             const url = await getDownloadURL(storageRef,)
+  //             resolve(url)
+  //         }catch(error){
+  //             reject(error)
+  //         }
+  //     })
+  //   })
+  //   return promises
+  // }
+
+  const upload = () => {
+    const message2 = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD…GFGMVBb3AgEA5EVpbigFGZsjxQw1u25WCQad/irQVuM//2Q==';
+    const storageRef = ref(storage, "Images")
+    uploadString(storageRef, message2, 'base64').then((snapshot) => {
+      console.log('Uploaded a base64 string!',snapshot);
+    });
+  }
 
   //permission request
   async function requestPermission() {
@@ -183,6 +216,10 @@ export const FierbaseProvidr = (props) => {
         mediaBlobUrl,
         requestPermission,
         error,
+        file,
+        setfile,
+        // uploadfileProgress,
+        upload,
       }}
     >
       {props.children}

@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { PiImages } from "react-icons/pi";
 import { useFierbase } from "../../../context/fierbasecontext";
+import Progress from "../../../Components/Progress";
+import LinearProgressbar from "../../../Components/LinearProgress";
 
 const EventCard = ({items}) => {
 
@@ -18,6 +20,7 @@ const EventCard = ({items}) => {
         <div className="eventpart2">
           <span >{items?.date},{items?.time}</span>
           <p>Photos waiting to be upload</p>
+          <LinearProgressbar/>
         </div>
         <dvi className="eventpart3">
           <PiImages className="eventicon" />

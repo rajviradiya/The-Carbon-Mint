@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import EventDetailsNav from './components/EventDetailsNav'
 import "./EventDetails.css"
 import Progress from '../../Components/Progress'
@@ -14,7 +14,7 @@ const Index = () => {
 
   const params = useParams()
   const firebase = useFierbase()
-  
+  const fileref = useRef()  
   
   useEffect(() => {
     if (firebase.error)
@@ -35,6 +35,13 @@ const Index = () => {
   const data2 = firebase?.userdata?.event.filter((items) => items.id === params.id) 
   console.log(params, "params")
   
+
+  const handlefile = (e)=>{
+    firebase.setfile([...e.target.files])
+  }
+
+  console.log(firebase.file,"filesssssss")
+  
   return (
     <section>
       <section>
@@ -49,6 +56,9 @@ const Index = () => {
       <section>
         <p>Note</p>
         <span>{data2[0].description}</span>
+      </section>
+      <section>
+        <input type='file' inputref={fileref} multiple onChange={handlefile}/>
       </section>
     </section>
   )

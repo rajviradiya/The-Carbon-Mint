@@ -7,7 +7,7 @@ const InternetStatus = (props) => {
     useEffect(() => {
         setOnline(navigator.onLine)
     }, [])
-
+    
     const handereloade = ()=>{
         window.location.reload();
     }

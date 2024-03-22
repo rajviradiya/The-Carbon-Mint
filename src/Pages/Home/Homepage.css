@@ -224,7 +224,7 @@
 
 .eventpart2 {
   width: 55%;
-  padding: 3vw 0 0 0 !important;
+  padding: 1vw 0 0 0 !important;
 }
 
 .eventpart2 span {
@@ -237,6 +237,7 @@
   font-size: clamp(2vw, 3vw, 4vw);
   font-weight: 400;
   color: #585758;
+  margin: 1vw;
 }
 
 .eventpart3 {
