@@ -11,9 +11,9 @@ const LinearProgressbar = () => {
 
   const fierbase = useFierbase()
 
-  useEffect(() => {
-    fierbase.upload()
-  }, [])
+  // useEffect(() => {
+  //   fierbase.upload()
+  // }, [])
 
   // useEffect(() => {
   //   const uploadImage = async () => {

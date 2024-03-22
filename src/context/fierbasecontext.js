@@ -29,7 +29,6 @@ export const FierbaseProvidr = (props) => {
   const [imageurl, setImageUrl] = useState([]);
   const [file, setfile] = useState()
 
-
   const [progress, setProgress] = useState({ startd: false, pc: 0 });
   const [msg, setMsg] = useState(null)
   const [error, setError] = useState("")
@@ -59,15 +58,15 @@ export const FierbaseProvidr = (props) => {
   //   return promises
   // }
 
-  const upload = () => {
-    const message2 = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD…GFGMVBb3AgEA5EVpbigFGZsjxQw1u25WCQad/irQVuM//2Q==';
-    const storageRef = ref(storage, "Images")
-    uploadString(storageRef, message2, 'base64').then((snapshot) => {
-      console.log('Uploaded a base64 string!',snapshot);
-    });
-  }
+  // const upload = () => {
+  //   const message2 = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD…GFGMVBb3AgEA5EVpbigFGZsjxQw1u25WCQad/irQVuM//2Q==';
+  //   const storageRef = ref(storage, "Images")
+  //   uploadString(storageRef, message2, 'base64').then((snapshot) => {
+  //     console.log('Uploaded a base64 string!',snapshot);
+  //   });
+  // }
 
-  //permission request
+  //permission request`
   async function requestPermission() {
     const permisssion = await Notification.requestPermission()
     if (permisssion === "granted") {
@@ -219,7 +218,7 @@ export const FierbaseProvidr = (props) => {
         file,
         setfile,
         // uploadfileProgress,
-        upload,
+        // upload,
       }}
     >
       {props.children}

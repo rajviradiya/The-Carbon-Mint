@@ -10,13 +10,13 @@ import InternetStatus from "./Utils/InternetStatus";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <InternetStatus>
-    <BrowserRouter>
-      <FierbaseProvidr>
-        <App />
-      </FierbaseProvidr>
-    </BrowserRouter>
-  </InternetStatus>
+    <InternetStatus>
+      <BrowserRouter>
+        <FierbaseProvidr>
+          <App />
+        </FierbaseProvidr>
+      </BrowserRouter>
+    </InternetStatus>
 );
 
 // If you want to start measuring performance in your app, pass a function

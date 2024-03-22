@@ -7,6 +7,10 @@ import WaitingPhotoComp from '../../Components/WaitingPhotoComp';
 import { useParams } from 'react-router-dom';
 import { useFierbase } from '../../context/fierbasecontext';
 import Pictures from './components/Pictures';
+import { ref } from 'firebase/database';
+import { storage } from '../../Config/fierbase';
+import { uploadBytes } from 'firebase/storage';
+import { v4 as uuid } from 'uuid';
 
 const Index = () => {
 
@@ -40,8 +44,15 @@ const Index = () => {
     firebase.setfile([...e.target.files])
   }
 
+  console.log(firebase.file,"file is this ")
+  const handleClick = ()=>{
+    const filePath = `files/${uuid()}`;
+    const fileRef  = ref(storage,filePath);
+    const file = firebase.file;
+    uploadBytes(fileRef,file)
+  }
   console.log(firebase.file,"filesssssss")
-  
+                
   return (
     <section>
       <section>
@@ -59,6 +70,7 @@ const Index = () => {
       </section>
       <section>
         <input type='file' inputref={fileref} multiple onChange={handlefile}/>
+        <button onClick={handleClick}>Submitt</button>
       </section>
     </section>
   )
