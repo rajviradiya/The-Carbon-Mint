@@ -1,0 +1,76 @@
+  .Eventcloseeventnav {
+    display: flex;
+  }
+
+  .Eventcloseicondiv {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .Eventcloseicondiv button {
+    background-color: transparent;
+    border: 0px;
+  }
+
+  .Eventcloseicondiv svg {
+    font-size: 6vw;
+    cursor: pointer;
+  }
+
+  .Eventclosenavtext {
+    width: 80%;
+    margin-top: 2vh;
+  }
+
+  .Eventclosenavtext span {
+    font-size: 5vw;
+    font-weight: 700;
+  }
+
+  .Eventclosenavtext p {
+    font-size: 3vw;
+    font-weight: 500;
+    color: #79787A;
+  }
+
+  .processdiv {
+    width: 6vw;
+    height: 6vw;
+    position: absolute;
+    top: 25%;
+    right: 6%;
+    transform: translate(-50%, -50%);
+    background-color: #F9F9F9;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px !important;
+  }
+
+  /* Camera */
+
+  .cameracomp {
+    margin-top: 4vw;
+  }
+
+  .cameratext p {
+    font-size: 5vw;
+    font-weight: 600;
+    margin: 0 0 2vw 0;
+    color: #585758;
+  }
+
+  .cameraimagess {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px !important;
+  }
+
+.note{
+  margin-top: 4vw;
+}

@@ -1,0 +1,74 @@
+.navicon {
+  height: 20vw;
+}
+
+.arrowicon {
+  color: #363537;
+  font-size: 10vw;
+}
+
+.HeroIcon {
+  margin: 14vw 0 0 0;
+  display: flex;
+  justify-content: center;
+}
+
+.HeroIcon img {
+  width: 40vw;
+}
+
+.otpcomp {
+  margin-top: 25vw;
+}
+
+.otpcomphead span {
+  color: #363537;
+  font-size: 8vw;
+  font-weight: 700;
+}
+
+.otpcomphead p {
+  color: #79787a;
+  font-size: 2vh;
+  margin: 0px;
+}
+
+.otpinput {
+  width: 100% !important;
+  padding: 0 2vw 0 2vw !important;
+  margin: 10vw 0 0 0 !important;
+}
+
+.otpinput input {
+  padding: 3vw;
+}
+
+.css-tccdxk {
+  gap: 1.5vw !important;
+}
+
+.MuiOtpInput-Box {
+  margin: 0px !important;
+}
+
+.otpcompbutton {
+  margin: 40vw 0 0 0 !important;
+}
+
+.resendopt {
+  font-size: 5vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 3vw;
+}
+
+.resendopt>span {
+  font-weight: 400;
+}
+
+.resendopt span button {
+  background-color: transparent;
+  border: none;
+  font-weight: 600;
+  color: rgb(249, 126, 33);
+}
