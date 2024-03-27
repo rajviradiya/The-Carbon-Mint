@@ -10,17 +10,13 @@ const MAX_RECORDING_TIME = 300;
 
 const AudioRecord = () => {
   const [timer, setTimer] = useState(0);
-  const [recording, setRecording] = useState(false);
   const [state, setState] = useState(1)
 
   const fierbase = useFierbase()
 
-  console.log(fierbase.mediaBlobUrl, fierbase.status,"<== : audio")
-
-
   useEffect(() => {
     let interval;
-    if (recording) {
+    if (fierbase.recording) {
       interval = setInterval(() => {
         setTimer(prevTimer => prevTimer + 1);
       }, 1000);
@@ -29,7 +25,7 @@ const AudioRecord = () => {
     }
 
     return () => clearInterval(interval);
-  }, [recording]);
+  }, [fierbase.recording]);
 
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60).toString().padStart(2, '0');
@@ -39,12 +35,12 @@ const AudioRecord = () => {
 
   const startRecording = () => {
     fierbase.startRecording()
-    setRecording(true);
+    fierbase.setRecording(true);
     setState(2)
   };
 
   const stopRecording = () => {
-    setRecording(false);
+    fierbase.setRecording(false);
     setTimer(0); 
     fierbase.stopRecording()
     setState(3)
@@ -75,13 +71,13 @@ const AudioRecord = () => {
           {/* Part 2 */}
           <div className="audiostart2cont">
             <div className="audiostart2div1">
-              <p className="audiostart2ico1">{recording ? `${formatTime(timer)}` : 'No'} </p>
+              <p className="audiostart2ico1">{fierbase.recording ? `${formatTime(timer)}` : 'No'} </p>
               <p>
                 <MdMicNone className="audiostart2mic" />
               </p>
             </div>
             <div style={{ width: '100%', backgroundColor: '#e0e0e0', height: '2px', }}>
-              <div style={{ width: `${recording ? (timer * 100) / MAX_RECORDING_TIME : 0}%`, backgroundColor: '#2B9348', height: '100%' }} />
+              <div style={{ width: `${fierbase.recording ? (timer * 100) / MAX_RECORDING_TIME : 0}%`, backgroundColor: '#2B9348', height: '100%' }} />
             </div>
             <div>
               <button className="audiostart2button" onClick={stopRecording}>
@@ -89,7 +85,7 @@ const AudioRecord = () => {
               </button>
             </div>
           </div>
-        </>) : (<>
+        </>) : (<>  
           {/* part 1 */}
           <div className="audiostartcont">
             <button onClick={startRecording} className="audiostartbtn">

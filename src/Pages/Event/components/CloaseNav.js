@@ -1,16 +1,23 @@
 import React from "react";
-import { Container,  } from "react-bootstrap";
+import { Container, } from "react-bootstrap";
 import { CgClose } from "react-icons/cg";
 import { useNavigate } from "react-router";
+import { useFierbase } from "../../../context/fierbasecontext";
 
 
 const CloaseNav = () => {
   const navigate = useNavigate()
+  const fierbase = useFierbase()
 
   return (
     <Container className="closeeventnav">
       <div className="closeicondiv">
-        <button onClick={() => navigate("/home")}>
+        <button onClick={() => {
+          navigate("/home")
+          fierbase.setImageUrl([])
+          fierbase.setRecording(false)
+          fierbase.setUploadProgress([])
+        }}>
           <CgClose />
         </button>
       </div>

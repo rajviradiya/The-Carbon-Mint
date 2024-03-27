@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { MdOutlineUploadFile } from "react-icons/md";
 import Container from '@mui/material/Container';
-
 
 function LinearProgressWithLabel(props) {
   return (
@@ -42,7 +41,7 @@ LinearProgressWithLabel.propTypes = {
 const Progress = () => {
   const [progress, setProgress] = React.useState(10);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prevProgress) => (prevProgress >= 100 ? 10 : prevProgress + 10));
     }, 800);

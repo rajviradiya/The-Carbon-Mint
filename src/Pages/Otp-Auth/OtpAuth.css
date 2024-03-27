@@ -1,8 +1,4 @@
-.otpmainindex {
-  background-color: #f9f9f9;
-}
-
-.navicon{
+.navicon {
   height: 20vw;
 }
 
@@ -22,7 +18,7 @@
 }
 
 .otpcomp {
-  margin-top: 25vw ;
+  margin-top: 25vw;
 }
 
 .otpcomphead span {
@@ -34,17 +30,17 @@
 .otpcomphead p {
   color: #79787a;
   font-size: 2vh;
-  margin: 0px ;
+  margin: 0px;
 }
 
-.otpinput  {
+.otpinput {
   width: 100% !important;
   padding: 0 2vw 0 2vw !important;
-  margin: 10vw 0 0 0!important;
+  margin: 10vw 0 0 0 !important;
 }
 
 .otpinput input {
-  padding: 3vw ;
+  padding: 3vw;
 }
 
 .css-tccdxk {
@@ -55,21 +51,24 @@
   margin: 0px !important;
 }
 
-.otpcompbutton{
+.otpcompbutton {
   margin: 40vw 0 0 0 !important;
 }
 
-.resendopt{
+.resendopt {
   font-size: 5vw;
   display: flex;
   justify-content: center;
   margin-top: 3vw;
 }
-.resendopt > span{
+
+.resendopt>span {
   font-weight: 400;
 }
 
-.resendopt span span{
+.resendopt span button {
+  background-color: transparent;
+  border: none;
   font-weight: 600;
-color: rgb(249, 126, 33);
+  color: rgb(249, 126, 33);
 }

@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { auth, googleProvider, realDatabase } from "../Config/fierbase";
+import { auth, googleProvider, realDatabase, messaging, storage, storageref } from "../Config/fierbase";
 import {
   RecaptchaVerifier,
   onAuthStateChanged,
@@ -8,29 +8,96 @@ import {
   signOut,
 } from "firebase/auth";
 
-import { child, get, onValue, push, ref, set } from "firebase/database";
-import { useNavigate } from "react-router";
+import { onValue, ref, set } from "firebase/database";
 import { useReactMediaRecorder } from "react-media-recorder";
+import { getToken } from "firebase/messaging";
+import { listAll, getDownloadURL } from "firebase/storage";
 
 export const FierbaseContext = createContext(null);
 export const useFierbase = () => useContext(FierbaseContext);
 
 export const FierbaseProvidr = (props) => {
   const [authuserrrr, setauthuserrrr] = useState("");
+  const [errorMessageauth, setErrorMessageauth] = useState(null);
   const [phoneloginuser, setPhoneLoginUser] = useState("");
   const [country, setCountry] = useState("in");
   const [dialcode, setDialcode] = useState("+91");
+  const [ponewithdial, setPhonewithdial] = useState("");
   const [searchcont, setSearchcont] = useState("");
 
   const [userdata, setUserdata] = useState({});
   const [userId, setUserId] = useState("");
   const [imageurl, setImageUrl] = useState([]);
+  const [recording, setRecording] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState([]);
+  const [downloadURL, setdownloadURL] = useState([])
 
+  //snackbar event
+  const [open, setOpen] = useState(false);
+  const [error, setError] = useState("")
 
-  const [progress,setProgress] = useState({startd:false,pc:0});
-  const [msg,setMsg] = useState(null)
-  
-  const navigate = useNavigate();
+  //Progress home Event
+  // const value = Object.values(uploadProgress)
+  // const sum = value?.reduce((acc, curr) => acc + curr, 0)
+  // const percentages = value?.map(curr => (curr / sum) * 100);
+  // const percentagessum = percentages?.reduce((acc, curr) => acc + curr, 0)
+  const percentagessum = 90 //extre delete it 
+
+  useEffect(() => {
+    const total = uploadProgress.length * 100
+    const totalSum = uploadProgress.reduce((sum, obj) => sum + obj.value, 0);
+    const percentage = total !== 0 ? (totalSum / total) * 100 : 0;
+    console.log(uploadProgress, total, totalSum, percentage, "value")
+  }, [uploadProgress])
+
+  // console.log(uploadProgress,value,sum, percentages, percentagessum, "value")
+  useEffect(() => {
+    downloadUrl()
+  }, [])
+
+  //DOwnload Photo to storage
+  const downloadUrl = () => {
+    console.log("download")
+    const listRef = storageref
+    listAll(listRef)
+      .then((res) => {
+        res.prefixes.forEach((folderRef) => {
+          console.log(folderRef, "ref items")
+
+          listAll(folderRef)
+            .then((folderRes) => {
+              folderRes.items.forEach((itemRef) => {
+                // Get download URL for each item (assuming item is an image)
+                itemRef.getDownloadURL()
+                  .then((url) => {
+                    console.log("Image URL:", url);
+                    // Here you can perform further actions with the image URLs
+                  })
+                  .catch((error) => {
+                    console.error("Error getting download URL for item:", error);
+                  });
+              });
+            })
+        })
+      })
+      .catch((error) => {
+        console.error("Error listing items in folder:", error);
+      });
+  }
+
+  //permission request`
+  async function requestPermission() {
+    const permisssion = await Notification.requestPermission()
+    if (permisssion === "granted") {
+      //Generate Tocken
+      const tocken = await getToken(messaging, {
+        vapidKey: "BBXIMssjEa4pDGe5lWmY6uEbr5WFCZz3-NI_p26nzq2j2yZ_I6WoiCOxlLk_i9UCiCjdjycGlSG0bQwl07IJTXA"
+      })
+      console.log("tocken", tocken, "tockien is")
+    } else if (permisssion === "denied") {
+      alert("you Denied withnotificatin")
+    }
+  }
 
   //media recorder
   const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
@@ -65,7 +132,7 @@ export const FierbaseProvidr = (props) => {
         const uid = user.uid;
         //use id for filter user
         setUserId(uid);
-        
+
         //read data and if data not exists create data
         // get(child(ref(realDatabase), "/users/" + uid))
         //   .then((snapshot) => {
@@ -104,29 +171,17 @@ export const FierbaseProvidr = (props) => {
     const recaptcha = new RecaptchaVerifier(auth, "sign-in-button", {
       size: "invisible",
     });
-    signInWithPhoneNumber(auth, phone, recaptcha)
-      .then((res) => {
-        console.log(res, "this is res");
-        setPhoneLoginUser(res);
-        navigate("/auth");
-      })
-      .catch((err) => {
-        console.log(err, "otp error");
-      });
+    return signInWithPhoneNumber(auth, phone, recaptcha)
   };
+
+  //resend otp
+  const resendOTP = (phone) => {
+    return signInWithPhoneNumber(auth, phone)
+  }
 
   //veryfy OTP
   const veryfyotp = (otp) => {
-    phoneloginuser
-      .confirm(otp)
-      .then((result) => {
-        console.log(result, "respo ------------------>>>>>>");
-        navigate("/home");
-      })
-      .catch((error) => {
-        console.log(error);
-        navigate("/");
-      });
+    return phoneloginuser.confirm(otp)
   };
 
   //signout
@@ -138,6 +193,11 @@ export const FierbaseProvidr = (props) => {
   return (
     <FierbaseContext.Provider
       value={{
+        downloadURL,
+        setdownloadURL,
+        downloadUrl,
+        uploadProgress,
+        setUploadProgress,
         phoneloginuser,
         setPhoneLoginUser,
         authuserrrr,
@@ -148,12 +208,19 @@ export const FierbaseProvidr = (props) => {
         setSearchcont,
         dialcode,
         setDialcode,
-        userdata,
+        ponewithdial,
+        setPhonewithdial,
         userId,
         setUserId,
         imageurl,
         setImageUrl,
+        errorMessageauth,
+        setErrorMessageauth,
+        userdata,
         setUserdata,
+        open,
+        setOpen,
+        resendOTP,
         readdata,
         phonelogin,
         veryfyotp,
@@ -162,9 +229,14 @@ export const FierbaseProvidr = (props) => {
         authuser,
         logoutuser,
         status,
+        recording,
+        setRecording,
         startRecording,
         stopRecording,
         mediaBlobUrl,
+        requestPermission,
+        error,
+        percentagessum,
       }}
     >
       {props.children}

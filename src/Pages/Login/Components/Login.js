@@ -19,12 +19,11 @@ import Box from '@mui/material/Box';
 
 const Login = () => {
   const [phone, setPhone] = useState("");
-  const [ponewithdial, setPhonewithdial] = useState("");
 
   const navigate = useNavigate();
-  const fierbase = useFierbase();
+  const firebase = useFierbase();
 
-  console.log(ponewithdial, "Phone number is this");
+  console.log(firebase.ponewithdial, "Phone number is this");
 
   //Phone Validation Api
   const phoneUtil = PhoneNumberUtil.getInstance();
@@ -37,7 +36,7 @@ const Login = () => {
       return false;
     }
   };
-  const isValid = isPhoneValid(ponewithdial);
+  const isValid = isPhoneValid(firebase.ponewithdial);
 
   console.log(isValid, "validation");
   //phone handle
@@ -45,16 +44,24 @@ const Login = () => {
   const handlephone = (e) => {
     setPhone(e.target.value);
     const stringphone = e.target.value;
-    setPhonewithdial(String(fierbase.dialcode + e.target.value));
+    firebase.setPhonewithdial(String(firebase.dialcode + e.target.value));
   };
   //Phone Login
   const handlesubmmitotp = () => {
-    fierbase.phonelogin(ponewithdial);
+    firebase.phonelogin(firebase.ponewithdial)
+      .then((res) => {
+        console.log(res, "this is res");
+        firebase.setPhoneLoginUser(res);
+        navigate("/auth");
+      })
+      .catch((err) => {
+        console.log(err, "otp error");
+      });
   };
 
   //Google Login
   const handleGoogleLogin = () => {
-    fierbase
+    firebase
       .signupwithgoogle()
       .then(() => {
         navigate("/home");
@@ -78,8 +85,8 @@ const Login = () => {
           }}
           InputProps={{
             endAdornment: (
-              <InputAdornment sx={{color:"#363537"}} position="center">
-                {fierbase.dialcode}
+              <InputAdornment sx={{ color: "#363537" }} position="center">
+                {firebase.dialcode}
                 <KeyboardArrowDownIcon />
               </InputAdornment>
             ),

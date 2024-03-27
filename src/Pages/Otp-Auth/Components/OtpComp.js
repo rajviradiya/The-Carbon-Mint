@@ -12,25 +12,44 @@ import OtpveryfyModal from "./OtpveryfyModal";
 const OtpComp = () => {
   const [otp, setOtp] = useState("");
 
-  const [openM2, setOpenM2] = useState(false);  
-  const [openM1, setOpenM1] = useState(false);  
+  const [openM2, setOpenM2] = useState(false);
+  const [openM1, setOpenM1] = useState(false);
 
-  useEffect(()=>{
-    handleOpen1()
-  },[])
+  // useEffect(() => {
+  //   handleOpen1()
+  // }, [])
 
   const fierbase = useFierbase();
-  console.log(fierbase.phoneloginuser,"fierbase phoneloginuser")
+  console.log(fierbase.errorMessage,"errror")
+  const navigate = useNavigate();
+
+  console.log(fierbase.phoneloginuser.onConfirmation, "fierbase phoneloginuser")
 
   const handleOpen = () => setOpenM2(true);
   const handleClose = () => setOpenM2(false);
 
-  
+
   const handleOpen1 = () => setOpenM1(true);
   const handleClose1 = () => setOpenM1(false);
 
   const handleChange = (newValue) => {
     setOtp(newValue);
+  };
+
+  //verify otp
+  const varifyOtp = () => {
+    if(fierbase.phoneloginuser){
+      fierbase.veryfyotp(otp).then((result) => {
+        navigate("/home");
+      })
+        .catch((error) => {
+          fierbase.setErrorMessageauth("Wrong OTP.");
+          navigate("/");
+        })
+    }else{
+      fierbase.setErrorMessageauth("Unregistered mobile number . Please enter registed mobile number and try again.");
+      navigate("/");
+    }
   };
 
   return (
@@ -49,15 +68,15 @@ const OtpComp = () => {
         />
       </div>
       <div className="otpcompbutton">
-        <Buttoncomp valuebutton={"CONTINUE"} handleClick={handleOpen} />
+        <Buttoncomp valuebutton={"CONTINUE"} handleClick={varifyOtp} />
       </div>
       <div className="resendopt">
         <span>
-          Resend <span>OTP</span>
+          Resend <button onClick={() => handleOpen()} >OTP</button>
         </span>
       </div>
-      <OtpveryfyModal openM2={openM2} setOpenM2={setOpenM2} handleClose={handleClose} otp={otp}/>
-      <AllowPermissionModal  openM1={openM1} setOpenM1={setOpenM1} handleClose1={handleClose1} otp={otp}/>
+      <OtpveryfyModal openM2={openM2} setOpenM2={setOpenM2} handleClose={handleClose} otp={otp} />
+      <AllowPermissionModal openM1={openM1} setOpenM1={setOpenM1} handleClose1={handleClose1} otp={otp} />
     </div>
   );
 };

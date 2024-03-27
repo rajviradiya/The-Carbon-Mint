@@ -13,6 +13,8 @@ import EventDetails from "./Pages/EventDetails/index"
 import CropPage from "./Pages/Croppage/index";
 import Showcam from "./Pages/Event/components/CameraRedirect"
 import SpeedDialNav from "./Components/SpeedDialNav";
+import ProtectedRoutes from "./Utils/ProtectedRoutes";
+import InternetStatus from "./Utils/InternetStatus";
 
 const App = () => {
 
@@ -26,6 +28,10 @@ const App = () => {
     fierbase.readdata("/users/");
   }, [fierbase.authuserrrr]);
 
+  useEffect(() => {
+    fierbase.requestPermission()
+  }, []);
+
   return (
     <>
       <Routes>
@@ -36,28 +42,61 @@ const App = () => {
           path="/home"
           element={
             <>
-              <HomePage />
-              <Navbar />
+              <InternetStatus>
+                <ProtectedRoutes>
+                  <HomePage />
+                  <Navbar />
+                </ProtectedRoutes>
+              </InternetStatus>
             </>
           }
         />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/event" element={<Event />} />
-        <Route path="/cam" element={<Showcam />} />
+        <Route path="/profile" element={
+          <>
+            <ProtectedRoutes>
+              <ProfilePage />
+            </ProtectedRoutes>
+          </>
+        } />
+        <Route path="/event" element={
+          <>
+            <ProtectedRoutes>
+              <Event />
+            </ProtectedRoutes>
+          </>
+        } />
+        <Route path="/cam" element={
+          <>
+            <ProtectedRoutes>
+              <Showcam />
+            </ProtectedRoutes>
+          </>
+        } />
         <Route
           path="/farm"
           element={
             <>
-              <SpeedDialNav elementpass={<FarmerPage />} />
+              <ProtectedRoutes>
+                <SpeedDialNav elementpass={<FarmerPage />} />
+              </ProtectedRoutes>
             </>
           }
         />
         <Route path="/crop/:id" element={
           <>
-            <SpeedDialNav elementpass={<CropPage />} />
+            <ProtectedRoutes>
+              <SpeedDialNav elementpass={<CropPage />} />
+            </ProtectedRoutes>
           </>}
         />
-        <Route path="/eventdetails/:id" element={<EventDetails/>}/>
+        <Route path="/eventdetails/:id" element={
+          <>
+            <ProtectedRoutes>
+              <EventDetails />
+            </ProtectedRoutes>
+          </>
+        } />
+
       </Routes>
     </>
   );

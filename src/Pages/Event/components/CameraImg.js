@@ -5,18 +5,18 @@ import { useFierbase } from "../../../context/fierbasecontext";
 const CameraImg = ({ image, index }) => {
   
   const fierbase = useFierbase()
-  console.log(fierbase.imageurl, "is index")
+  console.log(image, "is index")
 
-
+//close Image
   const handleclose = () => {
       fierbase.setImageUrl(prevUrl => prevUrl.filter((k,i)=> i !== index))
   }
 
   return (
-    <section class="image-container mb-2">
-      <img src={image} />
+    <div class="image-container mb-2">
+      <img src={URL.createObjectURL(image)}/>
       <button class="buttoncloseee" onClick={() => handleclose()}><CgClose /></button>
-    </section>
+    </div>
   );
 };
 

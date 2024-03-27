@@ -12,8 +12,19 @@ const CameraRedirect = () => {
     const navigate = useNavigate();
 
     const capturePhoto = useCallback(async () => {
-        const imageSrc = webcamRef.current.getScreenshot()
-        fierbase.setImageUrl(prevUrls => [...prevUrls, imageSrc])
+        //blob obj
+        const imageSrc = webcamRef.current.getScreenshot();
+        const base64 = await imageSrc?.split(',')[1]; 
+        const bytes = atob(base64);
+        const byteNumbers = new Array(bytes.length);
+        for (let i = 0; i < bytes.length; i++) {
+            byteNumbers[i] = bytes.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'image/jpeg' });
+
+        console.log(blob, "imageeeeeee")
+        fierbase.setImageUrl(prevUrls => [...prevUrls, blob])
         navigate("/event")
     }, [webcamRef])
 

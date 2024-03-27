@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useFierbase } from "../../../context/fierbasecontext";
+import { useNavigate } from "react-router";
 
 const style = {
   position: "absolute",
@@ -17,15 +18,22 @@ const style = {
   width: "80vw",
 };
 
-const OtpveryfyModal = ({ openM2, setOpenM2, handleClose, otp }) => {
-  const fierbase = useFierbase();
+const OtpveryfyModal = ({ openM2, setOpenM2, handleClose }) => {
+  const firebase = useFierbase();
+  const navigate = useNavigate()
 
-  const varifyOtp = () => {
-    fierbase.veryfyotp(otp);
+  const handleResendOtp = ()=>{
+    firebase.resendOTP(firebase.ponewithdial)
+    .then((res) => {
+      console.log(res, "this is res");
+      firebase.setPhoneLoginUser(res);
+    })
+    .catch((err) => {
+      console.log(err, "otp error");
+    });
     handleClose()
-    console.log("hello");
-  };
-
+  }
+  
   return (
     <Modal
       open={openM2}
@@ -53,7 +61,7 @@ const OtpveryfyModal = ({ openM2, setOpenM2, handleClose, otp }) => {
             ml: "50vw",
             p: 2,
           }}
-          onClick={() => varifyOtp()}
+          onClick={() => handleResendOtp()}
         >
           Gotit
         </Button>

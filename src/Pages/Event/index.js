@@ -1,63 +1,92 @@
-import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import { Container } from "react-bootstrap";
 import "./Event.css";
 import CloaseNav from "./components/CloaseNav";
 import Camera from "./components/Camera";
 import AudioRecord from "./components/AudioRecord";
 import ButtonComp from "../../Components/ButtonComp";
 import { useFierbase } from "../../context/fierbasecontext";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { useNavigate } from "react-router-dom";
+import { getDownloadURL, ref, uploadBytesResumable, uploadString } from 'firebase/storage';
+import { storage } from "../../Config/fierbase";
 
 const Index = () => {
   const [description, setDescription] = useState("")
-  const fierbase = useFierbase()
+  const firebase = useFierbase()
   const currentDate = new Date();
   const date = `${currentDate.getDate()}/${currentDate.getMonth()}/${currentDate.getFullYear()}`
   const formattedTime = currentDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
   const navigate = useNavigate()
 
-  console.log(fierbase?.userdata?.event, "event data")
-
   const handlesubmmit = () => {
-    
+    let id = uuid().slice(0, 3)
     const newObj = {
-      id: uuidv4().slice(0, 3),
+      id: id,
       date: date,
       time: formattedTime,
       description: description,
     }
 
-    if (fierbase.imageurl) {
-      newObj.eventimg = fierbase.imageurl
+    if (firebase.mediaBlobUrl) {
+      console.log("hiiiii")
+      newObj.audio = firebase.mediaBlobUrl
     }
 
-    if (fierbase.mediaBlobUrl) {
-      newObj.audio = fierbase.mediaBlobUrl
-    }
+    firebase.imageurl.forEach((imageUrl, index) => {
+      const uploadTask = uploadBytesResumable(ref(storage, `uploads/${id}/${id}_${index}`), imageUrl);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
 
-    const updatedEvents = [...(fierbase?.userdata?.event || []), newObj];
-    fierbase.Writedata("/users/" + fierbase.userId + "/event/", updatedEvents);
+          firebase.setUploadProgress((prevProgress) => {
+            const updatedProgress = [...prevProgress];
+            updatedProgress[index] = { [`${id}_${index}`]: progress };
+            return updatedProgress;
+          });
+          //   fierbase.setUploadProgress((prevProgress) => ({
+          //     ...prevProgress,
+          //     [`${id}_${index}`]: progress,
+          // }));
+        },
+        (error) => {
+          console.error("Error uploading file: ", error);
+        },
+        () => {
+          // Upload completed successfully
+        }
+      );
+    })
+
+    //store event data
+    const updatedEvents = [...(firebase?.userdata?.event || []), newObj];
+    firebase.Writedata("/users/" + firebase.userId + "/event/", updatedEvents);
     navigate("/home")
-    fierbase.setImageUrl([])
-    
+    firebase.setOpen(true);//For snackbar home page
+    firebase.setImageUrl([])
+    firebase.setRecording(false)
+    firebase.setUploadProgress([])
     return updatedEvents;
   };
 
   // For navbar
-  const handleClosenav = ()=>{
+  const handleClosenav = () => {
     navigate("/home")
-    fierbase.setImageUrl([])
+    firebase.setImageUrl([])
+    firebase.setRecording(false)
   }
 
   const customStyle = {
     backgroundColor: 'transperent'
   };
-  
+
   return (
     <section className="EventPagemain">
       <section className="closenavmain">
-        <CloaseNav handleClosenav={handleClosenav} customStyle={customStyle}/>
+        <CloaseNav handleClosenav={handleClosenav} customStyle={customStyle} />
       </section>
       <section className="Cameramain">
         <Camera />
