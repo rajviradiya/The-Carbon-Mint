@@ -10,17 +10,19 @@ const EventCard = ({items}) => {
   const fierbase = useFierbase()
 
   console.log(fierbase.percentagessum,"sum of all")
+  console.log(items,"sum of all")
+
   return (
     <Container className="eventcont mt-2">
       <div className="Eventcard">
         <div className="eventpart1">
-          {/* <img src={items?.eventimg[0]} alt="Event"/> */}
+          <img src={items?.eventimg[0]} alt="Event"/>
         </div>
         <div className="eventpart2">
           <span >{items?.date},{items?.time}</span>
           <p>Photos waiting to be upload</p>
           <LinearProgressbar process={fierbase.percentagessum}/>
-        </div>
+        </div>  
         <dvi className="eventpart3">
           <PiImages className="eventicon" />
         </dvi>

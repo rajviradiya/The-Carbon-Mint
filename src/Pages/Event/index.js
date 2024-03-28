@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import "./Event.css";
 import CloaseNav from "./components/CloaseNav";
@@ -14,78 +14,81 @@ import { storage } from "../../Config/fierbase";
 const Index = () => {
   const [description, setDescription] = useState("")
 
+  let id = uuid().slice(0, 3)
   const firebase = useFierbase()
   const currentDate = new Date();
   const date = `${currentDate.getDate()}/${currentDate.getMonth()}/${currentDate.getFullYear()}`
   const formattedTime = currentDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
   const navigate = useNavigate()
 
-  console.log(firebase.downloadURL, "download Url2")
-  const handlesubmmit = () => {
-    let id = uuid().slice(0, 3)
 
-
-    firebase.imageurl.forEach((imageUrl, index) => {
+  const handlesubmmit = async () => {
+    let urls = []
+    //Upload Image 
+    firebase.imageurl.forEach(async (imageUrl, index) => {
       const uploadTask = uploadBytesResumable(ref(storage, `uploads/${id}/${id}_${index}`), imageUrl);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
 
-          firebase.setUploadProgress((prevProgress) => {
-            const updatedProgress = [...prevProgress];
-            updatedProgress[index] = { [`${id}_${index}`]: progress };
-            return updatedProgress;
-          });
-          //   fierbase.setUploadProgress((prevProgress) => ({
-          //     ...prevProgress,
-          //     [`${id}_${index}`]: progress,
-          // }));
-        },
-        (error) => {
-          console.error("Error uploading file: ", error);
-        },
-        () => {
-          // Upload completed successfully
-          const ImageRefforUrl = ref(storage, `uploads/${id}/${id}_${index}`)
-          getDownloadURL(ImageRefforUrl)
-            .then((Url) => {
-              firebase.setdownloadURL(preUrl => [...preUrl, Url])
-              console.log(Url, "Url")
-            })
-            .catch(error => {
-              console.error("Error getting download URL: ", error);
+      let data = new Promise(function (resolve, reject) {
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+
+            firebase.setUploadProgress((prevProgress) => {
+              const updatedProgress = [...prevProgress];
+              updatedProgress[index] = { id:`${id}_${index}`, process: progress };
+              return updatedProgress;
             });
+            //   fierbase.setUploadProgress((prevProgress) => ({
+            //     ...prevProgress,
+            //     [`${id}_${index}`]: progress,
+            // }));
+          },
+          (error) => {
+            console.error("Error uploading file: ", error);
+            reject(error);
+          },
+          async function Upload() {
+            // Upload completed successfully
+            const ImageRefforUrl = ref(storage, `uploads/${id}/${id}_${index}`)
+            try {
+              const Url = await getDownloadURL(ImageRefforUrl)
+              urls = [...urls, Url]
+              resolve(urls);
+            } catch (error) {
+              console.error("Error getting download URL: ", error);
+              reject(error);
+            }
+          });
+      })
+      //Get Respnse
+      data.then((res) => {
+        console.log(res, "is this res")
+        //store event data
+        const newObj = {
+          id: id,
+          date: date,
+          time: formattedTime,
+          description: description,
         }
-      );
-    })
+        if (urls) {
+          newObj.eventimg = urls
+        }
+        if (firebase?.mediaBlobUrl) {
+          newObj.audio = firebase.mediaBlobUrl
+        }
+        const updatedEvents = [...(firebase?.userdata?.event || []), newObj];
+        firebase.Writedata("/users/" + firebase.userId + "/event/", updatedEvents);
 
-    //store event data
-    const newObj = {
-      id: id,
-      date: date,
-      time: formattedTime,
-      description: description,
-    }
-
-    if (firebase.downloadURL) {
-      newObj.eventimg = firebase.downloadURL
-    }
-
-    if (firebase?.mediaBlobUrl) {
-      newObj.audio = firebase.mediaBlobUrl
-    }
-
-    const updatedEvents = [...(firebase?.userdata?.event || []), newObj];
-    firebase.Writedata("/users/" + firebase.userId + "/event/", updatedEvents);
-    firebase.setOpen(true);//For snackbar home page
-    firebase.setRecording(false)
-    firebase.setUploadProgress([])
-    firebase.setImageUrl([])
-    navigate("/home")
-    return updatedEvents;
+        firebase.setOpen(true);//For snackbar home page
+        firebase.setRecording(false)
+        firebase.setImageUrl([])
+        navigate("/home")
+        return updatedEvents;
+      })
+    });
   };
 
   // For navbar

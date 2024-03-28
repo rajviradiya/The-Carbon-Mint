@@ -11,7 +11,6 @@ import {
 import { onValue, ref, set } from "firebase/database";
 import { useReactMediaRecorder } from "react-media-recorder";
 import { getToken } from "firebase/messaging";
-import { listAll } from "firebase/storage";
 
 export const FierbaseContext = createContext(null);
 export const useFierbase = () => useContext(FierbaseContext);
@@ -29,7 +28,6 @@ export const FierbaseProvidr = (props) => {
   const [userId, setUserId] = useState("");
   const [imageurl, setImageUrl] = useState([]);
   const [uploadProgress, setUploadProgress] = useState([]);
-  const [downloadURL, setdownloadURL] = useState([]);
   const [recording, setRecording] = useState(false);
 
   //snackbar event
@@ -38,6 +36,9 @@ export const FierbaseProvidr = (props) => {
   //Enternet Conectivity
   const [internet, setinternet] = useState(true);
 
+  //media recorder
+  const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
+
   window.addEventListener('online', () => {
     setinternet(true)
   });
@@ -45,8 +46,8 @@ export const FierbaseProvidr = (props) => {
     setinternet(false)
   });
 
-  console.log(internet, "Internet Status")
-  console.log(downloadURL, "download Url")
+  console.log(uploadProgress, "Upload")
+
   //Progress home Event
   // const value = Object.values(uploadProgress)
   // const sum = value?.reduce((acc, curr) => acc + curr, 0)
@@ -66,41 +67,6 @@ export const FierbaseProvidr = (props) => {
   //   downloadUrl()
   // }, [])
 
-  //DOwnload Photo to storage
-  // const downloadUrl = () => {
-  //   console.log("download")
-  //   const listRef = storageref
-  //   listAll(listRef)
-  //     .then((res) => {
-  //       res.prefixes.forEach((folderRef) => {
-
-  //         listAll(folderRef)
-  //           .then((folderItems) => {
-  //             folderItems.items.forEach((itemRef) => {
-
-  //               listAll(folderRef)
-  //                 .then((itemRef2) => {
-  //                   itemRef2.items.forEach((itemRef2) => {
-  //                     console.log(folderItems, " items2")
-  //                   })
-  //                 })
-
-  //               console.log(folderItems, " items")
-  //             })
-  //             console.log(folderItems, "folder items")
-  //           })
-  //         // folderRef.getDownloadURL()
-  //         //   .then(function (link) {
-  //         //     console.log(link,"URL all pic");
-  //         //   })
-  //         console.log(folderRef, "ref items")
-  //       })
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error listing items in folder:", error);
-  //     });
-  // }
-
   //permission request`
   async function requestPermission() {
     const permisssion = await Notification.requestPermission()
@@ -114,9 +80,6 @@ export const FierbaseProvidr = (props) => {
       alert("you Denied withnotificatin")
     }
   }
-
-  //media recorder
-  const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
 
   //create user in db
   const Writedata = (key, data) => {
@@ -209,8 +172,6 @@ export const FierbaseProvidr = (props) => {
   return (
     <FierbaseContext.Provider
       value={{
-        downloadURL,
-        setdownloadURL,
         internet,
         setinternet,
         uploadProgress,

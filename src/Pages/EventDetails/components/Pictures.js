@@ -1,11 +1,18 @@
 import React, { useEffect } from 'react'
 import ImageComp from './ImageComp'
 
-const Pictures = ({ params, data }) => {
-    const { id } = params
-    // const data2 = data.filter((items) => items.id === id)   
+const Pictures = ({ data,process}) => {
 
-    // console.log(data2[0].eventimg, "is this data");
+    console.log(data[0], "is this data");
+    console.log(process, "progressEventDetails")  
+    
+    let inc = 0;
+    const processid = process.filter((item) => {   
+        return item.id == data[0].id+"_"+inc,"idd"
+        inc++; 
+    });
+    
+    console.log(processid,"iddd")
 
     return (
         <div fluid className=" container cameracomp">
@@ -14,16 +21,11 @@ const Pictures = ({ params, data }) => {
             </section>
             <section className="cameraimage">
                 <div className="cameraimagess">
-                    {/* {data2[0]?.eventimg?.map((items, index) => (
+                    {data[0]?.eventimg.map((items, index) => (
                         <>
-                            <ImageComp key={index} image={items} index={index} />
+                            <ImageComp  image={items} process={process} />
                         </>
-                    ))} */}
-                    <ImageComp />
-                    <ImageComp />
-                    <ImageComp />
-                    <ImageComp />
-
+                    ))}
                 </div>
             </section>
         </div>

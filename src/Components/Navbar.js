@@ -30,7 +30,6 @@ const Navbar = () => {
           icon={<FiEdit />}
           onClick={() => {
             navigate("/event");
-            // firebase.setdownloadURL([])
           }}
         />
         <BottomNavigationAction
