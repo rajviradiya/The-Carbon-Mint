@@ -1,22 +1,31 @@
 import React, { useEffect } from 'react'
 import ImageComp from './ImageComp'
 
-const Pictures = ({ params,data }) => {
-    const { id } = params
-    const data2 = data.filter((items) => items.id === id) 
+const Pictures = ({ data, process }) => {
 
-    console.log(data2[0].eventimg, "is this data");
+    console.log(data[0], "is this data");
+    console.log(process, "progressEventDetails")
+
+    // let inc = 0;
+    // const processid = process.filter((item) => {
+    //     const condition = item.id == data[0].id + "_" + inc;
+    //     inc++;
+    //     return condition
+    // });
+
+    console.log(process, "iddd")
+
 
     return (
         <div fluid className=" container cameracomp">
             <section className="cameratext">
-                <p>Tap on camera icon to capture photos</p>
+                <p>Photos</p>
             </section>
             <section className="cameraimage">
                 <div className="cameraimagess">
-                    {data2[0]?.eventimg?.map((items, index) => (
+                    {data[0]?.eventimg.map((items, index) => (
                         <>
-                            <ImageComp key={index} image={items} index={index} />
+                            <ImageComp image={items} process={process[index]} />
                         </>
                     ))}
                 </div>

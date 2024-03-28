@@ -7,7 +7,6 @@ import CloseNavRedirect from './CloseNavRedirect';
 
 const CameraRedirect = () => {
     const webcamRef = useRef(null)
-
     const fierbase = useFierbase();
     const navigate = useNavigate();
 

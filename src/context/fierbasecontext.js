@@ -11,7 +11,6 @@ import {
 import { onValue, ref, set } from "firebase/database";
 import { useReactMediaRecorder } from "react-media-recorder";
 import { getToken } from "firebase/messaging";
-import { listAll, getDownloadURL } from "firebase/storage";
 
 export const FierbaseContext = createContext(null);
 export const useFierbase = () => useContext(FierbaseContext);
@@ -28,62 +27,35 @@ export const FierbaseProvidr = (props) => {
   const [userdata, setUserdata] = useState({});
   const [userId, setUserId] = useState("");
   const [imageurl, setImageUrl] = useState([]);
-  const [recording, setRecording] = useState(false);
   const [uploadProgress, setUploadProgress] = useState([]);
-  const [downloadURL, setdownloadURL] = useState([])
+  const [totalProgress, setTotalProgress] = useState([])
+  const [recording, setRecording] = useState(false);
 
   //snackbar event
   const [open, setOpen] = useState(false);
   const [error, setError] = useState("")
+  //Enternet Conectivity
+  const [internet, setinternet] = useState(true);
 
-  //Progress home Event
-  // const value = Object.values(uploadProgress)
-  // const sum = value?.reduce((acc, curr) => acc + curr, 0)
-  // const percentages = value?.map(curr => (curr / sum) * 100);
-  // const percentagessum = percentages?.reduce((acc, curr) => acc + curr, 0)
-  const percentagessum = 90 //extre delete it 
+  //media recorder
+  const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
 
-  useEffect(() => {
-    const total = uploadProgress.length * 100
-    const totalSum = uploadProgress.reduce((sum, obj) => sum + obj.value, 0);
-    const percentage = total !== 0 ? (totalSum / total) * 100 : 0;
-    console.log(uploadProgress, total, totalSum, percentage, "value")
-  }, [uploadProgress])
+  //Internet Status
+  window.addEventListener('online', () => {
+    setinternet(true)
+  });
+  window.addEventListener('offline', () => {
+    setinternet(false)
+  });
 
-  // console.log(uploadProgress,value,sum, percentages, percentagessum, "value")
-  useEffect(() => {
-    downloadUrl()
-  }, [])
+  // Uploading All Images
+  const total = totalProgress.reduce((acc, cur) => {
+    return acc + cur
+  }, 0)
 
-  //DOwnload Photo to storage
-  const downloadUrl = () => {
-    console.log("download")
-    const listRef = storageref
-    listAll(listRef)
-      .then((res) => {
-        res.prefixes.forEach((folderRef) => {
-          console.log(folderRef, "ref items")
-
-          listAll(folderRef)
-            .then((folderRes) => {
-              folderRes.items.forEach((itemRef) => {
-                // Get download URL for each item (assuming item is an image)
-                itemRef.getDownloadURL()
-                  .then((url) => {
-                    console.log("Image URL:", url);
-                    // Here you can perform further actions with the image URLs
-                  })
-                  .catch((error) => {
-                    console.error("Error getting download URL for item:", error);
-                  });
-              });
-            })
-        })
-      })
-      .catch((error) => {
-        console.error("Error listing items in folder:", error);
-      });
-  }
+  const totalPossibleProgress = totalProgress.length * 100;
+  const AllImageUpload = (total / totalPossibleProgress) * 100;
+  console.log(uploadProgress, totalProgress, AllImageUpload, "Upload")
 
   //permission request`
   async function requestPermission() {
@@ -98,9 +70,6 @@ export const FierbaseProvidr = (props) => {
       alert("you Denied withnotificatin")
     }
   }
-
-  //media recorder
-  const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
 
   //create user in db
   const Writedata = (key, data) => {
@@ -193,9 +162,10 @@ export const FierbaseProvidr = (props) => {
   return (
     <FierbaseContext.Provider
       value={{
-        downloadURL,
-        setdownloadURL,
-        downloadUrl,
+        totalProgress,
+        setTotalProgress,
+        internet,
+        setinternet,
         uploadProgress,
         setUploadProgress,
         phoneloginuser,
@@ -236,7 +206,7 @@ export const FierbaseProvidr = (props) => {
         mediaBlobUrl,
         requestPermission,
         error,
-        percentagessum,
+        AllImageUpload,
       }}
     >
       {props.children}

@@ -50,7 +50,7 @@ const Index1 = () => {
         {firebase?.userdata?.event?.map((items) => (
           <>
             <Link to={`/eventdetails/${items.id}`} style={{ textDecoration: "none" }}>
-              <EventCard items={items}/>
+              <EventCard items={items} process={firebase?.AllImageUpload}/>
             </Link>
           </>
         ))}
