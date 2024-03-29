@@ -16,7 +16,6 @@ const CloaseNav = () => {
           navigate("/home")
           firebase.setImageUrl([])
           firebase.setRecording(false)
-          firebase.setUploadProgress([])
           }}>
           <CgClose />
         </button>

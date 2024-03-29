@@ -14,16 +14,14 @@ const Index = () => {
   const params = useParams()
   const firebase = useFierbase()
 
-  const data2 = firebase?.userdata?.event?.filter((items) => items.id === params.id) 
- 
+  const data2 = firebase?.userdata?.event?.filter((items) => items.id === params.id)
 
   console.log(params, "params")
-  console.log(firebase?.uploadProgress, "data eveantdetails")
+  console.log(firebase?.AllImageUpload, "data eveantdetails")
 
-  if(!data2){
+  if (!data2) {
     return "Loding ...."
   }
- 
 
   return (
     <section>
@@ -31,16 +29,16 @@ const Index = () => {
         <EventDetailsNav />
       </section>
       <section>
-        {upload === "error" ? (<WaitingPhotoComp />) : (upload === "progress" ? (<Progress />) : (<AlertBoxSuccess />))}
+        {firebase.internet ? (<WaitingPhotoComp />) : (firebase?.AllImageUpload !== 100 ? (<Progress />) : (<AlertBoxSuccess />))}
       </section>
       <section>
-        <Pictures data={data2} process={firebase?.uploadProgress}/>
+        <Pictures data={data2} process={firebase?.uploadProgress} />
       </section>
       <section className="container cameratext note">
         <p>Note</p>
         <span>{data2[0]?.description}</span>
       </section>
-    </section>  
+    </section>
   )
 }
 

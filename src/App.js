@@ -42,12 +42,10 @@ const App = () => {
           path="/home"
           element={
             <>
-              <InternetStatus>
                 <ProtectedRoutes>
                   <HomePage />
                   <Navbar />
                 </ProtectedRoutes>
-              </InternetStatus>
             </>
           }
         />

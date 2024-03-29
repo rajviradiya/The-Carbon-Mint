@@ -11,6 +11,7 @@ import {
 import { onValue, ref, set } from "firebase/database";
 import { useReactMediaRecorder } from "react-media-recorder";
 import { getToken } from "firebase/messaging";
+import { json } from "react-router-dom";
 
 export const FierbaseContext = createContext(null);
 export const useFierbase = () => useContext(FierbaseContext);
@@ -27,45 +28,44 @@ export const FierbaseProvidr = (props) => {
   const [userdata, setUserdata] = useState({});
   const [userId, setUserId] = useState("");
   const [imageurl, setImageUrl] = useState([]);
-  const [uploadProgress, setUploadProgress] = useState([]);
+  const [uploadProgress, setUploadProgress] = useState({}); 
+  const [totalProgress, setTotalProgress] = useState([])
   const [recording, setRecording] = useState(false);
 
   //snackbar event
   const [open, setOpen] = useState(false);
   const [error, setError] = useState("")
   //Enternet Conectivity
-  const [internet, setinternet] = useState(true);
+  const [internet, setinternet] = useState(false);
 
   //media recorder
   const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
 
+  //Internet Status
   window.addEventListener('online', () => {
-    setinternet(true)
-  });
-  window.addEventListener('offline', () => {
     setinternet(false)
   });
+  window.addEventListener('offline', () => {
+    setinternet(true)
+  });
 
-  console.log(uploadProgress, "Upload")
+  // Uploading All Images
+  const total = totalProgress.reduce((acc, cur) => {
+    return acc + cur
+  }, 0)
 
-  //Progress home Event
-  // const value = Object.values(uploadProgress)
-  // const sum = value?.reduce((acc, curr) => acc + curr, 0)
-  // const percentages = value?.map(curr => (curr / sum) * 100);
-  // const percentagessum = percentages?.reduce((acc, curr) => acc + curr, 0)
-  const percentagessum = 90 //extre delete it 
+  // let data = {}
+  // if(uploadProgress && Array.isArray(uploadProgress)  && uploadProgress.length > 0){
+  //   const existingData = JSON.parse(localStorage.getItem("process")) || {};
+  //   data = {...existingData,["uploadProgress"]:uploadProgress}
+  //   localStorage.setItem("process", JSON.stringify(data))
+  // }
 
-  useEffect(() => {
-    const total = uploadProgress.length * 100
-    const totalSum = uploadProgress.reduce((sum, obj) => sum + obj.value, 0);
-    const percentage = total !== 0 ? (totalSum / total) * 100 : 0;
-    console.log(uploadProgress, total, totalSum, percentage, "value")
-  }, [uploadProgress])
+  const totalPossibleProgress = totalProgress.length * 100;
+  const AllImageUpload = (total / totalPossibleProgress) * 100;
 
-  // console.log(uploadProgress,value,sum, percentages, percentagessum, "value")
-  // useEffect(() => {
-  //   downloadUrl()
-  // }, [])
+
+  console.log(uploadProgress, totalProgress, AllImageUpload, "Upload")
 
   //permission request`
   async function requestPermission() {
@@ -172,6 +172,8 @@ export const FierbaseProvidr = (props) => {
   return (
     <FierbaseContext.Provider
       value={{
+        totalProgress,
+        setTotalProgress,
         internet,
         setinternet,
         uploadProgress,
@@ -214,7 +216,7 @@ export const FierbaseProvidr = (props) => {
         mediaBlobUrl,
         requestPermission,
         error,
-        percentagessum,
+        AllImageUpload,
       }}
     >
       {props.children}

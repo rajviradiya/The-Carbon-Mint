@@ -14,8 +14,31 @@ import { FiWifiOff } from "react-icons/fi";
 
 const Index1 = () => {
 
+  let uploadProgress = [
+    {
+      eventId: '1',
+      imageId: "1",
+      progress: 50
+    },
+    {
+      eventId: '1',
+      imageId: "21",
+      progress: 90
+    }
+  ]
+
+  let newUploadProgress = {
+    'event1': [],
+    'event2': [
+      {
+        imageId: '1',
+        progress: 50
+      }
+    ]
+  }
   const firebase = useFierbase();
-  const [internetError, setInternetError] = useState(false);
+  // const data = [...(firebase?.userdata?.event)].reverse();//reverse Event data
+
 
   //close snackbar  
   const handleClose = (event, reason) => {
@@ -25,7 +48,7 @@ const Index1 = () => {
     firebase.setOpen(false);
   };
 
-  console.log(firebase.uploadProgress, "progress")
+  console.log(firebase.uploadProgress, firebase?.AllImageUpload,"progress")
 
   return (
     <section className="homepagemain">
@@ -43,34 +66,36 @@ const Index1 = () => {
               <CropCard items={items} />
             </>
           ))}
-        </>
+        </> 
       </section>
       <section className="EventMain">
         <span className="croptitle">Events</span>
-        {firebase?.userdata?.event?.map((items) => (
+        {firebase?.userdata?.event?.map((items, index) => (
           <>
-            <Link to={`/eventdetails/${items.id}`} style={{ textDecoration: "none" }}>
-              <EventCard items={items}/>
+            <Link key={index} to={`/eventdetails/${items.id}`} style={{ textDecoration: "none" }}>
+              {
+                <EventCard items={items} process={firebase?.AllImageUpload} Upload={firebase.uploadProgress[items.id]} internet={firebase.internet} />
+              }
             </Link>
           </>
         ))}
       </section>
       <section style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
-        {internetError ? (
-          <Snackbar open={firebase.open} autoHideDuration={6000} onClose={handleClose}>
+        {firebase?.internet ? (
+          <Snackbar open={firebase.open} autoHideDuration={3000} onClose={handleClose}>
             <Alert icon={<FiWifiOff />} sx={{ zIndex: 2, display: 'flex', justifyContent: 'center', alignItems: 'center', width: "90%", position: "fixed", top: "85%", boxShadow: "0px 0px 6px gray" }} severity="error">
               No internet connection. Photos will be uploaded when internet connection is stable.
             </Alert>
           </Snackbar>
         ) :
-          (firebase?.percentagessum < 100 ? (
-            <Snackbar open={firebase.open} autoHideDuration={6000} onClose={handleClose}>
+          (firebase?.totalProgress < 100 ? (
+            <Snackbar open={firebase.open} autoHideDuration={firebase?.totalProgress} onClose={handleClose}>
               <Alert icon={<MdOutlineUploadFile />} sx={{ zIndex: 2, display: 'flex', justifyContent: 'center', alignItems: 'center', width: "90%", position: "fixed", top: "85%", boxShadow: "0px 0px 6px gray" }}>
                 Photo upload in progress...
               </Alert>
             </Snackbar>
           ) : (
-            <Snackbar open={firebase.open} autoHideDuration={6000} onClose={handleClose}>
+            <Snackbar open={firebase.open} autoHideDuration={3000} onClose={handleClose}>
               <Alert icon={<MdOutlineUploadFile />} sx={{ zIndex: 2, display: 'flex', justifyContent: 'center', alignItems: 'center', width: "90%", position: "fixed", top: "85%", boxShadow: "0px 0px 6px gray" }}>
                 Crop photos have been uploaded successfully.
               </Alert>

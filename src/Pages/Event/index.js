@@ -21,7 +21,6 @@ const Index = () => {
   const formattedTime = currentDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
   const navigate = useNavigate()
 
-
   const handlesubmmit = async () => {
     let urls = []
     //Upload Image 
@@ -35,16 +34,24 @@ const Index = () => {
             const progress = Math.round(
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100
             );
+            firebase.setTotalProgress((prevTotal) => {
+              const updatetotal = [...prevTotal]
+              updatetotal[index] = progress
+              return updatetotal;
+            })
 
             firebase.setUploadProgress((prevProgress) => {
-              const updatedProgress = [...prevProgress];
-              updatedProgress[index] = { id:`${id}_${index}`, process: progress };
+              const updatedProgress = { ...prevProgress }; // Create a shallow copy of prevProgress
+
+              // If prevProgress[id] exists, spread its contents into a new array, else create an empty array
+              updatedProgress[id] = [...(prevProgress[id] || []), { id: `${id}_${index}`, process: progress }];
+              
+
+              // const updatedProgress = [...prevProgress];
+              // updatedProgress[index] = { EventId: `${id}`, id: `${id}_${index}`, process: progress };
+
               return updatedProgress;
             });
-            //   fierbase.setUploadProgress((prevProgress) => ({
-            //     ...prevProgress,
-            //     [`${id}_${index}`]: progress,
-            // }));
           },
           (error) => {
             console.error("Error uploading file: ", error);
@@ -79,17 +86,19 @@ const Index = () => {
         if (firebase?.mediaBlobUrl) {
           newObj.audio = firebase.mediaBlobUrl
         }
+
         const updatedEvents = [...(firebase?.userdata?.event || []), newObj];
         firebase.Writedata("/users/" + firebase.userId + "/event/", updatedEvents);
 
         firebase.setOpen(true);//For snackbar home page
         firebase.setRecording(false)
         firebase.setImageUrl([])
-        navigate("/home")
         return updatedEvents;
       })
     });
+    navigate("/home")
   };
+
 
   // For navbar
   const handleClosenav = () => {
