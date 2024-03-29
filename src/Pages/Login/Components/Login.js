@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   InputAdornment,
   TextField,
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
-
 import "react-international-phone/style.css";
-
 import { Container, Row } from "react-bootstrap";
 import { useState } from "react";
 import Img from "../../../Assets/Login&Auth/GoogleIconLogin.png";
@@ -15,15 +13,11 @@ import { PhoneNumberUtil } from "google-libphonenumber";
 import { useNavigate } from "react-router";
 import { useFierbase } from "../../../context/fierbasecontext";
 import ButtonComp from "../../../Components/ButtonComp";
-import Box from '@mui/material/Box';
 
 const Login = () => {
   const [phone, setPhone] = useState("");
-
   const navigate = useNavigate();
   const firebase = useFierbase();
-
-  console.log(firebase.ponewithdial, "Phone number is this");
 
   //Phone Validation Api
   const phoneUtil = PhoneNumberUtil.getInstance();
@@ -38,14 +32,12 @@ const Login = () => {
   };
   const isValid = isPhoneValid(firebase.ponewithdial);
 
-  console.log(isValid, "validation");
   //phone handle
-
   const handlephone = (e) => {
     setPhone(e.target.value);
-    const stringphone = e.target.value;
     firebase.setPhonewithdial(String(firebase.dialcode + e.target.value));
   };
+
   //Phone Login
   const handlesubmmitotp = () => {
     firebase.phonelogin(firebase.ponewithdial)

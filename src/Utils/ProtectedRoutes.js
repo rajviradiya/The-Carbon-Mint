@@ -4,9 +4,9 @@ import { Navigate } from 'react-router-dom';
 
 const ProtectedRoutes = ({ children }) => {
     const fierbase = useFierbase()
-    return  children 
-
-    // return fierbase.authuserrrr ? children : <Navigate to="/" />
+    if (fierbase?.userdata) {
+        return fierbase.userdata ? children : <Navigate to="/" />
+    }
 }
 
 export default ProtectedRoutes

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useFierbase } from "../../../context/fierbasecontext";
 import MicIcon from '@mui/icons-material/Mic';
 import { IoStopCircleOutline } from "react-icons/io5";
-import { Container, LinearProgress } from '@mui/material';
+import { Container } from '@mui/material';
 import { MdMicNone } from "react-icons/md";
 import { IoCloseOutline } from "react-icons/io5";
 
@@ -11,7 +11,6 @@ const MAX_RECORDING_TIME = 300;
 const AudioRecord = () => {
   const [timer, setTimer] = useState(0);
   const [state, setState] = useState(1)
-
   const fierbase = useFierbase()
 
   useEffect(() => {
@@ -23,7 +22,6 @@ const AudioRecord = () => {
     } else {
       clearInterval(interval);
     }
-
     return () => clearInterval(interval);
   }, [fierbase.recording]);
 
@@ -41,7 +39,7 @@ const AudioRecord = () => {
 
   const stopRecording = () => {
     fierbase.setRecording(false);
-    setTimer(0); 
+    setTimer(0);
     fierbase.stopRecording()
     setState(3)
     // fierbase.setMediaUrl(fierbase.mediaBlobUrl)
@@ -52,10 +50,8 @@ const AudioRecord = () => {
     setState(1)
   }
 
-
   return (
     <Container className="Audiocont">
-
       {state === 2 || state === 3 ? state === 3 ? (
         <>
           {/* part 3 */}
@@ -85,7 +81,7 @@ const AudioRecord = () => {
               </button>
             </div>
           </div>
-        </>) : (<>  
+        </>) : (<>
           {/* part 1 */}
           <div className="audiostartcont">
             <button onClick={startRecording} className="audiostartbtn">
@@ -94,10 +90,6 @@ const AudioRecord = () => {
             <span className="audiostarttext">Tap and record the voice</span>
           </div>
         </>)}
-
-      {/* <p>{fierbase.status}</p> */}
-      {/* part 3 */}
-
     </Container >
   );
 };

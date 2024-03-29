@@ -14,6 +14,7 @@
   color: #363537;
   font-size: 8vw;
 }
+
 .navcont {
   width: 85%;
   display: flex;
@@ -40,7 +41,6 @@
 }
 
 /* farmerdetailslist */
-
 .details {
   font-size: 4vw;
   font-weight: 700;
@@ -50,18 +50,20 @@
 .list-group li {
   display: flex;
   justify-content: space-around;
+  background-color: #DEE5DB;
 }
 
 .list-group li span {
   width: 50%;
   color: #555555;
   font-size: 3vw;
+  font-weight: 600;
 }
 
 .list-group li p {
   width: 50%;
   font-size: 3vw;
-  font-weight: 600;
+  font-weight: 700;
   margin: 0px !important;
 }
 
@@ -77,13 +79,7 @@
   color: #585758;
 }
 
-/* Crops */
-
-.Crops {
-}
-
 /* button nav */
-
 .MuiButtonBase-root {
   background-color: #2b9348 !important;
 }

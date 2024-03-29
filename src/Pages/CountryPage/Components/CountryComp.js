@@ -11,15 +11,8 @@ import { useNavigate } from "react-router";
 
 const CountryComp = () => {
   const [Countrysdata, setCountrysdata] = useState(defaultCountries);
-
   const fierbase = useFierbase();
   const navigate = useNavigate();
-
-  const selectountry = (dialcode) => {
-    fierbase.setDialcode(`+${dialcode}`);
-    console.log(`+${dialcode}`);
-    navigate("/");
-  };
 
   useEffect(() => {
     const data = Countrysdata.filter((res) => {
@@ -27,6 +20,12 @@ const CountryComp = () => {
     });
     setCountrysdata(data);
   }, [fierbase.searchcont]);
+
+  const selectountry = (dialcode) => {
+    fierbase.setDialcode(`+${dialcode}`);
+    console.log(`+${dialcode}`);
+    navigate("/");
+  };
 
   return (
     <div className="container countrylist">
@@ -41,9 +40,9 @@ const CountryComp = () => {
                 onClick={() => {
                   selectountry(country.dialCode);
                 }}
-                sx={{height:"10vw"}}
+                sx={{ height: "10vw" }}
               >
-                <FlagImage iso2={country.iso2} style={{marginRight: "30px"}} />
+                <FlagImage iso2={country.iso2} style={{ marginRight: "30px" }} />
                 <Typography marginRight="8px">{country.name}</Typography>
                 <Typography color="gray">+{country.dialCode}</Typography>
               </MenuItem>

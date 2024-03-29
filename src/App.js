@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useFierbase } from "./context/fierbasecontext";
 import Login from "./Pages/Login/index";
@@ -13,8 +13,6 @@ import EventDetails from "./Pages/EventDetails/index"
 import CropPage from "./Pages/Croppage/index";
 import Showcam from "./Pages/Event/components/CameraRedirect"
 import SpeedDialNav from "./Components/SpeedDialNav";
-import ProtectedRoutes from "./Utils/ProtectedRoutes";
-import InternetStatus from "./Utils/InternetStatus";
 
 const App = () => {
 
@@ -22,11 +20,11 @@ const App = () => {
   useEffect(() => {
     //fetch auth object
     fierbase.authuser();
-  }, [fierbase.authuserrrr]);
+  }, [fierbase.authuserdata]);
 
   useEffect(() => {
     fierbase.readdata("/users/");
-  }, [fierbase.authuserrrr]);
+  }, [fierbase.authuserdata]);
 
   useEffect(() => {
     fierbase.requestPermission()
@@ -42,58 +40,42 @@ const App = () => {
           path="/home"
           element={
             <>
-              <InternetStatus>
-                <ProtectedRoutes>
-                  <HomePage />
-                  <Navbar />
-                </ProtectedRoutes>
-              </InternetStatus>
+              <HomePage />
+              <Navbar />
             </>
           }
         />
         <Route path="/profile" element={
           <>
-            <ProtectedRoutes>
-              <ProfilePage />
-            </ProtectedRoutes>
+            <ProfilePage />
           </>
         } />
         <Route path="/event" element={
           <>
-            <ProtectedRoutes>
-              <Event />
-            </ProtectedRoutes>
+            <Event />
           </>
         } />
         <Route path="/cam" element={
           <>
-            <ProtectedRoutes>
-              <Showcam />
-            </ProtectedRoutes>
+            <Showcam />
           </>
         } />
         <Route
           path="/farm"
           element={
             <>
-              <ProtectedRoutes>
-                <SpeedDialNav elementpass={<FarmerPage />} />
-              </ProtectedRoutes>
+              <SpeedDialNav elementpass={<FarmerPage />} />
             </>
           }
         />
         <Route path="/crop/:id" element={
           <>
-            <ProtectedRoutes>
-              <SpeedDialNav elementpass={<CropPage />} />
-            </ProtectedRoutes>
+            <SpeedDialNav elementpass={<CropPage />} />
           </>}
         />
         <Route path="/eventdetails/:id" element={
           <>
-            <ProtectedRoutes>
-              <EventDetails />
-            </ProtectedRoutes>
+            <EventDetails />
           </>
         } />
 

@@ -2,7 +2,7 @@ import React from "react";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 
-const CloseNavFarm = ({data}) => {
+const CloseNavFarm = ({ data }) => {
   return (
     <div className="closenav">
       <div className="navicon">

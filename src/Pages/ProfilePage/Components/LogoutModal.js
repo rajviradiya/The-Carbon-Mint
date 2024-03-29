@@ -21,13 +21,11 @@ const style = {
 
 const LogoutModal = () => {
   const [open, setOpen] = useState(false);
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const navigate = useNavigate();
   const fierbase = useFierbase();
 
-  console.log(open, "fierbase");
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleLogout = () => {
     handleClose();

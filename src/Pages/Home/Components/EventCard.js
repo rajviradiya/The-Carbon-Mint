@@ -1,27 +1,42 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Container } from "react-bootstrap";
 import { PiImages } from "react-icons/pi";
-import { useFierbase } from "../../../context/fierbasecontext";
-import Progress from "../../../Components/Progress";
 import LinearProgressbar from "./LinearProgress";
 
-const EventCard = ({items,process}) => {
-
-  const fierbase = useFierbase()
-
-  console.log(items,process,"sum of all")
-
+const EventCard = ({ items, process, Upload, internet }) => {
   return (
     <Container className="eventcont mt-2">
       <div className="Eventcard">
         <div className="eventpart1">
-          <img src={items?.eventimg[0]} alt="Event"/>
+          <img src={items?.eventimg[0]} alt="Event" />
         </div>
         <div className="eventpart2">
           <span >{items?.date},{items?.time}</span>
-          <p>Photos waiting to be upload</p>
-          <LinearProgressbar process={process}/>
-        </div>  
+          {Upload ?
+            (
+              process !== 100 ? (
+                <p>Photos waiting to be upload</p>
+              ) : (
+                <p>Last photo upload at {items?.date}, {items?.time}</p>
+              )
+            ) : (
+              <p>Last photo upload at {items?.date}, {items?.time}</p>
+            )}
+          {Upload ? (internet ?
+            (
+              process !== 100 ? (
+                <LinearProgressbar process={process} />
+              ) : (
+                <></>
+              )
+            ) :
+            (process !== 100 ? (
+              <LinearProgressbar process={50} />
+            ) : (
+              <></>
+            ))) : (<></>)
+          }
+        </div>
         <dvi className="eventpart3">
           <PiImages className="eventicon" />
         </dvi>
