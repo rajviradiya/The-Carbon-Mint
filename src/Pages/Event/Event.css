@@ -36,8 +36,8 @@
   font-weight: 500;
   color: #79787A;
 }
-/* Close nav redirect */
 
+/* Close nav redirect */
 .closeeventnavredirect {
   width: 100%;
   display: flex;
@@ -170,6 +170,7 @@
 .camerafooter button svg{
   font-size: 10vw;
 }
+
 /* Event Description */
 .Eventdescriptionmain {
   margin-top: 2vh !important;

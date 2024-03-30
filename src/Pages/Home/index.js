@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FarmerDeailcard from "./Components/FarmerDeailcard";
 import Nav from "./Components/Nav";
-
 import "./Homepage.css";
 import CropCard from "./Components/CropCard";
 import EventCard from "./Components/EventCard";
@@ -11,34 +10,30 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { MdOutlineUploadFile } from "react-icons/md";
 import { FiWifiOff } from "react-icons/fi";
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const Index1 = () => {
-
-  let uploadProgress = [
-    {
-      eventId: '1',
-      imageId: "1",
-      progress: 50
-    },
-    {
-      eventId: '1',
-      imageId: "21",
-      progress: 90
-    }
-  ]
-
-  let newUploadProgress = {
-    'event1': [],
-    'event2': [
-      {
-        imageId: '1',
-        progress: 50
-      }
-    ]
-  }
   const firebase = useFierbase();
-  // const data = [...(firebase?.userdata?.event)].reverse();//reverse Event data
+  const [snackbar, setSnackbar] = useState(false)
+  const [timeout, setTimeOut] = useState(false)
 
+  useEffect(() => {
+    if (firebase?.AllImageUpload !== 100 && firebase?.AllImageUpload !== undefined) {
+      setSnackbar(true)
+    } else (
+      setSnackbar(false)
+    )
+  }, [firebase?.AllImageUpload])
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (snackbar === false) {
+        setTimeOut(true)
+      }
+    }, 3000);
+  }, [snackbar])
+
+  // const data = [...(firebase?.userdata?.event)].reverse();//reverse Event data
 
   //close snackbar  
   const handleClose = (event, reason) => {
@@ -47,8 +42,6 @@ const Index1 = () => {
     }
     firebase.setOpen(false);
   };
-
-  console.log(firebase.uploadProgress, firebase?.AllImageUpload,"progress")
 
   return (
     <section className="homepagemain">
@@ -66,7 +59,7 @@ const Index1 = () => {
               <CropCard items={items} />
             </>
           ))}
-        </> 
+        </>
       </section>
       <section className="EventMain">
         <span className="croptitle">Events</span>
@@ -74,7 +67,7 @@ const Index1 = () => {
           <>
             <Link key={index} to={`/eventdetails/${items.id}`} style={{ textDecoration: "none" }}>
               {
-                <EventCard items={items} process={firebase?.AllImageUpload} Upload={firebase.uploadProgress[items.id]} internet={firebase.internet} />
+                <EventCard items={items} process={firebase?.AllImageUpload} internet={firebase.internet} />
               }
             </Link>
           </>
@@ -88,18 +81,17 @@ const Index1 = () => {
             </Alert>
           </Snackbar>
         ) :
-          (firebase?.totalProgress < 100 ? (
-            <Snackbar open={firebase.open} autoHideDuration={firebase?.totalProgress} onClose={handleClose}>
+          (snackbar ? (
+            <Snackbar open={firebase.open} autoHideDuration={3000} onClose={handleClose}>
               <Alert icon={<MdOutlineUploadFile />} sx={{ zIndex: 2, display: 'flex', justifyContent: 'center', alignItems: 'center', width: "90%", position: "fixed", top: "85%", boxShadow: "0px 0px 6px gray" }}>
                 Photo upload in progress...
               </Alert>
             </Snackbar>
-          ) : (
-            <Snackbar open={firebase.open} autoHideDuration={3000} onClose={handleClose}>
-              <Alert icon={<MdOutlineUploadFile />} sx={{ zIndex: 2, display: 'flex', justifyContent: 'center', alignItems: 'center', width: "90%", position: "fixed", top: "85%", boxShadow: "0px 0px 6px gray" }}>
+          ) : (timeout ? (<></>) :
+            (
+              <Alert icon={<CheckCircleOutlineIcon />} sx={{ zIndex: 2, display: 'flex', justifyContent: 'center', alignItems: 'center', width: "90%", position: "fixed", top: "85%", boxShadow: "0px 0px 6px gray" }}>
                 Crop photos have been uploaded successfully.
-              </Alert>
-            </Snackbar>
+              </Alert>)
           ))
         }
       </section>

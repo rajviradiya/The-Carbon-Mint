@@ -4,10 +4,7 @@ import { CgClose } from "react-icons/cg";
 import { useNavigate } from "react-router";
 
 const EventDetailsNav = () => {
-
-    
     const navigate = useNavigate()
-
     return (
         <Container className="Eventcloseeventnav">
             <div className="Eventcloseicondiv">

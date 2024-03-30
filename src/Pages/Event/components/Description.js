@@ -4,7 +4,7 @@ const Description = () => {
   return (
     <div className="EventDescription">
       <span>Please write a notes below</span>
-      <textarea placeholder="Notes Hear..."/>
+      <textarea placeholder="Notes Hear..." />
     </div>
   );
 };

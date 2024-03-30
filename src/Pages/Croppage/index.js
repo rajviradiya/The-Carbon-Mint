@@ -7,12 +7,9 @@ import "./Croppage.css"
 import Cropmap from "./Components/Cropmap";
 
 const Index = () => {
-
   let data = {}
   const fierbase = useFierbase()
   const params = useParams()
-
-  console.log(params.id, "params hook id ")
 
   //Filter Crops Id
   for (let i = 0; i < fierbase?.userdata?.crops?.length; i++) {
@@ -21,17 +18,15 @@ const Index = () => {
     }
   }
 
-  console.log(data, "data is this")
-
   return (
     <section className="cropmain">
       <section className="Closenavmain">
-        <ClosenavCrop datamain={fierbase.userdata} data={data} />
+        <ClosenavCrop datamain={fierbase?.userdata} data={data} />
       </section>
       <section className=" container    ">
         <img
           className="cropimage"
-          src={`${data.image}`}
+          src={`${data?.image}`}
           alt="FarmImage"
         />
       </section>
@@ -40,23 +35,23 @@ const Index = () => {
         <ul className="list-group">
           <li className="list-group-item">
             <span>Acres</span>
-            <p>{data.Acres}</p>
+            <p>{data?.Acres}</p>
           </li>
           <li className="list-group-item">
             <span>Cropping system type</span>
-            <p>{data.croppingsystemtype}</p>
+            <p>{data?.croppingsystemtype}</p>
           </li>
           <li className="list-group-item">
             <span>Seed variety</span>
-            <p>{data.seedvariety}</p>
+            <p>{data?.seedvariety}</p>
           </li>
           <li className="list-group-item">
             <span>Seed type</span>
-            <p>{data.seedtype}</p>
+            <p>{data?.seedtype}</p>
           </li>
           <li className="list-group-item">
             <span>Seed source</span>
-            <p>{data.seedsource}</p>
+            <p>{data?.seedsource}</p>
           </li>
         </ul>
       </section>

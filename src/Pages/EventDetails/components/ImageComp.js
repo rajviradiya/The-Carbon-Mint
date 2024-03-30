@@ -1,18 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { MdDone } from "react-icons/md";
 import CircularProgress from '@mui/material/CircularProgress';
 
 const ImageComp = ({ image, process }) => {
-
-  console.log(image, "image is this ")
-  console.log(process, "Process is this ")
-
-
   return (
     <div class="image-container mb-2">
-      <img src={image} alt="Image" />
+      <img src={image} alt="EventImg" />
       <div class="processdiv" >
-        {process && process.process ? (process.process !== 100 ? (
+        {process && process?.process ? (process?.process !== 100 ? (
           <CircularProgress
             sx={{
               fontWeight: "900 !important",
@@ -20,7 +15,7 @@ const ImageComp = ({ image, process }) => {
               width: "4vw !important"
             }}
             variant="determinate"
-            value={process.process}
+            value={process?.process}
           />
         ) : (<MdDone />)
         ) : (

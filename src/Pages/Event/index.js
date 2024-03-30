@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import "./Event.css";
 import CloaseNav from "./components/CloaseNav";
@@ -14,7 +14,7 @@ import { storage } from "../../Config/fierbase";
 const Index = () => {
   const [description, setDescription] = useState("")
 
-  let id = uuid().slice(0, 3)
+  let id = uuid()
   const firebase = useFierbase()
   const currentDate = new Date();
   const date = `${currentDate.getDate()}/${currentDate.getMonth()}/${currentDate.getFullYear()}`
@@ -45,7 +45,6 @@ const Index = () => {
 
               // If prevProgress[id] exists, spread its contents into a new array, else create an empty array
               updatedProgress[id] = [...(prevProgress[id] || []), { id: `${id}_${index}`, process: progress }];
-              
 
               // const updatedProgress = [...prevProgress];
               // updatedProgress[index] = { EventId: `${id}`, id: `${id}_${index}`, process: progress };

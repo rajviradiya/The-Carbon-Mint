@@ -8,7 +8,6 @@ import { useFierbase } from "../../../context/fierbasecontext";
 const CloaseNav = () => {
   const navigate = useNavigate()
   const firebase = useFierbase()
-
   return (
     <Container className="closeeventnav">
       <div className="closeicondiv">
@@ -16,7 +15,7 @@ const CloaseNav = () => {
           navigate("/home")
           firebase.setImageUrl([])
           firebase.setRecording(false)
-          }}>
+        }}>
           <CgClose />
         </button>
       </div>

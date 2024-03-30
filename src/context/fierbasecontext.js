@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { auth, googleProvider, realDatabase, messaging, storage, storageref } from "../Config/fierbase";
+import { createContext, useContext, useState } from "react";
+import { auth, googleProvider, realDatabase, messaging } from "../Config/fierbase";
 import {
   RecaptchaVerifier,
   onAuthStateChanged,
@@ -7,34 +7,30 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-
 import { onValue, ref, set } from "firebase/database";
 import { useReactMediaRecorder } from "react-media-recorder";
 import { getToken } from "firebase/messaging";
-import { json } from "react-router-dom";
 
 export const FierbaseContext = createContext(null);
 export const useFierbase = () => useContext(FierbaseContext);
 
 export const FierbaseProvidr = (props) => {
-  const [authuserrrr, setauthuserrrr] = useState("");
-  const [errorMessageauth, setErrorMessageauth] = useState(null);
   const [phoneloginuser, setPhoneLoginUser] = useState("");
   const [country, setCountry] = useState("in");
   const [dialcode, setDialcode] = useState("+91");
   const [ponewithdial, setPhonewithdial] = useState("");
   const [searchcont, setSearchcont] = useState("");
-
+  
+  const [authuserdata, setauthuserdata] = useState("");
+  const [errorMessageauth,sterrorMessageauth] = useState(null)
   const [userdata, setUserdata] = useState({});
   const [userId, setUserId] = useState("");
   const [imageurl, setImageUrl] = useState([]);
-  const [uploadProgress, setUploadProgress] = useState({}); 
+  const [uploadProgress, setUploadProgress] = useState({});
   const [totalProgress, setTotalProgress] = useState([])
   const [recording, setRecording] = useState(false);
-
   //snackbar event
   const [open, setOpen] = useState(false);
-  const [error, setError] = useState("")
   //Enternet Conectivity
   const [internet, setinternet] = useState(false);
 
@@ -54,16 +50,8 @@ export const FierbaseProvidr = (props) => {
     return acc + cur
   }, 0)
 
-  // let data = {}
-  // if(uploadProgress && Array.isArray(uploadProgress)  && uploadProgress.length > 0){
-  //   const existingData = JSON.parse(localStorage.getItem("process")) || {};
-  //   data = {...existingData,["uploadProgress"]:uploadProgress}
-  //   localStorage.setItem("process", JSON.stringify(data))
-  // }
-
   const totalPossibleProgress = totalProgress.length * 100;
   const AllImageUpload = (total / totalPossibleProgress) * 100;
-
 
   console.log(uploadProgress, totalProgress, AllImageUpload, "Upload")
 
@@ -132,10 +120,10 @@ export const FierbaseProvidr = (props) => {
         //   });
 
         console.log(user, "useloged in");
-        setauthuserrrr(user);
+        setauthuserdata(user);
       } else {
         console.log("user Loged Out");
-        setauthuserrrr("");
+        setauthuserdata("");
       }
     });
   };
@@ -172,6 +160,8 @@ export const FierbaseProvidr = (props) => {
   return (
     <FierbaseContext.Provider
       value={{
+        errorMessageauth,
+        sterrorMessageauth,
         totalProgress,
         setTotalProgress,
         internet,
@@ -180,8 +170,8 @@ export const FierbaseProvidr = (props) => {
         setUploadProgress,
         phoneloginuser,
         setPhoneLoginUser,
-        authuserrrr,
-        setauthuserrrr,
+        authuserdata,
+        setauthuserdata,
         country,
         setCountry,
         searchcont,
@@ -194,8 +184,6 @@ export const FierbaseProvidr = (props) => {
         setUserId,
         imageurl,
         setImageUrl,
-        errorMessageauth,
-        setErrorMessageauth,
         userdata,
         setUserdata,
         open,
@@ -215,7 +203,6 @@ export const FierbaseProvidr = (props) => {
         stopRecording,
         mediaBlobUrl,
         requestPermission,
-        error,
         AllImageUpload,
       }}
     >

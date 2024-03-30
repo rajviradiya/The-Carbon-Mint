@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useFierbase } from "../../../context/fierbasecontext";
-import { useNavigate } from "react-router";
 
 const style = {
   position: "absolute",
@@ -20,20 +19,21 @@ const style = {
 
 const OtpveryfyModal = ({ openM2, setOpenM2, handleClose }) => {
   const firebase = useFierbase();
-  const navigate = useNavigate()
 
-  const handleResendOtp = ()=>{
+  const handleResendOtp = () => {
     firebase.resendOTP(firebase.ponewithdial)
-    .then((res) => {
-      console.log(res, "this is res");
-      firebase.setPhoneLoginUser(res);
-    })
-    .catch((err) => {
-      console.log(err, "otp error");
-    });
-    handleClose()
+      .then((res) => {
+        console.log(res, "this is res");
+        firebase.setPhoneLoginUser(res);
+      })
+      .catch((err) => {
+        console.log(err, "otp error");
+      })
+      .finally(() => {
+        handleClose();
+      });
   }
-  
+
   return (
     <Modal
       open={openM2}

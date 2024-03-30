@@ -10,6 +10,7 @@ const Cropmap = () => {
                 allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
+                title="TitlePage"
             ></iframe>
         </div>)
 }

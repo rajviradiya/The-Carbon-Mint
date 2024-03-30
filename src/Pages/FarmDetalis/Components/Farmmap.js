@@ -10,6 +10,7 @@ const Farmmap = () => {
         allowfullscreen=""
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
+        title="FarmMap"
       ></iframe>
     </div>
   );

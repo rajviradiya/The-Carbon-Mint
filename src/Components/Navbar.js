@@ -13,7 +13,7 @@ import { useFierbase } from "../context/fierbasecontext";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const firebase = useFierbase()
+  const firebase = useFierbase();
   return (
     <Box>
       <BottomNavigation showLabels>
@@ -30,6 +30,8 @@ const Navbar = () => {
           icon={<FiEdit />}
           onClick={() => {
             navigate("/event");
+            firebase.setImageUrl([])
+            firebase?.setUploadProgress([])
           }}
         />
         <BottomNavigationAction

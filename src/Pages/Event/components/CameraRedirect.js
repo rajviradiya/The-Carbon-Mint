@@ -13,25 +13,28 @@ const CameraRedirect = () => {
     const capturePhoto = useCallback(async () => {
         //blob obj
         const imageSrc = webcamRef.current.getScreenshot();
-        const base64 = await imageSrc?.split(',')[1]; 
-        const bytes = atob(base64);
-        const byteNumbers = new Array(bytes.length);
-        for (let i = 0; i < bytes.length; i++) {
-            byteNumbers[i] = bytes.charCodeAt(i);
-        }
-        const byteArray = new Uint8Array(byteNumbers);
-        const blob = new Blob([byteArray], { type: 'image/jpeg' });
+        const base64Part = imageSrc?.split(',')[1];
 
-        console.log(blob, "imageeeeeee")
-        fierbase.setImageUrl(prevUrls => [...prevUrls, blob])
-        navigate("/event")
+        if (base64Part) {
+            const bytes = atob(base64Part);
+            const byteNumbers = new Array(bytes.length);
+            for (let i = 0; i < bytes.length; i++) {
+                byteNumbers[i] = bytes.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: 'image/jpeg' });
+
+            fierbase.setImageUrl(prevUrls => [...prevUrls, blob])
+            navigate("/event")
+        } else {
+            console.error("Base64 part not found in image source");
+        }
     }, [webcamRef])
 
     const onUserMedia = (e) => {
         console.log(e)
     }
 
-    console.log(fierbase.imageurl, "url is this ")
     return (
         <div className='camrearedirectpage'>
             <CloseNavRedirect />

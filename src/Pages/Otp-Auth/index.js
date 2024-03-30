@@ -7,19 +7,19 @@ import { Link } from "react-router-dom";
 
 const index = () => {
   return (
-      <section fluid className="otpmainindex">
-        <section className="navicon">
-          <Link to="/">
-            <IoIosArrowRoundBack className="arrowicon" />
-          </Link>
-        </section>
-        <section className="HeroIcon">
-          <img src={HeroImg} alt="Hero Img" />
-        </section>
-        <section>
-          <OtpComp />
-        </section>
+    <section fluid className="otpmainindex">
+      <section className="navicon">
+        <Link to="/">
+          <IoIosArrowRoundBack className="arrowicon" />
+        </Link>
       </section>
+      <section className="HeroIcon">
+        <img src={HeroImg} alt="Hero Img" />
+      </section>
+      <section>
+        <OtpComp />
+      </section>
+    </section>
   );
 };
 

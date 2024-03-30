@@ -6,15 +6,12 @@ import CropCard from "../Home/Components/CropCard";
 import { useFierbase } from "../../context/fierbasecontext";
 
 const Index = () => {
-
   const fierbase = useFierbase()
-
-  console.log(fierbase.userdata, "data is this detail page ")
   return (
     <>
       <section className="FarmpageMain">
         <section className="Closenavmain">
-          <CloseNavFarm data={fierbase.userdata} />
+          <CloseNavFarm data={fierbase?.userdata} />
         </section>
         <section className=" container">
           <img
@@ -58,12 +55,12 @@ const Index = () => {
         <section className="Crops">
           <p className="details ps-3">Crops</p>
           <div className=" mb-5">
-          {fierbase?.userdata?.crops?.map((items)=>(
-            <>
-           <CropCard items={items}/>
-            </>
-          ))}
-        </div>
+            {fierbase?.userdata?.crops?.map((items) => (
+              <>
+                <CropCard items={items} />
+              </>
+            ))}
+          </div>
         </section>
       </section>
     </>

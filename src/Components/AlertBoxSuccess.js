@@ -2,7 +2,6 @@ import React from 'react'
 import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
 const AlertBoxSuccess = () => {

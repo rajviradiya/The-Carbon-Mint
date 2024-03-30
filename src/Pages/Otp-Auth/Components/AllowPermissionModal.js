@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { useFierbase } from "../../../context/fierbasecontext";
 
 const style = {
   position: "absolute",
@@ -17,10 +16,7 @@ const style = {
   width: "80vw",
 };
 
-const AllowPermissionModal = ({ openM1, setOpenM1, handleClose1, otp }) => {
-
-  const fierbase = useFierbase();
-
+const AllowPermissionModal = ({ openM1, handleClose1 }) => {
   const Allowotp = ()=>{
     handleClose1()
   }

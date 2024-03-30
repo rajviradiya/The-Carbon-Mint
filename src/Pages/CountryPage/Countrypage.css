@@ -1,47 +1,46 @@
-.closenav{
+.closenav {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.closeicon{
+.closeicon {
     width: 18%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.closeicon svg{
+.closeicon svg {
     font-size: 7vw;
     color: #363537;
 }
 
-.navcont{
+.navcont {
     width: 84%;
     font-size: 5vw;
     font-weight: 600;
 }
 
 /* Searchbar main */
-
-.searchbarmain{
+.searchbarmain {
     margin: 5vw 0 0 0;
 }
 
 /* Country List  */
-
-.countrylist{
+.countrylist {
     margin: 5vw 0 0 0;
 }
-.countrylist li{
+
+.countrylist li {
     background-color: transparent !important;
 }
 
-.allcountry{
+.allcountry {
     height: 110vw;
     overflow: scroll;
 }
 
-.allcountry::-webkit-scrollbar{
+.allcountry::-webkit-scrollbar {
     display: none;
 }
