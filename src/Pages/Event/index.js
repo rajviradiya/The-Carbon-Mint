@@ -14,88 +14,162 @@ import { storage } from "../../Config/fierbase";
 const Index = () => {
   const [description, setDescription] = useState("")
 
-  let id = uuid().slice(0, 3)
+  let id = uuid()
   const firebase = useFierbase()
   const currentDate = new Date();
   const date = `${currentDate.getDate()}/${currentDate.getMonth()}/${currentDate.getFullYear()}`
   const formattedTime = currentDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
   const navigate = useNavigate()
 
-  const handlesubmmit = async () => {
-    let urls = []
-    //Upload Image 
-    firebase.imageurl.forEach(async (imageUrl, index) => {
-      const uploadTask = uploadBytesResumable(ref(storage, `uploads/${id}/${id}_${index}`), imageUrl);
 
-      let data = new Promise(function (resolve, reject) {
-        uploadTask.on(
-          "state_changed",
-          (snapshot) => {
-            const progress = Math.round(
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            );
-            firebase.setTotalProgress((prevTotal) => {
-              const updatetotal = [...prevTotal]
-              updatetotal[index] = progress
-              return updatetotal;
-            })
+  const handleUpload = async (imageUrl,id, index,ArrayUrl) => {
+    const uploadTask = uploadBytesResumable(ref(storage, `uploads/${id}/${id}_${index}`), imageUrl);
 
-            firebase.setUploadProgress((prevProgress) => {
-              const updatedProgress = { ...prevProgress }; // Create a shallow copy of prevProgress
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
 
-              // If prevProgress[id] exists, spread its contents into a new array, else create an empty array
-              updatedProgress[id] = [...(prevProgress[id] || []), { id: `${id}_${index}`, process: progress }];
+          firebase.setTotalProgress((prevTotal) => {
+            const updatetotal = [...prevTotal]
+            updatetotal[index] = progress
+            return updatetotal;
+          })
 
-              // const updatedProgress = [...prevProgress];
-              // updatedProgress[index] = { EventId: `${id}`, id: `${id}_${index}`, process: progress };
+          //set Process In local Storage
+          const existingProgressJSON = localStorage.getItem('progress');
+          const existingProgress = existingProgressJSON ? JSON.parse(existingProgressJSON) : {};
+          const existingIndex = (existingProgress[id] || []).findIndex(item => item.id === `${id}_${index}`);
 
-              return updatedProgress;
-            });
-          },
-          (error) => {
-            console.error("Error uploading file: ", error);
-            reject(error);
-          },
-          async function Upload() {
-            // Upload completed successfully
-            const ImageRefforUrl = ref(storage, `uploads/${id}/${id}_${index}`)
-            try {
-              const Url = await getDownloadURL(ImageRefforUrl)
-              urls = [...urls, Url]
-              resolve(urls);
-            } catch (error) {
-              console.error("Error getting download URL: ", error);
-              reject(error);
+          if (existingIndex !== -1) {
+            existingProgress[id][existingIndex].process = progress;
+          } else {
+            if (!existingProgress[id]) {
+              existingProgress[id] = [];
             }
+            existingProgress[id].push({ id: `${id}_${index}`, process: progress });
+          }
+          localStorage.setItem('progress', JSON.stringify(existingProgress));
+
+          //setProcess in UplodState
+          firebase.setUploadProgress((prevProgress) => {
+            const updatedProgress = { ...prevProgress };
+            updatedProgress[id] = [...(prevProgress[id] || []), { id: `${id}_${index}`, process: progress }];
+            return updatedProgress;
           });
-      })
-      //Get Respnse
-      data.then((res) => {
-        console.log(res, "is this res")
-        //store event data
-        const newObj = {
-          id: id,
-          date: date,
-          time: formattedTime,
-          description: description,
-        }
-        if (urls) {
-          newObj.eventimg = urls
-        }
-        if (firebase?.mediaBlobUrl) {
-          newObj.audio = firebase.mediaBlobUrl
-        }
+        },
+        (error) => {
+          console.error("Error uploading file: ", error);
+        },
+        async function Upload() {
+          const ImageRefforUrl = ref(storage, `uploads/${id}/${id}_${index}`)
+          try {
+            const Url = await getDownloadURL(ImageRefforUrl)
+            ArrayUrl = await [...ArrayUrl,Url]
+           console.log(Url,"urlllll")
+          } catch (error) {
+            console.error("Error getting download URL: ", error);
+          }
+        });
+  }
 
-        const updatedEvents = [...(firebase?.userdata?.event || []), newObj];
-        firebase.Writedata("/users/" + firebase.userId + "/event/", updatedEvents);
 
-        firebase.setOpen(true);//For snackbar home page
-        firebase.setRecording(false)
-        firebase.setImageUrl([])
-        return updatedEvents;
-      })
-    });
-    navigate("/home")
+
+  const handlesubmmit = async () => {
+    let ArrayUrl = []
+    let counter = 0;
+
+    for (let index = 0; index < firebase.imageurl.length; index++) {
+      await handleUpload(firebase.imageurl[index],id, index,ArrayUrl);
+    }
+
+    console.log(ArrayUrl,"Array of url is this")
+    //Upload Image 
+    // let data = new Promise(function (resolve, reject) {
+
+    //   firebase.imageurl.forEach(async (imageUrl, index) => {
+    //     const uploadTask = uploadBytesResumable(ref(storage, `uploads/${id}/${id}_${index}`), imageUrl);
+    //     //On state change byte receved from blob
+    //     uploadTask.on(
+    //       "state_changed",
+    //       (snapshot) => {
+    //         const progress = Math.round(
+    //           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+    //         );
+
+    //         firebase.setTotalProgress((prevTotal) => {
+    //           const updatetotal = [...prevTotal]
+    //           updatetotal[index] = progress
+    //           return updatetotal;
+    //         })
+
+    //         //set Process In local Storage
+    //         const existingProgressJSON = localStorage.getItem('progress');
+    //         const existingProgress = existingProgressJSON ? JSON.parse(existingProgressJSON) : {};
+    //         const existingIndex = (existingProgress[id] || []).findIndex(item => item.id === `${id}_${index}`);
+
+    //         if (existingIndex !== -1) {
+    //           existingProgress[id][existingIndex].process = progress;
+    //         } else {
+    //           if (!existingProgress[id]) {
+    //             existingProgress[id] = [];
+    //           }
+    //           existingProgress[id].push({ id: `${id}_${index}`, process: progress });
+    //         }
+    //         localStorage.setItem('progress', JSON.stringify(existingProgress));
+
+    //         //setProcess in UplodState
+    //         firebase.setUploadProgress((prevProgress) => {
+    //           const updatedProgress = { ...prevProgress };
+    //           updatedProgress[id] = [...(prevProgress[id] || []), { id: `${id}_${index}`, process: progress }];
+    //           return updatedProgress;
+    //         });
+    //       },
+    //       (error) => {
+    //         console.error("Error uploading file: ", error);
+    //         reject(error);
+    //       },
+    //       async function Upload() {
+    //         const ImageRefforUrl = ref(storage, `uploads/${id}/${id}_${index}`)
+    //         try {
+    //           const Url = await getDownloadURL(ImageRefforUrl)
+    //           urls = [...urls, Url]
+    //           resolve(urls);
+    //         } catch (error) {
+    //           console.error("Error getting download URL: ", error);
+    //           reject(error);
+    //         }
+    //       });
+    //   })
+    // });
+
+    //Get Respnse
+    
+    // data.then((res) => {
+      //store event data
+      const newObj = {
+        id: id,
+        date: date,
+        time: formattedTime,
+        description: description,
+      }
+      if (ArrayUrl) {
+        newObj.eventimg = ArrayUrl
+      }
+      if (firebase?.mediaBlobUrl) {
+        newObj.audio = firebase.mediaBlobUrl
+      }
+
+      const updatedEvents = [...(firebase?.userdata?.event || []), newObj];
+      firebase.Writedata("/users/" + firebase.userId + "/event/", updatedEvents);
+
+      firebase.setOpen(true);//For snackbar home page
+      firebase.setRecording(false)
+      firebase.setImageUrl([])
+      navigate("/home")
+      return updatedEvents;
   };
 
 

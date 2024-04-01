@@ -14,17 +14,17 @@ const CameraRedirect = () => {
         //blob obj
         const imageSrc = webcamRef.current.getScreenshot();
         const base64Part = imageSrc?.split(',')[1];
-
+        
         if (base64Part) {
             const bytes = atob(base64Part);
+            
             const byteNumbers = new Array(bytes.length);
             for (let i = 0; i < bytes.length; i++) {
                 byteNumbers[i] = bytes.charCodeAt(i);
             }
             const byteArray = new Uint8Array(byteNumbers);
             const blob = new Blob([byteArray], { type: 'image/jpeg' });
-
-            console.log(blob, "imageeeeeee")
+            
             fierbase.setImageUrl(prevUrls => [...prevUrls, blob])
             navigate("/event")
         } else {
@@ -36,7 +36,6 @@ const CameraRedirect = () => {
         console.log(e)
     }
 
-    console.log(fierbase.imageurl, "url is this ")
     return (
         <div className='camrearedirectpage'>
             <CloseNavRedirect />

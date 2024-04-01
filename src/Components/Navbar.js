@@ -9,9 +9,11 @@ import { MdOutlineNotificationsNone } from "react-icons/md";
 
 import "./Comp.css";
 import { useNavigate } from "react-router";
+import { useFierbase } from "../context/fierbasecontext";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const firebase = useFierbase();
   return (
     <Box>
       <BottomNavigation showLabels>
@@ -28,6 +30,8 @@ const Navbar = () => {
           icon={<FiEdit />}
           onClick={() => {
             navigate("/event");
+            firebase.setImageUrl([])
+            firebase?.setUploadProgress([])
           }}
         />
         <BottomNavigationAction

@@ -27,12 +27,11 @@ export const FierbaseProvidr = (props) => {
   const [userId, setUserId] = useState("");
   const [imageurl, setImageUrl] = useState([]);
   const [uploadProgress, setUploadProgress] = useState({});
+  const [imageUrlArray,setImageUrlArray] = useState([])
   const [totalProgress, setTotalProgress] = useState([])
   const [recording, setRecording] = useState(false);
-
   //snackbar event
   const [open, setOpen] = useState(false);
-
   //Enternet Conectivity
   const [internet, setinternet] = useState(false);
 
@@ -55,7 +54,7 @@ export const FierbaseProvidr = (props) => {
   const totalPossibleProgress = totalProgress.length * 100;
   const AllImageUpload = (total / totalPossibleProgress) * 100;
 
-  console.log(uploadProgress, totalProgress, AllImageUpload, "Upload")
+  console.log(uploadProgress, totalProgress, AllImageUpload,imageurl, "Upload")
 
   //permission request`
   async function requestPermission() {
@@ -162,6 +161,8 @@ export const FierbaseProvidr = (props) => {
   return (
     <FierbaseContext.Provider
       value={{
+        imageUrlArray,
+        setImageUrlArray,
         errorMessageauth,
         sterrorMessageauth,
         totalProgress,

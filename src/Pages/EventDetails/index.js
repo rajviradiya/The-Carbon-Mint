@@ -23,7 +23,7 @@ const Index = () => {
         <EventDetailsNav />
       </section>
       <section>
-        {firebase.internet ? (<WaitingPhotoComp />) : (firebase?.AllImageUpload !== 100 ? (<Progress />) : (<AlertBoxSuccess />))}
+        {firebase.internet ? (<WaitingPhotoComp />) : (firebase?.AllImageUpload !== 100 ? (<Progress process={firebase.AllImageUpload}/>) : (<AlertBoxSuccess />))}
       </section>
       <section>
         <Pictures data={data2} process={firebase?.uploadProgress} />

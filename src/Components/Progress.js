@@ -17,9 +17,7 @@ function LinearProgressWithLabel(props) {
           <Typography sx={{ fontSize: "5vw", fontWeight: "600" }}>Photo upload</Typography>
           <div style={{display:"flex"}}>
             <Typography sx={{width:"88%", fontSize: "4vw" }}>Photo upload in progress...</Typography>
-            <Typography sx={{width:"12%",color:"#2B9348", fontWeight:"600"}} variant="body2" color="text.secondary">{`${Math.round(
-              props.value,
-            )}%`}</Typography>
+            <Typography sx={{width:"12%",color:"#2B9348", fontWeight:"600"}} variant="body2" color="text.secondary">{props.value}%</Typography>
           </div>
           <Typography>
             <LinearProgress variant="determinate" {...props} />
@@ -38,7 +36,7 @@ LinearProgressWithLabel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-const Progress = () => {
+const Progress = ({Progress}) => {
   const [progress, setProgress] = React.useState(10);
 
   useEffect(() => {
@@ -52,7 +50,7 @@ const Progress = () => {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <LinearProgressWithLabel value={progress} />
+      <LinearProgressWithLabel value={Progress} />
     </Box>
   );
 };
