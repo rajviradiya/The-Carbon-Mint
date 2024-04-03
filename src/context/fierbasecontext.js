@@ -34,6 +34,8 @@ export const FierbaseProvidr = (props) => {
   const [open, setOpen] = useState(false);
   //Enternet Conectivity
   const [internet, setinternet] = useState(true);
+  //params for speeddial
+  const [landparcelspeeddial,setLandparcelSpeeddial] = useState("")
 
   //media recorder
   const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
@@ -175,6 +177,8 @@ export const FierbaseProvidr = (props) => {
         setImageUrl,
         userdata,
         setUserdata,
+        landparcelspeeddial,
+        setLandparcelSpeeddial,
         open,
         setOpen,
         resendOTP,

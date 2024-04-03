@@ -1,15 +1,17 @@
 import React, { useCallback, useRef } from 'react'
 import Webcam from 'react-webcam';
 import { useFierbase } from '../../../context/fierbasecontext';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from "react-router-dom";
 import { BsFillCameraFill } from "react-icons/bs";
 import CloseNavRedirect from './CloseNavRedirect';
 
 const CameraRedirect = () => {
     const webcamRef = useRef(null)
-    const fierbase = useFierbase();
+    const firebase = useFierbase();
     const navigate = useNavigate();
+    const params = useParams()
 
+    console.log(params,"event navigate")
     const capturePhoto = useCallback(async () => {
         //blob obj
         const imageSrc = webcamRef.current.getScreenshot();
@@ -25,8 +27,8 @@ const CameraRedirect = () => {
             const byteArray = new Uint8Array(byteNumbers);
             const blob = new Blob([byteArray], { type: 'image/jpeg' });
             
-            fierbase.setImageUrl(prevUrls => [...prevUrls, blob])
-            navigate("/event")
+            firebase.setImageUrl(prevUrls => [...prevUrls, blob])
+            navigate(`/event/${params.name}`)
         } else {
             console.error("Base64 part not found in image source");
         }
@@ -38,7 +40,7 @@ const CameraRedirect = () => {
 
     return (
         <div className='camrearedirectpage'>
-            <CloseNavRedirect />
+            <CloseNavRedirect closenavigateparams={params.name}/>
             <Webcam
                 ref={webcamRef}
                 audio={false}

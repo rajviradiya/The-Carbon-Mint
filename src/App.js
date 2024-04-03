@@ -52,25 +52,25 @@ const App = () => {
             <ProfilePage />
           </>
         } />
-        <Route path="/event" element={
+        <Route path="/event/:name" element={
           <>
             <Event />
           </>
         } />
-        <Route path="/cam" element={
+        <Route path="/cam/:name" element={
           <>
             <Showcam />
           </>
         } />
         <Route
-          path="/farm"
+          path="/farm/:name"
           element={
             <>
               <SpeedDialNav elementpass={<FarmerPage />} />
             </>
           }
         />
-        <Route path="/crop/:id" element={
+        <Route path="/crop/:name" element={
           <>
             <SpeedDialNav elementpass={<CropPage />} />
           </>}

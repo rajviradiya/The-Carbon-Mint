@@ -32,7 +32,7 @@ const Index1 = () => {
       setTimeOut(true)
     }
   },[])
-  if (!firebase?.userdata) {
+  if (!firebase?.userdata?.city) {
     return (
       <Stack spacing={1}>
         <Skeleton variant="text" sx={{ fontSize: '1rem' }} />

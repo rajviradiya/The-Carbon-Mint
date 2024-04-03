@@ -5,10 +5,11 @@ import CameraImg from "./CameraImg";
 import { useNavigate } from "react-router-dom";
 import { useFierbase } from "../../../context/fierbasecontext";
 
-const Camera = () => {
+const Camera = ({cropnmaeparam}) => {
   const navigate = useNavigate()
   const fierbase = useFierbase()
 
+  console.log(cropnmaeparam,"nav cam")
   return (
     <Container fluid className="cameracomp">
       <section className="cameratext">
@@ -21,7 +22,7 @@ const Camera = () => {
               <CameraImg key={index} image={items} index={index} />
             </>
           ))}
-          <button className="addphoto" onClick={() => navigate("/cam")}>
+          <button className="addphoto" onClick={() => navigate(`/cam/${cropnmaeparam}`)}>
             <BsFillCameraFill />
           </button>
         </div>

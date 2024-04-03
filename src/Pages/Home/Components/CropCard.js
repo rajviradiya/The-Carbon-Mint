@@ -7,7 +7,7 @@ const CropCard = ({ items }) => {
   const navigate = useNavigate()
   return (
     <Container className="CropCont">
-      <Link to={`/crop/${items.id}`} className="Cropdetaillink cropcard">
+      <Link to={`/crop/${items.name}`} className="Cropdetaillink cropcard">
         <div className="cropp1">
           <img
             variant="top"
@@ -22,7 +22,7 @@ const CropCard = ({ items }) => {
           </div>
         </div>
       </Link>
-      <button className="cropbutton" onClick={() => { navigate("/event") }}>
+      <button className="cropbutton" onClick={() => { navigate(`/event/${items?.name}`) }}>
         <LuPlus className="cropicon" />
       </button>
     </Container>

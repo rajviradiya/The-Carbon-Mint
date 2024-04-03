@@ -5,19 +5,20 @@ import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import { FiEdit } from "react-icons/fi";
-import { TbZoomQuestion } from "react-icons/tb";
-import { GiFarmer } from "react-icons/gi";
 import { useNavigate } from "react-router";
+import { useFierbase } from "../context/fierbasecontext";
 
-const actions = [
-  { icon: <FiEdit/>, name: "Input Log",path:"/event"},
-  { icon: <GiFarmer />, name: "Intervention",path:"" },
-  { icon: <TbZoomQuestion />, name: "Query",path:"" }
 
-];
 const SpeedDialNav = ({elementpass}) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate()
+  const firebase = useFierbase()
+
+  const actions = [
+    { icon: <FiEdit/>, name: "Input Log",path:`/event/${firebase?.landparcelspeeddial}`},
+  ];
+
+  console.log(firebase.landparcelspeeddial,"land parcel data")
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

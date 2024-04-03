@@ -6,19 +6,20 @@ import { useFierbase } from "../../../context/fierbasecontext";
 import { LuPlus } from "react-icons/lu";
 
 const FarmerDeailcard = () => {
-  const fierbase = useFierbase();
+  const firebase = useFierbase();
   const navigate = useNavigate()
+
   return (
     <Container fluid className="farmdetailcontainer">
-      <Link to="/farm" className="Farmerdetaillink">
-        <Card className="farmerdetailshomepage" style={{ backgroundImage: `url(${fierbase?.userdata && fierbase?.userdata?.ProfilePic})` }}>
+      <Link to={`/farm/${firebase?.userdata?.Landparcel}`} className="Farmerdetaillink">
+        <Card className="farmerdetailshomepage" style={{ backgroundImage: `url(${firebase?.userdata && firebase?.userdata?.ProfilePic})` }}>
           <div className="Farmerlocation">
-            <span>{fierbase?.userdata?.city}</span>
-            <p>{fierbase?.userdata && fierbase?.userdata?.district}{fierbase?.userdata && fierbase?.userdata?.state}</p>
+            <span>{firebase?.userdata?.city}</span>
+            <p>{firebase?.userdata && firebase?.userdata?.district}{firebase?.userdata && firebase?.userdata?.state}</p>
           </div>
         </Card>
       </Link>
-      <button className="farmdetailbutton" onClick={() => navigate("/event")}>
+      <button className="farmdetailbutton" onClick={() => navigate(`/event/${firebase?.userdata?.Landparcel}`)}>
         <LuPlus className="farmicon" />
       </button>
     </Container>

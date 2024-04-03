@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CloseNavFarm from "./Components/CloseNavFarm";
 import "./FarmPage.css";
 import Farmmap from "./Components/Farmmap";
@@ -6,13 +6,23 @@ import CropCard from "../Home/Components/CropCard";
 import { useFierbase } from "../../context/fierbasecontext";
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import EventCard from "../Home/Components/EventCard";
 
 const Index = () => {
   const firebase = useFierbase()
+  const params = useParams()
   const ProcessArray = JSON.parse(localStorage.getItem("progress"))
+  
+  useEffect(()=>{
+    firebase.setLandparcelSpeeddial(params.name)
+  },[])
 
+  const filterdata = firebase?.userdata?.event?.filter((item)=>{
+    return item.name === "Landparcel1"
+  },[])
+
+  console.log(filterdata,params.name,"filter data")
   if (!firebase?.userdata?.farmdetail) {
     return (
       <Stack spacing={1}>
@@ -71,7 +81,7 @@ const Index = () => {
         <section className="Crops">
           <p className="details ps-3">Crops</p>
           <div className=" mb-5">
-            {firebase?.userdata?.event?.map((items, index) => (
+            {filterdata.map((items, index) => (
               <>
                 <Link key={index} to={`/eventdetails/${items.id}`} style={{ textDecoration: "none" }}>
                   {

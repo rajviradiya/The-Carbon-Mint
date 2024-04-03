@@ -7,7 +7,7 @@ import AudioRecord from "./components/AudioRecord";
 import ButtonComp from "../../Components/ButtonComp";
 import { useFierbase } from "../../context/fierbasecontext";
 import { v4 as uuid } from 'uuid';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from "../../Config/fierbase";
 
@@ -16,16 +16,21 @@ const Index = () => {
   const firebase = useFierbase()
   const navigate = useNavigate()
   let id = uuid()
+  const params = useParams();
   const currentDate = new Date();
   const date = `${currentDate.getDate()}/${currentDate.getMonth()}/${currentDate.getFullYear()}`
   const formattedTime = currentDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 
+  console.log(params?.name,'paramssss')
   const UploadData = (id, date, formattedTime, description, urls, audio) => {
     const newObj = {
       id: id,
       date: date,
       time: formattedTime,
       description: description,
+    }
+    if(params?.name){
+      newObj.name = params?.name
     }
     if (urls) {
       newObj.eventimg = urls
@@ -119,15 +124,15 @@ const Index = () => {
   return (
     <section className="EventPagemain">
       <section className="closenavmain">
-        <CloaseNav handleClosenav={handleClosenav} customStyle={customStyle} />
+        <CloaseNav params={params} />
       </section>
       <section className="Cameramain">
-        <Camera />
+        <Camera cropnmaeparam={params?.name}/>
       </section>
       <section className="Eventdescriptionmain">
         <Container className="EventDescription">
           <span>Please write a notes below</span>
-          <textarea placeholder="Notes Hear..." onChange={(e) => setDescription(e.target.value)} />
+          <textarea placeholder="Notes Here..." onChange={(e) => setDescription(e.target.value)} />
           <p>Max 500</p>
         </Container>
       </section>
