@@ -15,11 +15,19 @@ const CloaseNav = ({ params }) => {
     return item.name === params.name
   })
 
+  const filterEvent = firebase?.userdata?.event?.filter((item) => {
+    return item.name === params.name
+  })
+
+  if (!filterEvent) {
+    return <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+  }
+
   if (!filtercrop) {
     return <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
   }
 
-  
+
   console.log(filtercrop, "cropsss")
   return (
     <Container className="closeeventnav">
@@ -36,7 +44,7 @@ const CloaseNav = ({ params }) => {
         <section>
           <span>Landparcel - Intervention</span>
           <br />
-          <p>{filtercrop[0]?.name || <h1>Loading..</h1>}, Chinnaiah Polam, Kashimnagar</p>
+          <p>{filtercrop[0]?.name || filterEvent[0].name}, Chinnaiah Polam, Kashimnagar</p>
         </section>
       </div>
     </Container>
