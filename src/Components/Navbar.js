@@ -12,8 +12,9 @@ import { useNavigate } from "react-router";
 import { useFierbase } from "../context/fierbasecontext";
 
 const Navbar = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
   const firebase = useFierbase();
+
   return (
     <Box>
       <BottomNavigation showLabels>
@@ -25,28 +26,13 @@ const Navbar = () => {
             navigate("/home");
           }}
         />
-        <BottomNavigationAction
-          label="Input Log"
-          icon={<FiEdit />}
-          onClick={() => {
-            navigate("/event");
-            firebase.setImageUrl([])
-            firebase?.setUploadProgress([])
-          }}
-        />
-        <BottomNavigationAction
-          label="Query"
-          icon={<TbZoomQuestion />}
-          onClick={() => {
-            navigate();
-          }}
-        />
+      
         <BottomNavigationAction
           label="Notifications"
           style={{ borderTopRightRadius: "30px" }}
           icon={<MdOutlineNotificationsNone />}
           onClick={() => {
-            navigate("/home");
+            navigate("/notification");
           }}
         />
       </BottomNavigation>

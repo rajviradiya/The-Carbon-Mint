@@ -1,5 +1,6 @@
 /* Login Country */
 .Loginmaincont {
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -7,7 +8,7 @@
 }
 
 .homeicon {
-  margin-top: 15vw;
+  margin-top: 12vw;
 }
 
 .homeicon img {
@@ -16,10 +17,6 @@
 
 .homelogincomp {
   margin-top: 40vw;
-}
-
-.logincomp {
-  width: 100%;
 }
 
 .HomeLogin {
@@ -37,7 +34,7 @@
 .HomeLogin p {
   font-size: clamp(3vw, 4vw, 5vw);
   color: #79787a;
-  margin: 0px;
+  padding: 0px;
   font-weight: 400;
 }
 

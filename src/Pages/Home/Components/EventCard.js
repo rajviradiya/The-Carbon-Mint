@@ -2,67 +2,41 @@ import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { PiImages } from "react-icons/pi";
 import LinearProgressbar from "./LinearProgress";
+import Skeleton from '@mui/material/Skeleton';
 import { useFierbase } from "../../../context/fierbasecontext";
 
-const EventCard = ({ items, process, internet }) => {
-  const [processbarEventCard, setprocessbarEventCard] = useState(false)
-  const [processEventCard, setprocessEventCard] = useState(false)
-
+const EventCard = ({ eventdata, Localprocessdata, internet }) => {
   const firebase = useFierbase()
-  const keys = Object.keys(firebase?.uploadProgress);
-
-  useEffect(() => {
-    if (keys[0] === items.id) {
-      setprocessbarEventCard(true)
-    } else (
-      setprocessbarEventCard(false)
-    )
-  }, [firebase?.AllImageUpload])
-
-  useEffect(() => {
-    if (process !== 100) {
-      setprocessEventCard(true)
-    } else (
-      setprocessEventCard(false)
-    )
-  }, [firebase?.AllImageUpload])
-
-  console.log(items, process, internet, keys[0], items.id, "Upload Event")
+  const SumProcess = Localprocessdata?.reduce((acc, cval) => acc + cval.process, 0)
+  const totalPossibleProgress = Localprocessdata?.length * 100;
+  const AllImageUpload = (SumProcess / totalPossibleProgress) * 100;
 
   return (
     <Container className="eventcont mt-2">
       <div className="Eventcard">
         <div className="eventpart1">
-          <img src={items?.eventimg[0]} alt="Event" />
+          {eventdata?.eventimg ? (
+            <img src={eventdata?.eventimg[0]} alt="Event" />
+          ) : (
+            <Skeleton variant="circular" width={40} height={40} />
+          )
+          }
         </div>
         <div className="eventpart2">
-          <span >{items?.date},{items?.time}</span>
-          {keys[0] === items.id ?
-            (
-              process !== 100 ? (
-                <p>Photos waiting to be upload</p>
-              ) : (
-                <p>Last photo upload at {items?.date}, {items?.time}</p>
-              )
-            ) : (
-              <p>Last photo upload at {items?.date}, {items?.time}</p>
-            )}
-
-          {processbarEventCard ? (internet ?
-            (
-              processEventCard? (
-                <LinearProgressbar process={process} />
-              ) : (
-                <LinearProgressbar process={process} />
-              )
-            ) :
-            (processEventCard ? (
-              <LinearProgressbar process={50} />
-            ) : (
-              <></>
-            ))) : (<></>)
+          <span >{eventdata?.date},{eventdata?.time}</span> 
+          {AllImageUpload !== 100 ? (
+            <p>Photos waiting to be upload</p>
+          ) : (
+            <p>Last photo upload at {eventdata?.date}, {eventdata?.time}</p>
+          )
           }
 
+          {AllImageUpload !== 100 ? (
+            <LinearProgressbar process={50} />
+          ) : (
+            <></>
+          )
+          }
         </div>
         <dvi className="eventpart3">
           <PiImages className="eventicon" />

@@ -11,8 +11,10 @@ import FarmerPage from "./Pages/FarmDetalis/index";
 import CountryCop from "./Pages/CountryPage/index";
 import EventDetails from "./Pages/EventDetails/index"
 import CropPage from "./Pages/Croppage/index";
+import Notification from "./Pages/Notificationpage/index"
 import Showcam from "./Pages/Event/components/CameraRedirect"
 import SpeedDialNav from "./Components/SpeedDialNav";
+import Nav from "./Pages/Home/Components/Nav";
 
 const App = () => {
 
@@ -79,6 +81,13 @@ const App = () => {
           </>
         } />
 
+        <Route path="/notification" element={
+          <>
+            <Nav />
+            <Notification />
+            <Navbar />
+          </>
+        } />
       </Routes>
     </>
   );

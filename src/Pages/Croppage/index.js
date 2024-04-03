@@ -5,23 +5,37 @@ import { Link, useParams } from "react-router-dom";
 import ClosenavCrop from "./Components/ClosenavCrop";
 import "./Croppage.css"
 import Cropmap from "./Components/Cropmap";
+import Skeleton from '@mui/material/Skeleton';
+import Stack from '@mui/material/Stack';
 
 const Index = () => {
   let data = {}
-  const fierbase = useFierbase()
+  const firebase = useFierbase()
   const params = useParams()
+  const ProcessArray = JSON.parse(localStorage.getItem("progress"))
+
+  if (!firebase?.userdata?.event) {
+    return (
+      <Stack spacing={1}>
+        <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+        <Skeleton variant="circular" width={40} height={40} />
+        <Skeleton variant="rectangular" width={210} height={60} />
+        <Skeleton variant="rounded" width={210} height={60} />
+      </Stack>
+    )
+  }
 
   //Filter Crops Id
-  for (let i = 0; i < fierbase?.userdata?.crops?.length; i++) {
-    if (fierbase?.userdata?.crops[i]?.id == params.id) {
-      data = fierbase?.userdata?.crops[i]
+  for (let i = 0; i < firebase?.userdata?.crops?.length; i++) {
+    if (firebase?.userdata?.crops[i]?.id == params.id) {
+      data = firebase?.userdata?.crops[i]
     }
   }
 
   return (
     <section className="cropmain">
       <section className="Closenavmain">
-        <ClosenavCrop datamain={fierbase?.userdata} data={data} />
+        <ClosenavCrop datamain={firebase?.userdata} data={data} />
       </section>
       <section className=" container    ">
         <img
@@ -62,14 +76,15 @@ const Index = () => {
       <section className="Cropsevent">
         <p className="detailscrop ps-3">Events</p>
         <div className=" mb-5">
-          {fierbase?.userdata?.event?.map((items) => (
+          {firebase?.userdata?.event?.map((items, index) => (
             <>
-              <Link to={`/eventdetails/${items.id}`} style={{ textDecoration: "none" }}>
-                <EventCard items={items} />
+              <Link key={index} to={`/eventdetails/${items.id}`} style={{ textDecoration: "none" }}>
+                {
+                  <EventCard eventdata={items} Localprocessdata={ProcessArray[items.id]} internet={firebase?.internet} />
+                }
               </Link>
             </>
-          ))
-          }
+          ))}
         </div>
       </section>
     </section>

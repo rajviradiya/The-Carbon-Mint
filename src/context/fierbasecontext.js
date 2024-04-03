@@ -15,45 +15,36 @@ export const FierbaseContext = createContext(null);
 export const useFierbase = () => useContext(FierbaseContext);
 
 export const FierbaseProvidr = (props) => {
+  //Phone login
   const [phoneloginuser, setPhoneLoginUser] = useState("");
   const [country, setCountry] = useState("in");
   const [dialcode, setDialcode] = useState("+91");
   const [ponewithdial, setPhonewithdial] = useState("");
   const [searchcont, setSearchcont] = useState("");
-  
+  //Auth user
   const [authuserdata, setauthuserdata] = useState("");
-  const [errorMessageauth,sterrorMessageauth] = useState(null)
   const [userdata, setUserdata] = useState({});
   const [userId, setUserId] = useState("");
+  const [errorMessageauth,sterrorMessageauth] = useState(null)
+  //Imaghe Click
   const [imageurl, setImageUrl] = useState([]);
   const [uploadProgress, setUploadProgress] = useState({});
-  const [totalProgress, setTotalProgress] = useState([])
   const [recording, setRecording] = useState(false);
   //snackbar event
   const [open, setOpen] = useState(false);
   //Enternet Conectivity
-  const [internet, setinternet] = useState(false);
+  const [internet, setinternet] = useState(true);
 
   //media recorder
   const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
 
   //Internet Status
   window.addEventListener('online', () => {
-    setinternet(false)
-  });
-  window.addEventListener('offline', () => {
     setinternet(true)
   });
-
-  // Uploading All Images
-  const total = totalProgress.reduce((acc, cur) => {
-    return acc + cur
-  }, 0)
-
-  const totalPossibleProgress = totalProgress.length * 100;
-  const AllImageUpload = (total / totalPossibleProgress) * 100;
-
-  console.log(uploadProgress, totalProgress, AllImageUpload, "Upload")
+  window.addEventListener('offline', () => {
+    setinternet(false)
+  });
 
   //permission request`
   async function requestPermission() {
@@ -162,8 +153,6 @@ export const FierbaseProvidr = (props) => {
       value={{
         errorMessageauth,
         sterrorMessageauth,
-        totalProgress,
-        setTotalProgress,
         internet,
         setinternet,
         uploadProgress,
@@ -203,7 +192,6 @@ export const FierbaseProvidr = (props) => {
         stopRecording,
         mediaBlobUrl,
         requestPermission,
-        AllImageUpload,
       }}
     >
       {props.children}

@@ -13,20 +13,39 @@ import { storage } from "../../Config/fierbase";
 
 const Index = () => {
   const [description, setDescription] = useState("")
-
-  let id = uuid()
   const firebase = useFierbase()
+  const navigate = useNavigate()
+  let id = uuid()
   const currentDate = new Date();
   const date = `${currentDate.getDate()}/${currentDate.getMonth()}/${currentDate.getFullYear()}`
   const formattedTime = currentDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-  const navigate = useNavigate()
+
+  const UploadData = (id, date, formattedTime, description, urls, audio) => {
+    const newObj = {
+      id: id,
+      date: date,
+      time: formattedTime,
+      description: description,
+    }
+    if (urls) {
+      newObj.eventimg = urls
+    }
+    if (audio) {
+      newObj.audio = audio
+    }
+
+    let updatedEvents = [...(firebase?.userdata?.event || []), newObj];
+    firebase.Writedata("/users/" + firebase.userId + "/event/", updatedEvents);
+    return updatedEvents;
+  }
 
   const handlesubmmit = async () => {
     let urls = []
-    //Upload Image 
-    firebase.imageurl.forEach(async (imageUrl, index) => {
+    // Upload Image
+    UploadData(id, date, formattedTime, description, urls, firebase.mediaBlobUrl)
+    firebase?.imageurl?.forEach(async (imageUrl, index) => {
       const uploadTask = uploadBytesResumable(ref(storage, `uploads/${id}/${id}_${index}`), imageUrl);
-
+      //On state change byte receved from blob
       let data = new Promise(function (resolve, reject) {
         uploadTask.on(
           "state_changed",
@@ -34,21 +53,25 @@ const Index = () => {
             const progress = Math.round(
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100
             );
-            firebase.setTotalProgress((prevTotal) => {
-              const updatetotal = [...prevTotal]
-              updatetotal[index] = progress
-              return updatetotal;
-            })
+            //set Process In local Storage
+            const existingProgressJSON = localStorage.getItem('progress');
+            const existingProgress = existingProgressJSON ? JSON.parse(existingProgressJSON) : {};
+            const existingIndex = (existingProgress[id] || []).findIndex(item => item.id === `${id}_${index}`);
 
+            if (existingIndex !== -1) {
+              existingProgress[id][existingIndex].process = progress;
+            } else {
+              if (!existingProgress[id]) {
+                existingProgress[id] = [];
+              }
+              existingProgress[id].push({ id: `${id}_${index}`, process: progress });
+            }
+            localStorage.setItem('progress', JSON.stringify(existingProgress));
+
+            //setProcess in UplodState
             firebase.setUploadProgress((prevProgress) => {
-              const updatedProgress = { ...prevProgress }; // Create a shallow copy of prevProgress
-
-              // If prevProgress[id] exists, spread its contents into a new array, else create an empty array
+              const updatedProgress = { ...prevProgress };
               updatedProgress[id] = [...(prevProgress[id] || []), { id: `${id}_${index}`, process: progress }];
-
-              // const updatedProgress = [...prevProgress];
-              // updatedProgress[index] = { EventId: `${id}`, id: `${id}_${index}`, process: progress };
-
               return updatedProgress;
             });
           },
@@ -57,7 +80,6 @@ const Index = () => {
             reject(error);
           },
           async function Upload() {
-            // Upload completed successfully
             const ImageRefforUrl = ref(storage, `uploads/${id}/${id}_${index}`)
             try {
               const Url = await getDownloadURL(ImageRefforUrl)
@@ -69,32 +91,17 @@ const Index = () => {
             }
           });
       })
-      //Get Respnse
+
       data.then((res) => {
-        console.log(res, "is this res")
+        UploadData(id, date, formattedTime, description, urls, firebase.mediaBlobUrl)
+        console.log(res, "res isthis")
         //store event data
-        const newObj = {
-          id: id,
-          date: date,
-          time: formattedTime,
-          description: description,
-        }
-        if (urls) {
-          newObj.eventimg = urls
-        }
-        if (firebase?.mediaBlobUrl) {
-          newObj.audio = firebase.mediaBlobUrl
-        }
-
-        const updatedEvents = [...(firebase?.userdata?.event || []), newObj];
-        firebase.Writedata("/users/" + firebase.userId + "/event/", updatedEvents);
-
-        firebase.setOpen(true);//For snackbar home page
-        firebase.setRecording(false)
         firebase.setImageUrl([])
-        return updatedEvents;
+        firebase.setOpen(false);
       })
     });
+    firebase.setRecording(false)
+    firebase.setOpen(true);//For snackbar home page
     navigate("/home")
   };
 
