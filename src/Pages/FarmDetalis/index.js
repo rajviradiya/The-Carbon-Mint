@@ -79,7 +79,7 @@ const Index = () => {
           </span>
         </section>
         <section className="Crops">
-          <p className="details ps-3">Crops</p>
+          <p className="details ps-3">Events</p>
           <div className=" mb-5">
             {filterdata.map((items, index) => (
               <>
