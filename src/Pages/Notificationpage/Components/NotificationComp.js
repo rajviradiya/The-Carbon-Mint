@@ -6,7 +6,7 @@ const NotificationComp = ({ item }) => {
         <div className='container mt-2'>
             <div className='notificationdiv row gx-0'>
                 <div className='notificationImg col-3'>
-                    <img src={item.eventimg[0]} />
+                    <img src={item && item.eventimg[0]} />
                 </div>
                 <div className=' notificationcont col-9'>
                     <p>Event upload status</p>

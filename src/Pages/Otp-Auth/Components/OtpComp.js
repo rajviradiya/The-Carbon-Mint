@@ -9,7 +9,6 @@ import OtpveryfyModal from "./OtpveryfyModal";
 
 const OtpComp = () => {
   const [otp, setOtp] = useState("");
-
   const [openM2, setOpenM2] = useState(false);
   const [openM1, setOpenM1] = useState(false);
   const navigate = useNavigate();

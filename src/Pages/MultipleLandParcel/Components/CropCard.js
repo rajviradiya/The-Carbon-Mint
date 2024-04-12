@@ -5,7 +5,6 @@ import { LuPlus } from "react-icons/lu";
 
 const CropCard = ({ items }) => {
   const navigate = useNavigate()
-  console.log(items,"data is")
   return (
     <Container className="CropCont">
       <Link to={`/crop/${items?.id}`} className="Cropdetaillink cropcard">

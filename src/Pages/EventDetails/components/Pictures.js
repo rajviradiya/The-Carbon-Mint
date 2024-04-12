@@ -14,7 +14,7 @@ const Pictures = ({ data, localprocessdata }) => {
                         data[0]?.eventimg ? (
                             data[0]?.eventimg?.map((items, index) => (
                                 <>
-                                    <ImageComp image={items} process={localprocessdata[index]} />
+                                    <ImageComp image={items} process={localprocessdata && localprocessdata[index]} />
                                 </>
                             ))
                         ) : (<Skeleton variant="rounded" width={210} height={60} />)

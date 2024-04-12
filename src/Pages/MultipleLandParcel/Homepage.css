@@ -208,16 +208,7 @@
   color: #2b9348;
 }
 
-.lan-parcel-section{
-  /* position: relative;    */
-  height: 70vh;
-  overflow: scroll;
-}
 .land-parcel-slider{
   height: 85vh !important; 
   overflow: scroll;
 }
-/* slider-div{
-  height: 80vh !important; 
-  overflow: scroll;
-} */

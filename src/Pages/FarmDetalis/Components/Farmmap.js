@@ -19,15 +19,7 @@ const PlanCoordinates = [
   { lat: 21.592282202992322, lng: 72.98959588088908 },
   { lat: 21.592501191919755, lng: 72.9895617930224 },
   { lat: 21.59230813590892, lng: 72.98830054195507 },
-
-
-  // { lat: 21.592302214633673, lng: 72.98829175980364 },
-  // { lat: 21.59140095620839, lng: 72.99004997665368 },
-  // { lat: 21.591673430277517, lng: 72.9917330560315 },
-  // { lat: 21.592567700541867, lng: 72.99140996490092 },
-  // { lat: 21.592316187588356, lng: 72.98965926179812 },
 ];
-
 
 const Farmmap = () => {
   const { isLoaded } = useJsApiLoader({
@@ -37,7 +29,6 @@ const Farmmap = () => {
   const [map, setMap] = useState(null);
   const [placeDetails, setPlaceDetails] = useState(null);
 
-  console.log(placeDetails, "PLACE DETAUILS")
   const onLoad = useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds(center);
     map.fitBounds(bounds);

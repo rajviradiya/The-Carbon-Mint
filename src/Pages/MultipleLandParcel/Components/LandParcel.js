@@ -5,9 +5,8 @@ import EventCard from "./EventCard";
 import { useFierbase } from "../../../context/fierbasecontext";
 import { Link } from "react-router-dom";
 
-const LandParcel = ({ landparceldata, event,setCurrentSlide }) => {
+const LandParcel = ({ landparceldata, event }) => {
   const firebase = useFierbase();
-  const ProcessArray = JSON.parse(localStorage.getItem("progress"))
 
   const allevent = event?.event?.filter((item) => {
     return item.type == landparceldata.Landparcel
@@ -34,7 +33,7 @@ const LandParcel = ({ landparceldata, event,setCurrentSlide }) => {
           <>
             <Link key={index} to={`/eventdetails/${items.id}`} style={{ textDecoration: "none" }}>
               {
-                <EventCard eventdata={items} Localprocessdata={ProcessArray[items.id]} internet={firebase?.internet} />
+                <EventCard eventdata={items} internet={firebase?.internet} />
               }
             </Link>
           </>

@@ -58,7 +58,6 @@ const Index = () => {
       console.log(err)
     })
 
-  console.log(landparcel, landparcel2, crop, params.id, "data isssssssssssssssssssss")
 
   const UploadData = (id, date, formattedTime, description, urls, audio) => {
     const UplodTime = currentDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' });
@@ -140,7 +139,6 @@ const Index = () => {
 
       data.then((res) => {
         UploadData(id, date, formattedTime, description, urls, firebase.mediaBlobUrl)
-        console.log(res, "res isthis")
         //store event data
         firebase.setImageUrl([])
         firebase.setOpen(false);

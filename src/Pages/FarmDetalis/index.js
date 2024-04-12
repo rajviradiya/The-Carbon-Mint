@@ -25,7 +25,6 @@ const Index = () => {
     return item.name === multilandparcel[0].Landparcel
   })
 
-  console.log(multilandparcel,landparcelevent,params.id,"filter data")
   if (!firebase?.multipleLandParcel?.LandParcels) {
     return (
       <Stack spacing={1}>
@@ -88,7 +87,7 @@ const Index = () => {
               <>
                 <Link key={index} to={`/eventdetails/${items.id}`} style={{ textDecoration: "none" }}>
                   {
-                    <EventCard eventdata={items} Localprocessdata={ProcessArray[items.id]} internet={firebase?.internet} />
+                    <EventCard eventdata={items} Localprocessdata={ProcessArray && ProcessArray[items.id]} internet={firebase?.internet} />
                   }
                 </Link>
               </>

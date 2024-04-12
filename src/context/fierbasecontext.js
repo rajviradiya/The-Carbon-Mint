@@ -24,7 +24,7 @@ export const FierbaseProvidr = (props) => {
   const [authuserdata, setauthuserdata] = useState("");
   const [multipleLandParcel, setMultipleLandParcel] = useState({})
   const [userId, setUserId] = useState("");
-  const [errorMessageauth, sterrorMessageauth] = useState(null)
+  const [errorMessageauth, setErrorMessageauth] = useState(null)
   //Imaghe Click
   const [imageurl, setImageUrl] = useState([]);
   const [uploadProgress, setUploadProgress] = useState({});
@@ -151,7 +151,7 @@ export const FierbaseProvidr = (props) => {
         Allprocess,
         setAllProcess,
         errorMessageauth,
-        sterrorMessageauth,
+        setErrorMessageauth,
         internet,
         setinternet,
         uploadProgress,

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import LandParcel from "./Components/LandParcel"
-import "./MultipleLandParcel.css"
 import { useFierbase } from '../../context/fierbasecontext'
 import "./Homepage.css";
 import Skeleton from '@mui/material/Skeleton';
@@ -10,16 +9,14 @@ import Alert from '@mui/material/Alert';
 import { MdOutlineUploadFile } from "react-icons/md";
 import { FiWifiOff } from "react-icons/fi";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Index = () => {
     const firebase = useFierbase()
-    console.log(firebase?.multipleLandParcel?.LandParcels, "firebase multi land")
-
     const [timeout, setTimeOut] = useState(false)
+
     useEffect(() => {
         setTimeout(() => {
             if (firebase.open === false) {
@@ -53,7 +50,6 @@ const Index = () => {
         )
     }
 
-
     const settings = {
         dots: true,
         infinite: true,
@@ -67,29 +63,17 @@ const Index = () => {
     };
 
     return (
-
-
         <section className='container-fluid p-0'>
-            <div className='land-parcel-slider'>
-
+            <section className='land-parcel-slider'>
                 <Slider {...settings} >
                     {
                         firebase?.multipleLandParcel?.LandParcels?.map((item, index) => (
-                                <LandParcel landparceldata={item} event={firebase?.multipleLandParcel} />
+                            <LandParcel landparceldata={item} event={firebase?.multipleLandParcel} />
 
                         ))
                     }
                 </Slider>
-            </div>
-
-            {/* <div>
-                {
-                    firebase?.multipleLandParcel?.LandParcels?.map((item, index) => (
-                        <LandParcel landparceldata={item} event={firebase?.multipleLandParcel} />
-                    ))
-                }
-            </div> */}
-
+            </section>
             <section style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
                 {firebase?.internet ?
                     (firebase.open ?
@@ -115,8 +99,6 @@ const Index = () => {
                 }
             </section>
         </section>
-
-
     )
 }
 

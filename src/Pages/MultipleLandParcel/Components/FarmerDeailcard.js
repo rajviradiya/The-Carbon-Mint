@@ -1,8 +1,7 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { useFierbase } from "../../../context/fierbasecontext";
 import { LuPlus } from "react-icons/lu";
 
 const FarmerDeailcard = ({ landparceldata }) => {

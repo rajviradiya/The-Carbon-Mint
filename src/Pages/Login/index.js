@@ -15,7 +15,7 @@ const Index = () => {
       <section className="homelogincomp">
         <Login />
       </section>
-      <section >
+      <section className="otpAlert">
         {
           firebase?.errorMessageauth !== null ?
             (<Alert

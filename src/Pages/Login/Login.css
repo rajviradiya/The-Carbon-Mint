@@ -83,3 +83,9 @@
   text-align: center;
   color: #2b9348;
 }
+
+.otpAlert{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

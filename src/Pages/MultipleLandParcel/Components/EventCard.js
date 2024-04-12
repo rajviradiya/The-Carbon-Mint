@@ -5,11 +5,12 @@ import LinearProgressbar from "./LinearProgress";
 import Skeleton from '@mui/material/Skeleton';
 import { useFierbase } from "../../../context/fierbasecontext";
 
-const EventCard = ({ eventdata, Localprocessdata, internet }) => {
-  const firebase = useFierbase()
-  const SumProcess = Localprocessdata?.reduce((acc, cval) => acc + cval.process, 0)
-  const totalPossibleProgress = Localprocessdata?.length * 100;
-  const AllImageUpload = (SumProcess / totalPossibleProgress) * 100;
+const EventCard = ({ eventdata, internet }) => {
+  const ProcessArray = JSON.parse(localStorage.getItem("progress"))
+
+  const SumProcess = ProcessArray && ProcessArray[eventdata.id]?.reduce((acc, cval) => acc + cval.process, 0)
+  const totalPossibleProgress = ProcessArray && ProcessArray[eventdata.id]?.length * 100;
+  const AllImageUpload = (SumProcess / totalPossibleProgress) * 100 || 100;
 
   return (
     <Container className="eventcont mt-2">
@@ -24,23 +25,23 @@ const EventCard = ({ eventdata, Localprocessdata, internet }) => {
         </div>
         <div className="eventpart2">
           <span >{eventdata?.date},{eventdata?.time}</span>
-          {AllImageUpload !== 100 ? (
-            <p>Photos waiting to be upload</p>
-          ) : (
+          {AllImageUpload === 100 || AllImageUpload === undefined ? (
             <p>Last photo upload at {eventdata?.date}, {eventdata?.uplodtime}</p>
+          ) : (
+            <p>Photos waiting to be upload</p>
           )
           }
 
-          {AllImageUpload !== 100 ? (
-            <LinearProgressbar process={AllImageUpload} />
-          ) : (
+          {AllImageUpload === 100 || AllImageUpload === undefined ? (
             <></>
+          ) : (
+            <LinearProgressbar process={AllImageUpload} />
           )
           }
         </div>
         <dvi className="eventpart3">
           {
-            AllImageUpload !== 100 ? (<PiImages className="eventicon" />) : (<></>)
+            AllImageUpload === 100 || AllImageUpload === undefined ? (<></>) : (<PiImages className="eventicon" />)
           }
         </dvi>
       </div>

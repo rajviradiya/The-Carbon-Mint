@@ -16,9 +16,9 @@ const Index = () => {
   const data2 = firebase?.multipleLandParcel?.event?.filter((items) => items.id === params.id)
   const ProcessArray = JSON.parse(localStorage.getItem("progress"))
 
-  const SumProcess = ProcessArray[params.id]?.reduce((acc, cval) => acc + cval.process, 0)
-  const totalPossibleProgress = ProcessArray[params.id]?.length * 100;
-  const AllImageUpload = (SumProcess / ProcessArray) * 100 || 100;
+  const SumProcess = ProcessArray && ProcessArray[params.id]?.reduce((acc, cval) => acc + cval.process, 0)
+  const totalPossibleProgress = ProcessArray && ProcessArray[params.id]?.length * 100;
+  const AllImageUpload = (SumProcess / totalPossibleProgress) * 100 || 100;
 
   if (!data2) {
     return (
@@ -36,10 +36,10 @@ const Index = () => {
         <EventDetailsNav />
       </section>
       <section>
-        {firebase.internet ? (AllImageUpload !== 100 ? (<Progress process={firebase.AllImageUpload} />) : (<AlertBoxSuccess />)) : (<WaitingPhotoComp />)}
+        {firebase.internet ? (AllImageUpload === 100 || AllImageUpload === undefined ? (<AlertBoxSuccess />) : (<Progress process={AllImageUpload} />)) : (<WaitingPhotoComp />)}
       </section>
       <section>
-        <Pictures data={data2} localprocessdata={ProcessArray[params.id]} />
+        <Pictures data={data2} localprocessdata={ProcessArray && ProcessArray[params.id]} />
       </section>
       <section className="container cameratext note">
         <p>Note</p>
