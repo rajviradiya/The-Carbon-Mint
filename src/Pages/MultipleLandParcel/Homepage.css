@@ -1,0 +1,223 @@
+.homepagemain {
+  width: 100%;
+  background-color: #ffffff;
+  padding-bottom: 30vw ;
+}
+
+/* Farmer Details Comp */
+.farmerdetailmain {
+  margin-top: 3vh !important;
+}
+
+.farmdetailcontainer {
+  height: 45vw ;
+  position: relative;
+}
+
+.Farmerdetaillink {
+  color: #363537;
+  text-decoration: none;
+}
+
+.farmerdetailshomepage {
+  height: 45vw !important;
+  background-repeat: no-repeat;
+  background-size: cover !important;
+  background-position: center;
+  border: 0px !important;
+  border-radius: 15px !important;
+}
+
+.Farmerlocation {
+  width: 70%;
+  background-color: gainsboro;
+  opacity: 0.8;
+  height: 13vw;
+  margin: 5vw 0 0 0 !important;
+  padding: 0 0 0 5vw;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.Farmerlocation span {
+  font-size: clamp(1rem, 5vw, 2rem);
+  font-weight: 700;
+}
+
+.Farmerlocation p {
+  font-size: clamp(2vw, 3vw, 5vw);
+  margin: 0px;
+}
+
+.farmdetailbutton {
+  height: 9vw ;
+  width: 9vw ;
+  background-color: #ffffff;
+  border: 0px;
+  border-radius: 50%;
+  margin-right: 6vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position:absolute;
+  top: 70%;
+  right: 5%;
+}
+
+.farmicon {
+  height: 5vw !important;
+  width: 5vw !important;
+  color: #2b9348;
+}
+
+/* Crop card */
+.cropcardmain {
+  margin-top: 3vw;
+}
+
+.croptitle {
+  font-size: 4vw;
+  font-weight: 600;
+  padding-left: 4vw;
+}
+
+.CropCont {
+  height: 30vw;
+  margin-top: 3vw;
+  position: relative;
+}
+
+.Cropdetaillink {
+  color: #363537;
+  text-decoration: none;
+}
+
+.cropcard {
+  height: 30vw;
+  box-shadow: 2px 2px 5px gray;
+  border-radius: 20px;
+  display: flex;
+}
+
+.cropp1 {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cropp1 img {
+  width: 16vw;
+  height: 18vw;
+}
+
+.cropp2 {
+  width: 75%;
+  padding-left: 2vw;
+}
+
+.cropcontant {
+  padding: 8vw 0 0 0 ;
+}
+
+.cropcontant span {
+  font-size: clamp(1rem, 5vw, 2rem);
+  font-weight: 700;
+}
+
+.cropcontant p {
+  font-size: clamp(0.5rem, 3vw, 1rem);
+  margin: 0 0 2vw 0;
+}
+
+.cropbutton {
+  height: 9vw ;
+  width: 9vw ;
+  background-color: #8cd867;
+  border: 0px;
+  padding: 3px ;
+  border-radius: 50%;
+  margin-right: 5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top:35%;
+  right: 7%;
+}
+
+.cropicon {
+  height: 4vw ;
+  width: 4vw ;
+  color: #363537;
+}
+
+/* Event Comp */
+.EventMain {
+  margin-top: 3vw ;
+}
+
+.Eventcard {
+  height: 20vw;
+  border: 2px solid #EAEAEB;
+  border-radius: 20px ;
+  display: flex;
+}
+
+.eventpart1 {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eventpart1 img {
+  width: 12vw;
+  height: 12vw;
+  border-radius: 50%;
+}
+
+.eventpart2 {
+  width: 60%;
+  padding: 1vw 0 0 0 ;
+}
+
+.eventpart2 span {
+  font-size: clamp(4vw, 5vw, 6vw);
+  font-weight: 600;
+  color: #363537;
+}
+
+.eventpart2 p {
+  font-size: clamp(2vw, 3vw, 4vw);
+  font-weight: 400;
+  color: #585758;
+  margin: 1vw;
+}
+
+.eventpart3 {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eventicon {
+  width: 9vw;
+  height: 10vw;
+  color: #2b9348;
+}
+
+.lan-parcel-section{
+  /* position: relative;    */
+  height: 70vh;
+  overflow: scroll;
+}
+.land-parcel-slider{
+  height: 85vh !important; 
+  overflow: scroll;
+}
+/* slider-div{
+  height: 80vh !important; 
+  overflow: scroll;
+} */

@@ -1,0 +1,26 @@
+.cropcontainer {
+    margin-top: 3vw;
+}
+
+.cropimage {
+    width: 100%;
+    height: 50vw !important;
+    border-radius: 16px !important;
+}
+
+.detailscrop {
+    font-size: 4vw;
+    font-weight: 700;
+    margin: 5vw 0 2vw 0 !important;
+}
+
+.detailscropmap {
+    margin: 5vw 0 2vw 0 !important;
+}
+
+.cropmap  {
+    width: 100%;
+    height: 40vw;
+    border-radius: 16px;
+
+}
