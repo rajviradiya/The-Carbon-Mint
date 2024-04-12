@@ -9,42 +9,40 @@ import { useNavigate } from "react-router";
 import { useFierbase } from "../context/fierbasecontext";
 
 
-const SpeedDialNav = ({elementpass}) => {
+const SpeedDialNav = ({ elementpass }) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate()
   const firebase = useFierbase()
 
   const actions = [
-    { icon: <FiEdit/>, name: "Input Log",path:`/event/${firebase?.landparcelspeeddial}`},
+    { icon: <FiEdit />, name: "Input Log", path: `/event/${firebase?.landparcelspeeddial}` },
   ];
-
-  console.log(firebase.landparcelspeeddial,"land parcel data")
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-    const handleClosebutton = (path)=>{
-        setOpen(false)
-        navigate(path)
-    }
+  const handleClosebutton = (path) => {
+    setOpen(false)
+    navigate(path)
+  }
   return (
-    <Box sx={{ }}>
-     {elementpass}
+    <Box sx={{}}>
+      {elementpass}
       <Backdrop open={open} />
       <SpeedDial
         ariaLabel="SpeedDial tooltip example"
-        sx={{ position: "fixed", bottom: 16, right: 16,}}
-        icon={<SpeedDialIcon sx={{display:"flex", justifyContent:"center", alignItems:"center"}}/>}
-        onClose={handleClose} 
+        sx={{ position: "fixed", bottom: 16, right: 16, }}
+        icon={<SpeedDialIcon sx={{ display: "flex", justifyContent: "center", alignItems: "center" }} />}
+        onClose={handleClose}
         onOpen={handleOpen}
         open={open}
       >
         {actions.map((action) => (
           <SpeedDialAction
             key={action.name}
-            icon={action.icon }
+            icon={action.icon}
             tooltipTitle={action.name}
             tooltipOpen
-            onClick={()=>{handleClosebutton(action.path)}}
+            onClick={() => { handleClosebutton(action.path) }}
           />
         ))}
       </SpeedDial>

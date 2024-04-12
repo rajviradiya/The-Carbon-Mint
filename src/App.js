@@ -18,7 +18,6 @@ import NavMain from "./Components/NavMain";
 
 const App = () => {
   const fierbase = useFierbase();
-
   useEffect(() => {
     fierbase.requestPermission()
   }, []);

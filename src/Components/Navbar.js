@@ -19,7 +19,7 @@ const Navbar = () => {
       <BottomNavigation showLabels sx={{ width: "100vw" }}>
         <BottomNavigationAction
           label="Home"
-          style={{ borderTopLeftRadius: "30px"}}
+          style={{ borderTopLeftRadius: "30px" }}
           icon={<IoMdHome />}
           onClick={() => {
             navigate("/home");

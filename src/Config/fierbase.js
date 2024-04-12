@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getMessaging } from "firebase/messaging";
-import {getDatabase} from "firebase/database"
+import { getDatabase } from "firebase/database"
 import { getStorage, ref } from "firebase/storage";
 
 const firebaseConfig = {
@@ -17,11 +17,11 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app)
-const storageref = ref(storage,"uploads/")
+const storageref = ref(storage, "uploads/")
 const googleProvider = new GoogleAuthProvider();
 
 const auth = getAuth(app);
 const realDatabase = getDatabase(app);
 const messaging = getMessaging(app)
 
-export {storage,storageref, auth, googleProvider, realDatabase, messaging};
+export { storage, storageref, auth, googleProvider, realDatabase, messaging };

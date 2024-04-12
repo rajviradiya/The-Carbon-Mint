@@ -13,11 +13,11 @@ function LinearProgressWithLabel(props) {
         <Box sx={{ width: "20%", display: "flex", justifyContent: "center" }}>
           <MdOutlineUploadFile style={{ fontSize: "10vw", fontWeightg: "600", color: "#2B9348" }} />
         </Box>
-        <Box sx={{ width: '80%',padding:"0 6vw 0 0 " }} >
+        <Box sx={{ width: '80%', padding: "0 6vw 0 0 " }} >
           <Typography sx={{ fontSize: "5vw", fontWeight: "600" }}>Photo upload</Typography>
-          <div style={{display:"flex"}}>
-            <Typography sx={{width:"88%", fontSize: "4vw" }}>Photo upload in progress...</Typography>
-            <Typography sx={{width:"12%",color:"#2B9348", fontWeight:"600"}} variant="body2" color="text.secondary">{props.value}%</Typography>
+          <div style={{ display: "flex" }}>
+            <Typography sx={{ width: "88%", fontSize: "4vw" }}>Photo upload in progress...</Typography>
+            <Typography sx={{ width: "12%", color: "#2B9348", fontWeight: "600" }} variant="body2" color="text.secondary">{props.value}%</Typography>
           </div>
           <Typography>
             <LinearProgress variant="determinate" {...props} />
@@ -29,14 +29,10 @@ function LinearProgressWithLabel(props) {
 }
 
 LinearProgressWithLabel.propTypes = {
-  /**
-   * The value of the progress indicator for the determinate and buffer variants.
-   * Value between 0 and 100.
-   */
   value: PropTypes.number.isRequired,
 };
 
-const Progress = ({Progress}) => {
+const Progress = ({ Progress }) => {
   const [progress, setProgress] = React.useState(10);
 
   useEffect(() => {

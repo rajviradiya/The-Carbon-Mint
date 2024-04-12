@@ -9,7 +9,6 @@ import {
 } from "firebase/auth";
 import { onValue, ref, set } from "firebase/database";
 import { useReactMediaRecorder } from "react-media-recorder";
-import { getToken } from "firebase/messaging";
 
 export const FierbaseContext = createContext(null);
 export const useFierbase = () => useContext(FierbaseContext);
@@ -23,22 +22,21 @@ export const FierbaseProvidr = (props) => {
   const [searchcont, setSearchcont] = useState("");
   //Auth user
   const [authuserdata, setauthuserdata] = useState("");
-  const [userdata, setUserdata] = useState({});
-  const [multipleLandParcel,setMultipleLandParcel] = useState({})
+  const [multipleLandParcel, setMultipleLandParcel] = useState({})
   const [userId, setUserId] = useState("");
-  const [errorMessageauth,sterrorMessageauth] = useState(null)
+  const [errorMessageauth, sterrorMessageauth] = useState(null)
   //Imaghe Click
   const [imageurl, setImageUrl] = useState([]);
   const [uploadProgress, setUploadProgress] = useState({});
   const [recording, setRecording] = useState(false);
-  const [Allprocess,setAllProcess] = useState(0)
+  const [Allprocess, setAllProcess] = useState(0)
   //snackbar event
   const [open, setOpen] = useState(false);
   //internet Conectivity
   const [internet, setinternet] = useState(true);
   //params for speeddial
-  const [landparcelspeeddial,setLandparcelSpeeddial] = useState("")
-  
+  const [landparcelspeeddial, setLandparcelSpeeddial] = useState("")
+
   //media recorder
   const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
 
@@ -50,7 +48,6 @@ export const FierbaseProvidr = (props) => {
     readdata("/users/");
   }, [authuserdata]);
 
-  console.log(multipleLandParcel,"multy")
   //Internet Status
   window.addEventListener('online', () => {
     setinternet(true)
@@ -58,20 +55,6 @@ export const FierbaseProvidr = (props) => {
   window.addEventListener('offline', () => {
     setinternet(false)
   });
-
-  //permission request`
-  async function requestPermission() {
-    const permisssion = await Notification.requestPermission()
-    if (permisssion === "granted") {
-      //Generate Tocken
-      const tocken = await getToken(messaging, {
-        vapidKey: "BBXIMssjEa4pDGe5lWmY6uEbr5WFCZz3-NI_p26nzq2j2yZ_I6WoiCOxlLk_i9UCiCjdjycGlSG0bQwl07IJTXA"
-      })
-      console.log("tocken", tocken, "tockien is")
-    } else if (permisssion === "denied") {
-      alert("you Denied withnotificatin")
-    }
-  }
 
   //create user in db
   const Writedata = (key, data) => {
@@ -88,7 +71,6 @@ export const FierbaseProvidr = (props) => {
     onValue(starCountRef, (snapshot) => {
       if (snapshot.exists()) {
         const data = snapshot.val();
-        setUserdata(data[userId][0]);
         setMultipleLandParcel(data[userId])
       } else {
         console.log("No data available");
@@ -143,9 +125,9 @@ export const FierbaseProvidr = (props) => {
     var recaptcha
     try {
       recaptcha = new RecaptchaVerifier(auth, "sign-in-button", {
-         'size': 'invisible',
+        'size': 'invisible',
       });
-    } catch(err) {console.log(err)}
+    } catch (err) { console.log(err) }
     return signInWithPhoneNumber(auth, phone, recaptcha)
   };
 
@@ -194,8 +176,6 @@ export const FierbaseProvidr = (props) => {
         setUserId,
         imageurl,
         setImageUrl,
-        userdata,
-        setUserdata,
         landparcelspeeddial,
         setLandparcelSpeeddial,
         open,

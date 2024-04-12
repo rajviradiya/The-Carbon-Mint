@@ -4,8 +4,8 @@ import { Navigate } from 'react-router-dom';
 
 const ProtectedRoutes = ({ children }) => {
     const fierbase = useFierbase()
-    if (fierbase?.userdata) {
-        return fierbase.userdata ? children : <Navigate to="/" />
+    if (fierbase?.multipleLandParcel) {
+        return fierbase.multipleLandParcel ? children : <Navigate to="/" />
     }
 }
 
