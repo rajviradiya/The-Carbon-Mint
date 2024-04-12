@@ -42,10 +42,9 @@ const Login = () => {
 
   //Phone Login
   const handlesubmmitotp = () => {
-    
+
     firebase.phonelogin(firebase.ponewithdial)
       .then((res) => {
-        console.log(res, "this is res");
         firebase.setPhoneLoginUser(res);
         navigate("/auth");
       })
@@ -65,8 +64,6 @@ const Login = () => {
         console.log(err);
       });
   };
-
-  console.log(firebase.ponewithdial, "phone")
 
   return (
     <Container>

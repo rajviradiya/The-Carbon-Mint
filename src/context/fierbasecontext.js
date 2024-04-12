@@ -105,8 +105,6 @@ export const FierbaseProvidr = (props) => {
         //   .catch((error) => {
         //     console.error(error);
         //   });
-
-        console.log(user, "user loged in");
         setauthuserdata(user);
       } else {
         console.log("user Loged Out");
@@ -122,12 +120,10 @@ export const FierbaseProvidr = (props) => {
 
   //Phone login
   const phonelogin = (phone) => {
-    var recaptcha
-    try {
-      recaptcha = new RecaptchaVerifier(auth, "sign-in-button", {
-        'size': 'invisible',
-      });
-    } catch (err) { console.log(err) }
+    var recaptcha = new RecaptchaVerifier(auth, "sign-in-button", {
+      'size': 'invisible',
+    });
+
     return signInWithPhoneNumber(auth, phone, recaptcha)
   };
 
@@ -194,7 +190,6 @@ export const FierbaseProvidr = (props) => {
         startRecording,
         stopRecording,
         mediaBlobUrl,
-        requestPermission,
       }}
     >
       {props.children}

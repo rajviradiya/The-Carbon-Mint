@@ -1,6 +1,5 @@
 import React from "react";
 import { MenuItem, Typography } from "@mui/material";
-
 import {
   defaultCountries,
   FlagImage,
@@ -19,14 +18,13 @@ const CountryComp = () => {
 
   const selectountry = (dialcode) => {
     firebase.setDialcode(`+${dialcode}`);
-    console.log(`+${dialcode}`);
     navigate("/");
   };
 
   return (
     <div className="container countrylist">
       <div className="allcountry">
-        {filteredData.map((c,index) => {
+        {filteredData.map((c, index) => {
           const country = parseCountry(c);
           return (
             <div key={index}>

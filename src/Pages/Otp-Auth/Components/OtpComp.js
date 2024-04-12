@@ -39,10 +39,8 @@ const OtpComp = () => {
         .catch((error) => {
           console.log(error,"is wrrorrrrrrrr")
           if (error.code === 'auth/timeout') {
-            // Handle timeout error here
             console.error('Timeout error: OTP verification took too long.');
           } else {
-            // Handle other errors here
             console.error('Error occurred during OTP verification:', error.message);
           }
           firebase.setErrorMessageauth("Wrong OTP.");
@@ -54,17 +52,6 @@ const OtpComp = () => {
     }
   };
 
-  // const handleResendOtp = () => {
-  //   firebase.phonelogin(firebase.ponewithdial)
-  //     .then((res) => {
-  //       console.log(res, "this is res");
-  //       firebase.setPhoneLoginUser(res);
-  //       navigate("/auth");
-  //     })
-  //     .catch((err) => {
-  //       console.log(err, "otp error");
-  //     });
-  // }
 
   return (
     <div className=" container otpcomp">

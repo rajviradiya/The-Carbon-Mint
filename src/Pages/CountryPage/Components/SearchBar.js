@@ -34,7 +34,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   width: "100%",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     [theme.breakpoints.up("sm")]: {
@@ -52,8 +51,6 @@ const SearchBar = () => {
   const handleSearch = (e) => {
     fierbase.setSearchcont(e.target.value)
   }
-  console.log(fierbase.searchcont, "search res")
-
   return (
     <div className="container">
       <Search className=" searchbar" sx={{
